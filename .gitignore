@@ -73,3 +73,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.jpg
+*.d
+*.crf
+*.axf
+*.htm
+*.lnp
+*.map
+*.html
