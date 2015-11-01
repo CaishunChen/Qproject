@@ -573,7 +573,7 @@ int USBH_USR_MSC_Application(void)
     break;
 	case USH_USR_FS_PDFCREATE:
 		return(1);
-		break;
+//		break;
 		
   default: break;
   }
