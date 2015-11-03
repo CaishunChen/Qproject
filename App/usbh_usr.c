@@ -33,7 +33,7 @@
 #include "usbh_msc_core.h"
 #include "usbh_msc_scsi.h"
 #include "usbh_msc_bot.h"
-
+#include "PDF_Create.h"
 /** @addtogroup USBH_USER
 * @{
 */
@@ -202,7 +202,7 @@ void USBH_USR_Init(void)
     
     
 #ifdef USE_USB_OTG_HS 
-    LCD_LOG_SetHeader("USB HS Host");
+    LCD_LOG_SetHeader("PDF Create");
 #else
     LCD_LOG_SetHeader(" USB OTG FS MSC Host");
 #endif
@@ -572,12 +572,17 @@ int USBH_USR_MSC_Application(void)
     }
     break;
 	case USH_USR_FS_PDFCREATE:
+		PdfCreate();
 		return(1);
 //		break;
 		
   default: break;
   }
   return(0);
+}
+void CreatePDF_File()
+{
+	
 }
 
 /**
@@ -700,8 +705,8 @@ static uint8_t Image_Browser (char* path)
     }  
   }
   
-  #ifdef USE_USB_OTG_HS  
-  LCD_LOG_SetHeader("USB HS Host");
+#ifdef USE_USB_OTG_HS  
+  LCD_LOG_SetHeader("PDF Creat");
 #else
   LCD_LOG_SetHeader(" USB OTG FS MSC Host");
 #endif

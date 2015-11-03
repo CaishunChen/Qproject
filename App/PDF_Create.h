@@ -10,7 +10,7 @@ typedef struct
 
 typedef  struct
 {
-	ObjectHeader;
+	//ObjectHeader;
 	char* ObjInfo;
 }GeneralObject;
 typedef struct
@@ -49,11 +49,10 @@ typedef struct
 
 typedef struct 
 {
-	FileHeader fileHeader;
-	
+	FileHeader fileHeader;	
 }PDF_FILE;
 
 
-
+extern void PdfCreate();
 
 #endif

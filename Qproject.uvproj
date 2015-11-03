@@ -141,7 +141,7 @@
             <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>13</TargetSelection>
+          <TargetSelection>12</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -341,7 +341,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -417,6 +417,11 @@
               <FileName>usbh_usr.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\App\usbh_usr.c</FilePath>
+            </File>
+            <File>
+              <FileName>PDF_Create.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\App\PDF_Create.c</FilePath>
             </File>
           </Files>
         </Group>
