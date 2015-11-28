@@ -88,3 +88,7 @@ $RECYCLE.BIN/
 *.dep
 *.dep
 Qproject_Qproject.dep
+*.surfac
+*.surfac
+*.dep
+*.bak
