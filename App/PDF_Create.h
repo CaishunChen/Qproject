@@ -3,7 +3,7 @@
 #define __PDF_CREATE_H__
 
 #define _1_PARAMETER_SYS
-//#define _2_PARAMETERS_SYS
+//#define _2_PARAMETERS_SYS  //À„»ˆµ©
 //#define _3_PARAMETERS_SYS
 
 
