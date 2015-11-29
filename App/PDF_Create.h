@@ -2,7 +2,15 @@
 #ifndef __PDF_CREATE_H__
 #define __PDF_CREATE_H__
 
+#define _1_PARAMETER_SYS
+//#define _2_PARAMETERS_SYS
+//#define _3_PARAMETERS_SYS
+
+
 #define FILE_MAX_READ_LEN 1024
+#define PDF_CHARTTAB_LEN 471
+#define PDF_CHARTTABLINE_LEN 10
+#define PDF_CHARTTAB_ADDR 6051
 
 #define DATALINE_P_PDFPAGE 120
 #define DATALINE_P_READ 30
@@ -19,7 +27,7 @@
 #define PDF_DATATAB_HEADER_ADDR
 #define PDF_DATATAB_HEADER_ADDR_LOOP
 
-#define PDF_DATATAB_PAGE_ADDR_LEN
+#define PDF_DATATAB_PAGE_ADDR_LEN 5
 #define PDF_DATATAB_PAGE_ADDR
 #define PDF_DATATAB_PAGE_ADDR_LOOP
 
@@ -64,6 +72,28 @@ typedef struct
 	unsigned int DataLineCount;
 	unsigned int PageCount4Pdf;
 }DataLogFileInf;
+
+typedef struct
+{
+	unsigned int Index;
+	unsigned long Timestamp;
+#ifdef _1_PARAMETER_SYS
+	float Prarmeter0;
+#endif
+
+#ifdef _2_PARAMETERS_SYS
+	float Prarmeter0;
+	float Prarmeter1;
+#endif
+
+#ifdef _3_PARAMETERS_SYS
+	float Prarmeter0;
+	float Prarmeter1;
+	float Prarmeter2;
+#endif
+	
+}DataLine;
+
 
 extern void PdfCreate();
 
