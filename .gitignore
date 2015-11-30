@@ -93,3 +93,7 @@ Qproject_Qproject.dep
 *.dep
 *.bak
 *.sct
+*.pdb
+*.txt
+*.Cache
+*.resources
