@@ -373,7 +373,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F072,USE_DEFAULT_TIMEOUT_CALLBACK</Define>
               <Undefine></Undefine>
-              <IncludePath>..\;..\..\Libraries\CMSIS\Device\ST\STM32F0xx\Include;..\..\Libraries\STM32F0xx_StdPeriph_Driver\inc;..\..\Libraries\STM32F0xx_CPAL_Driver\inc;..\..\Libraries\CMSIS\Include;..\MDK-ARM</IncludePath>
+              <IncludePath>..\;..\MDK-ARM;..\..\Libraries\CMSIS\Device\ST\STM32F0xx\Include;..\..\Libraries\STM32F0xx_StdPeriph_Driver\inc;..\..\Libraries\STM32F0xx_CPAL_Driver\inc;..\..\Libraries\CMSIS\Include;..\..\Utilities\FatFs_v0.08b</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -565,6 +565,21 @@
               <FileName>stm32f0xx_wwdg.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Libraries\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_wwdg.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Fatfs</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Utilities\FatFs_v0.08b\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Utilities\FatFs_v0.08b\ff.c</FilePath>
             </File>
           </Files>
         </Group>

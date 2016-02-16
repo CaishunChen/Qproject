@@ -1,79 +1,65 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "spi_flash.h"
+#include "ff.h"
+#include "stdio.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-#define  FLASH_WriteAddress     0x080000
+#define  FLASH_WriteAddress     0x000000
 #define  FLASH_ReadAddress      FLASH_WriteAddress
 #define  FLASH_SectorToErase    FLASH_WriteAddress
-#define  BufferSize (countof(Tx_Buffer)-1)
+#define  BufferSize 1024
+//#define  BufferSize countof(Tx_Buffer)
 /* Private macro -------------------------------------------------------------*/
 #define countof(a) (sizeof(a) / sizeof(*(a)))
 
 /* Private variables ---------------------------------------------------------*/
-uint8_t Tx_Buffer[] = "STM32F10x SPI Firmware Library Example: communication with an M25P64 SPI FLASH";
+uint8_t Tx_Buffer[256] = "Firmware Library Example: communication with an M25P64 SPI FLASHSTM32F10x SPI Firmware ";
+uint8_t Tx_Buffer1[256] = "testFirmware Library Example: communication with an M25P64 SPI FLASHSTM32F10x SPI Firmware ";
 uint8_t Index, Rx_Buffer[BufferSize];
 __IO uint32_t TimeOut = 0x0;
-
 static void SysTickConfig(void);
 static void TimeOut_UserCallback(void);
 TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
 volatile TestStatus TransferStatus1 = FAILED, TransferStatus2 = PASSED;
-/* Private functions ---------------------------------------------------------*/
-
-/**
-  * @brief  Main program.
-  * @param  None
-  * @retval None
-  */
 uint32_t num=0;
+FATFS fs;
+FRESULT res;
+FIL MyFile; 
+uint32_t byteswritten=512, bytesread=512;                     /* File write/read counts */
+uint8_t wtext[1024] = "This is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFs\
+                       This is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFs\
+											 This is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFsThis is STM32 working with FatFs"; /* File write buffer */
+uint8_t rtext[1024];  
 int main(void)
 {
-  /* SPI configuration ------------------------------------------------------*/
-  SPI_Config();
+	uint8_t  i,j;
   
-  /* SysTick configuration ---------------------------------------------------*/
-  SysTickConfig();
-	
+  //SysTickConfig();
+	SPI_Config();
 	num=sFLASH_ReadID();
+  //sFLASH_sector_write(wtext,7,2);
+  //sFLASH_sector_read(rtext,7,2);
+  //TransferStatus1 = Buffercmp(wtext, rtext, 1024);
 	
-	  /* Perform a write in the Flash followed by a read of the written data */
-  /* Erase SPI FLASH Sector to write on */
-  /* ÉÈÇø²Á³ý²âÊÔ¹²17¸öÉÈÇø 0a 0b 1 2 ... 15 */
-  //SPI_FLASH_SectorErase(FLASH_SectorToErase);
-  /* Ò³²Á³ý²âÊÔ¹²4096Ò³ 0 1 2 ... 4095 */
-  SPI_FLASH_PageErase(FLASH_SectorToErase);
-
-  /* Write Tx_Buffer data to SPI FLASH memory */
-  SPI_FLASH_BufferWrite(Tx_Buffer, FLASH_WriteAddress, BufferSize);
-
-  /* Read data from SPI FLASH memory */
-  sFLASH_ReadBuffer(Rx_Buffer, FLASH_ReadAddress, BufferSize);
+	res = f_mount(0,&fs);
+  res = f_mkfs(0,1,512);
+	res = f_mount(0,NULL);
 	
-	/* Check the corectness of written dada */
-  TransferStatus1 = Buffercmp(Tx_Buffer, Rx_Buffer, BufferSize);
+	res = f_mount(0,&fs);
+	res = f_open(&MyFile, "0:/STM32.TXT", FA_CREATE_ALWAYS | FA_WRITE);
+	res = f_write(&MyFile, wtext, sizeof(wtext), (void *)&byteswritten);
+	res = f_close(&MyFile);
+	res = f_mount(0,NULL);
 	
-  /* Perform an erase in the Flash followed by a read of the written data */
-  /* Erase SPI FLASH Sector to write on */
-  /* ÉÈÇø²Á³ý²âÊÔ¹²17¸öÉÈÇø 0a 0b 1 2 ... 15 */
-  //SPI_FLASH_SectorErase(FLASH_SectorToErase);
-  /* Ò³²Á³ý²âÊÔ¹²4096Ò³ 0 1 2 ... 4095 */
-  SPI_FLASH_PageErase(FLASH_SectorToErase);
+	res = f_mount(0,&fs);
+	res = f_open(&MyFile, "0:/STM32.TXT", FA_READ);
+	res = f_read(&MyFile, rtext, sizeof(rtext), (UINT*)&bytesread);
+	res = f_close(&MyFile);
+	res = f_mount(0,NULL);
 
-  /* Read data from SPI FLASH memory */
-  sFLASH_ReadBuffer(Rx_Buffer, FLASH_ReadAddress, BufferSize);
-
-  /* Check the corectness of erasing operation dada */
-  for (Index = 0; Index < BufferSize; Index++)
-  {
-    if (Rx_Buffer[Index] != 0xFF)
-    {
-      TransferStatus2 = FAILED;
-    }
-  }
-	
 	while(1)
 	{
 		

@@ -1,65 +1,4 @@
-/* Includes ------------------------------------------------------------------*/
-#include "spi_flash.h"
-#include "string.h"
-
-/**
-  * @brief  Configures the SPI Peripheral.
-  * @param  None
-  * @retval None
-  */
-void SPI_Config(void)
-{
-  GPIO_InitTypeDef GPIO_InitStructure;
-  SPI_InitTypeDef  SPI_InitStructure;
-	
-  /* Enable the SPI periph */
-  RCC_APB1PeriphClockCmd(SPIx_CLK, ENABLE);
-  
-  /* Enable SCK, MOSI, MISO and NSS GPIO clocks */
-  RCC_AHBPeriphClockCmd(SPIx_SCK_GPIO_CLK | SPIx_MISO_GPIO_CLK | SPIx_MOSI_GPIO_CLK, ENABLE);
-  
-  GPIO_PinAFConfig(SPIx_SCK_GPIO_PORT, SPIx_SCK_SOURCE, SPIx_SCK_AF);
-  GPIO_PinAFConfig(SPIx_MOSI_GPIO_PORT, SPIx_MOSI_SOURCE, SPIx_MOSI_AF);
-  GPIO_PinAFConfig(SPIx_MISO_GPIO_PORT, SPIx_MISO_SOURCE, SPIx_MISO_AF);
-  
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_DOWN;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Level_3;
-
-  /* SPI SCK pin configuration */
-  GPIO_InitStructure.GPIO_Pin = SPIx_SCK_PIN;
-  GPIO_Init(SPIx_SCK_GPIO_PORT, &GPIO_InitStructure);
-
-  /* SPI  MOSI pin configuration */
-  GPIO_InitStructure.GPIO_Pin =  SPIx_MOSI_PIN;
-  GPIO_Init(SPIx_MOSI_GPIO_PORT, &GPIO_InitStructure);
-
-  /* SPI MISO pin configuration */
-  GPIO_InitStructure.GPIO_Pin = SPIx_MISO_PIN;
-  GPIO_Init(SPIx_MISO_GPIO_PORT, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-	GPIO_InitStructure.GPIO_Pin = SPIx_CS_PIN;
-	GPIO_Init(SPIx_CS_GPIO_PORT, &GPIO_InitStructure);
-  
-	sFLASH_CS_HIGH();
-	
-  /* SPI configuration -------------------------------------------------------*/
-  SPI_I2S_DeInit(SPIx);
-  SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
-	SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
-  SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
-  SPI_InitStructure.SPI_CPOL = SPI_CPOL_Low;
-  SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
-  SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;
-  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;
-  SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
-  SPI_InitStructure.SPI_CRCPolynomial = 7;
-  SPI_Init(SPI2, &SPI_InitStructure); 
-  
-	SPI_Cmd(SPI2, ENABLE);
-}
+#include "spi_spiflash.h"
 
 /**
   * @brief  Erases the specified FLASH sector.
@@ -67,7 +6,10 @@ void SPI_Config(void)
   * @retval None
   */
 void sFLASH_EraseSector(uint32_t SectorAddr)
-{	
+{
+  /*!< Send write enable instruction */
+  sFLASH_WriteEnable();
+
   /*!< Sector Erase */
   /*!< Select the FLASH: Chip Select low */
   sFLASH_CS_LOW();
@@ -87,27 +29,24 @@ void sFLASH_EraseSector(uint32_t SectorAddr)
 }
 
 /**
-  * @brief  Erases the specified FLASH page.
-  * @param SectorAddr: address of the sector to erase.
-  * @retval : None
+  * @brief  Erases the entire FLASH.
+  * @param  None
+  * @retval None
   */
-void SPI_FLASH_PageErase(uint32_t PageAddr)
+void sFLASH_EraseBulk(void)
 {
-  /* Sector Erase */
-  /* Select the FLASH: Chip Select low */
+  /*!< Send write enable instruction */
+  sFLASH_WriteEnable();
+
+  /*!< Bulk Erase */
+  /*!< Select the FLASH: Chip Select low */
   sFLASH_CS_LOW();
-  /* Send Sector Erase instruction */
-  sFLASH_SendByte(sFLASH_CMD_PE);
-  /* Send SectorAddr high nibble address byte */
-  sFLASH_SendByte((PageAddr & 0xFF0000) >> 16);
-  /* Send SectorAddr medium nibble address byte */
-  sFLASH_SendByte((PageAddr & 0xFF00) >> 8);
-  /* Send SectorAddr low nibble address byte */
-  sFLASH_SendByte(PageAddr & 0xFF);
-  /* Deselect the FLASH: Chip Select high */
+  /*!< Send Bulk Erase instruction  */
+  sFLASH_SendByte(sFLASH_CMD_BE);
+  /*!< Deselect the FLASH: Chip Select high */
   sFLASH_CS_HIGH();
 
-  /* Wait the end of Flash writing */
+  /*!< Wait the end of Flash writing */
   sFLASH_WaitForWriteEnd();
 }
 
@@ -124,6 +63,9 @@ void SPI_FLASH_PageErase(uint32_t PageAddr)
   */
 void sFLASH_WritePage(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
 {
+  /*!< Enable the write access to the FLASH */
+  sFLASH_WriteEnable();
+
   /*!< Select the FLASH: Chip Select low */
   sFLASH_CS_LOW();
   /*!< Send "Write to Memory " instruction */
@@ -152,15 +94,15 @@ void sFLASH_WritePage(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWr
 }
 
 /**
-  * @brief  Writes block of data to the FLASH. In this function, the
-  *         number of WRITE cycles are reduced, using Page WRITE sequence.
-  * @param pBuffer : pointer to the buffer  containing the data to be
-  *                  written to the FLASH.
-  * @param WriteAddr : FLASH's internal address to write to.
-  * @param NumByteToWrite : number of bytes to write to the FLASH.
-  * @retval : None
+  * @brief  Writes block of data to the FLASH. In this function, the number of
+  *         WRITE cycles are reduced, using Page WRITE sequence.
+  * @param  pBuffer: pointer to the buffer  containing the data to be written
+  *         to the FLASH.
+  * @param  WriteAddr: FLASH's internal address to write to.
+  * @param  NumByteToWrite: number of bytes to write to the FLASH.
+  * @retval None
   */
-void SPI_FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
+void sFLASH_WriteBuffer(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
 {
   uint8_t NumOfPage = 0, NumOfSingle = 0, Addr = 0, count = 0, temp = 0;
 
@@ -169,13 +111,13 @@ void SPI_FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByt
   NumOfPage =  NumByteToWrite / sFLASH_SPI_PAGESIZE;
   NumOfSingle = NumByteToWrite % sFLASH_SPI_PAGESIZE;
 
-  if (Addr == 0) /* WriteAddr is SPI_FLASH_PageSize aligned  */
+  if (Addr == 0) /*!< WriteAddr is sFLASH_PAGESIZE aligned  */
   {
-    if (NumOfPage == 0) /* NumByteToWrite < SPI_FLASH_PageSize */
+    if (NumOfPage == 0) /*!< NumByteToWrite < sFLASH_PAGESIZE */
     {
       sFLASH_WritePage(pBuffer, WriteAddr, NumByteToWrite);
     }
-    else /* NumByteToWrite > SPI_FLASH_PageSize */
+    else /*!< NumByteToWrite > sFLASH_PAGESIZE */
     {
       while (NumOfPage--)
       {
@@ -187,11 +129,11 @@ void SPI_FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByt
       sFLASH_WritePage(pBuffer, WriteAddr, NumOfSingle);
     }
   }
-  else /* WriteAddr is not SPI_FLASH_PageSize aligned  */
+  else /*!< WriteAddr is not sFLASH_PAGESIZE aligned  */
   {
-    if (NumOfPage == 0) /* NumByteToWrite < SPI_FLASH_PageSize */
+    if (NumOfPage == 0) /*!< NumByteToWrite < sFLASH_PAGESIZE */
     {
-      if (NumOfSingle > count) /* (NumByteToWrite + WriteAddr) > SPI_FLASH_PageSize */
+      if (NumOfSingle > count) /*!< (NumByteToWrite + WriteAddr) > sFLASH_PAGESIZE */
       {
         temp = NumOfSingle - count;
 
@@ -206,7 +148,7 @@ void SPI_FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByt
         sFLASH_WritePage(pBuffer, WriteAddr, NumByteToWrite);
       }
     }
-    else /* NumByteToWrite > SPI_FLASH_PageSize */
+    else /*!< NumByteToWrite > sFLASH_PAGESIZE */
     {
       NumByteToWrite -= count;
       NumOfPage =  NumByteToWrite / sFLASH_SPI_PAGESIZE;
@@ -230,6 +172,7 @@ void SPI_FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByt
     }
   }
 }
+
 /**
   * @brief  Reads a block of data from the FLASH.
   * @param  pBuffer: pointer to the buffer that receives the data read from the FLASH.
@@ -252,23 +195,10 @@ void sFLASH_ReadBuffer(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRe
   /*!< Send ReadAddr low nibble address byte to read from */
   sFLASH_SendByte(ReadAddr & 0xFF);
 
-	/* Read a byte from the FLASH */
-  sFLASH_SendByte(sFLASH_DUMMY_BYTE);
-  /* Read a byte from the FLASH */
-  sFLASH_SendByte(sFLASH_DUMMY_BYTE);
-  /* Read a byte from the FLASH */
-  sFLASH_SendByte(sFLASH_DUMMY_BYTE);
-  /* Read a byte from the FLASH */
-  sFLASH_SendByte(sFLASH_DUMMY_BYTE);
-	/* Read a byte from the FLASH */
-  sFLASH_SendByte(sFLASH_DUMMY_BYTE);
-  /* Read a byte from the FLASH */
-  sFLASH_SendByte(sFLASH_DUMMY_BYTE);
-	
   while (NumByteToRead--) /*!< while there is data to be read */
   {
     /*!< Read a byte from the FLASH */
-    *pBuffer = sFLASH_ReadByte();
+    *pBuffer = sFLASH_SendByte(sFLASH_DUMMY_BYTE);
     /*!< Point to the next location where the byte read will be saved */
     pBuffer++;
   }
@@ -276,35 +206,36 @@ void sFLASH_ReadBuffer(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRe
   /*!< Deselect the FLASH: Chip Select high */
   sFLASH_CS_HIGH();
 }
+
 /**
   * @brief  Reads FLASH identification.
   * @param  None
   * @retval FLASH identification
   */
-
 uint32_t sFLASH_ReadID(void)
 {
-	uint32_t Temp = 0, Temp0 = 0, Temp1 = 0, Temp2 = 0;
+  uint32_t Temp = 0, Temp0 = 0, Temp1 = 0, Temp2 = 0;
+
   /*!< Select the FLASH: Chip Select low */
   sFLASH_CS_LOW();
-	
+
   /*!< Send "RDID " instruction */
   sFLASH_SendByte(0x9F);
 
   /*!< Read a byte from the FLASH */
-  Temp0 = sFLASH_ReadByte();
+  Temp0 = sFLASH_SendByte(sFLASH_DUMMY_BYTE);
 
   /*!< Read a byte from the FLASH */
-  Temp1 = sFLASH_ReadByte();
+  Temp1 = sFLASH_SendByte(sFLASH_DUMMY_BYTE);
 
   /*!< Read a byte from the FLASH */
-  Temp2 = sFLASH_ReadByte();
+  Temp2 = sFLASH_SendByte(sFLASH_DUMMY_BYTE);
 
   /*!< Deselect the FLASH: Chip Select high */
   sFLASH_CS_HIGH();
 
-  Temp = ((Temp0 << 16) | (Temp1 << 8) | Temp2);
-	
+  Temp = (Temp0 << 16) | (Temp1 << 8) | Temp2;
+
   return Temp;
 }
 
@@ -354,11 +285,55 @@ uint8_t sFLASH_ReadByte(void)
   */
 uint8_t sFLASH_SendByte(uint8_t byte)
 {
-	while(SPI_I2S_GetFlagStatus(SPI2,SPI_I2S_FLAG_TXE)==RESET);
-	SPI_I2S_SendData16(SPI2,byte);
-	
-	while(SPI_I2S_GetFlagStatus(SPI2,SPI_I2S_FLAG_RXNE)==RESET);
-	return SPI_ReceiveData8(SPI2);
+  /*!< Loop while DR register in not emplty */
+  while (SPI_I2S_GetFlagStatus(sFLASH_SPI, SPI_I2S_FLAG_TXE) == RESET);
+
+  /*!< Send byte through the SPI1 peripheral */
+  SPI_I2S_SendData(sFLASH_SPI, byte);
+
+  /*!< Wait to receive a byte */
+  while (SPI_I2S_GetFlagStatus(sFLASH_SPI, SPI_I2S_FLAG_RXNE) == RESET);
+
+  /*!< Return the byte read from the SPI bus */
+  return SPI_I2S_ReceiveData(sFLASH_SPI);
+}
+
+/**
+  * @brief  Sends a Half Word through the SPI interface and return the Half Word
+  *         received from the SPI bus.
+  * @param  HalfWord: Half Word to send.
+  * @retval The value of the received Half Word.
+  */
+uint16_t sFLASH_SendHalfWord(uint16_t HalfWord)
+{
+  /*!< Loop while DR register in not emplty */
+  while (SPI_I2S_GetFlagStatus(sFLASH_SPI, SPI_I2S_FLAG_TXE) == RESET);
+
+  /*!< Send Half Word through the sFLASH peripheral */
+  SPI_I2S_SendData(sFLASH_SPI, HalfWord);
+
+  /*!< Wait to receive a Half Word */
+  while (SPI_I2S_GetFlagStatus(sFLASH_SPI, SPI_I2S_FLAG_RXNE) == RESET);
+
+  /*!< Return the Half Word read from the SPI bus */
+  return SPI_I2S_ReceiveData(sFLASH_SPI);
+}
+
+/**
+  * @brief  Enables the write access to the FLASH.
+  * @param  None
+  * @retval None
+  */
+void sFLASH_WriteEnable(void)
+{
+  /*!< Select the FLASH: Chip Select low */
+  sFLASH_CS_LOW();
+
+  /*!< Send "Write Enable" instruction */
+  sFLASH_SendByte(sFLASH_CMD_WREN);
+
+  /*!< Deselect the FLASH: Chip Select high */
+  sFLASH_CS_HIGH();
 }
 
 /**
@@ -382,10 +357,10 @@ void sFLASH_WaitForWriteEnd(void)
   {
     /*!< Send a dummy byte to generate the clock needed by the FLASH
     and put the value of the status register in FLASH_Status variable */
-    flashstatus = sFLASH_ReadByte();
+    flashstatus = sFLASH_SendByte(sFLASH_DUMMY_BYTE);
 
   }
-  while ((flashstatus & sFLASH_RDY_FLAG) == RESET); /* Write in progress */
+  while ((flashstatus & sFLASH_WIP_FLAG) == SET); /* Write in progress */
 
   /*!< Deselect the FLASH: Chip Select high */
   sFLASH_CS_HIGH();

@@ -58,8 +58,8 @@
 #define SPIx_CS_GPIO_PORT                GPIOB                        /* GPIOB */
 
 /* M25P SPI Flash supported commands */  
-#define sFLASH_CMD_READ           0xD2  /* Read from Memory instruction */
-#define sFLASH_CMD_WRITE          0x82  /* Write to Memory instruction */
+#define sFLASH_CMD_READ            0xD2  /* Read from Memory instruction */
+#define sFLASH_CMD_WRITE          0x82  /* Write from Memory instruction */
 //#define sFLASH_CMD_WRSR           0x01  /* Write Status Register instruction */
 //#define sFLASH_CMD_WREN           0x06  /* Write enable instruction */
 
@@ -74,15 +74,14 @@
 #define sFLASH_DUMMY_BYTE         0xA5
 
 
-#define sFLASH_SPI_PAGESIZE       0x200
+#define sFLASH_SPI_PAGESIZE       0x210
 
 #define sFLASH_PAGES_PER_SECTOR	  FLASH_SECTOR_SIZE/sFLASH_SPI_PAGESIZE
 #define FLASH_BLOCK_SIZE          4096
-#define FLASH_SECTOR_SIZE         4096
-#define FLASH_SECTOR_COUNT        511
+#define FLASH_SECTOR_SIZE         0x200
+#define FLASH_SECTOR_COUNT        4096
 
 #define AT45DB161E_FLASH_ID       0x001F2600
-
 
 /* Exported macro ------------------------------------------------------------*/
 /* Select sFLASH: Chip Select pin low */
@@ -91,16 +90,15 @@
 #define sFLASH_CS_HIGH()      GPIO_WriteBit(GPIOB,GPIO_Pin_12,Bit_SET)
 
 void SPI_Config(void);
-void sFLASH_EraseSector(uint32_t SectorAddr);
+void sFLASH_sector_write(uint8_t * buffer, uint32_t sector, uint8_t sector_number);
+void sFLASH_sector_read(uint8_t * buffer, uint32_t sector, uint8_t sector_number);
 void SPI_FLASH_PageErase(uint32_t PageAddr);
 void sFLASH_WritePage(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
 void SPI_FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
-void sFLASH_WriteBuffer(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite);
-void w25qxx_sector_read(uint32_t sector, uint8_t * buffer, uint8_t sector_number);
 void sFLASH_ReadBuffer(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead);
 uint32_t sFLASH_ReadID(void);
 void sFLASH_StartReadSequence(uint32_t ReadAddr);
-
+void FlashPageWrite(uint16_t page,uint8_t *Data);
 /* Low layer functions */
 uint8_t sFLASH_ReadByte(void);
 uint8_t sFLASH_SendByte(uint8_t byte);
