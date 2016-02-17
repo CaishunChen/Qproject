@@ -74,7 +74,7 @@
 #define sFLASH_DUMMY_BYTE         0xA5
 
 #define FLASH_SECTOR_SIZE         0x200
-#define FLASH_SECTOR_COUNT        4096
+#define FLASH_SECTOR_COUNT        1600 //从0到1600块作为文件系统的空间，从1600到4095作为储存的缓存
 
 #define AT45DB161E_FLASH_ID       0x001F2600
 
