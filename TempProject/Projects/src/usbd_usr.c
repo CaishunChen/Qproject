@@ -87,7 +87,6 @@ void USBD_USR_DeviceSuspended(void)
 {
 }
 
-
 /**
   * @brief  Device resume Event
   * @param  None

@@ -60,8 +60,6 @@
 /* M25P SPI Flash supported commands */  
 #define sFLASH_CMD_READ           0xD2  /* Read from Memory instruction */
 #define sFLASH_CMD_WRITE          0x82  /* Write to Memory instruction */
-//#define sFLASH_CMD_WRSR           0x01  /* Write Status Register instruction */
-//#define sFLASH_CMD_WREN           0x06  /* Write enable instruction */
 
 #define sFLASH_CMD_RDID           0x9F  /* Read identification */
 #define sFLASH_CMD_RDSR           0xD7  /* Read Status Register instruction  */
@@ -71,10 +69,11 @@
 
 #define sFLASH_RDY_FLAG           0x80  /* Ready/busy(1/0) status flag */
 
-#define sFLASH_DUMMY_BYTE         0xA5
+#define sFLASH_DUMMY_BYTE         0x00
 
+#define sFLASH_SPI_PAGESIZE       0x210
 #define FLASH_SECTOR_SIZE         0x200
-#define FLASH_SECTOR_COUNT        1600 //从0到1600块作为文件系统的空间，从1600到4095作为储存的缓存
+#define FLASH_SECTOR_COUNT        4000 //从0到1600块作为文件系统的空间，从1600到4095作为储存的缓存
 
 #define AT45DB161E_FLASH_ID       0x001F2600
 

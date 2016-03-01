@@ -27,7 +27,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc_mem.h"
-#include "spi_flash.h"
+#include "spi_spiflash.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -115,7 +115,7 @@ int8_t STORAGE_Init (uint8_t lun)
 int8_t STORAGE_GetCapacity (uint8_t lun, uint32_t *block_num, uint32_t *block_size)
 { 
 	
-  *block_size =  FLASH_SECTOR_SIZE;  
+  *block_size =  sFLASH_SPI_SectorSIZE;  
   *block_num = FLASH_SECTOR_COUNT;  
   
   return (0);

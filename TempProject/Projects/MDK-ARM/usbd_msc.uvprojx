@@ -10,12 +10,12 @@
       <TargetName>USB_MSC-Fatfs-Example</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060020::V5.06 (build 20)::ARMCC</pCCUsed>
+      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F072CB</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F0xx_DFP.1.4.0</PackID>
+          <PackID>Keil.STM32F0xx_DFP.1.2.1</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IROM(0x08000000,0x20000) IRAM(0x20000000,0x4000) CPUTYPE("Cortex-M0") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -54,7 +54,7 @@
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\STM32F072B-EVAL\</ListingPath>
+          <ListingPath>.\STM32F072B\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -452,9 +452,9 @@
               <FilePath>..\src\usbd_storage_msd.c</FilePath>
             </File>
             <File>
-              <FileName>spi_flash.c</FileName>
+              <FileName>spi_spiflash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\src\spi_flash.c</FilePath>
+              <FilePath>..\src\spi_spiflash.c</FilePath>
             </File>
           </Files>
         </Group>
