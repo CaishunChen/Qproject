@@ -29,6 +29,7 @@
 #include  "usbd_msc_core.h"
 #include  "usbd_usr.h"
 #include "spi_spiflash.h"
+#include "pdf.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -45,6 +46,11 @@ USB_CORE_HANDLE  USB_Device_dev ;
   */
 int main(void)
 {
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+  
+  /* Enable SCK, MOSI, MISO and NSS GPIO clocks */
+  RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
   /*!< At this stage the microcontrollers clock setting is already configured, 
   this is done through SystemInit() function which is called from startup
   file (startup_stm32f072.s) before to branch to application main.
@@ -61,6 +67,8 @@ int main(void)
             &USBD_MSC_cb, 
             &USR_cb);
   
+	while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0));
+	PDF_Gen_Func();
   while (1)
   {
 		

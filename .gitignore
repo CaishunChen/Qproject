@@ -97,3 +97,5 @@ Qproject_Qproject.dep
 *.txt
 *.Cache
 *.resources
+*.hex
+*.lst
