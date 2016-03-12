@@ -23,5 +23,4 @@ void PDF_Gen_Func(void)
 	f_close(&DataLineFile);
 	f_close(&PDFFile);
 	while(1);
-	
 }

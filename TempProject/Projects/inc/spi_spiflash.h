@@ -13,8 +13,8 @@
 
 #define sFLASH_DUMMY_BYTE         0x00
 #define sFLASH_SPI_PAGESIZE       0x100
-#define sFLASH_SPI_SectorSIZE     0x200
-#define FLASH_SECTOR_COUNT        4000 //从0到1600块作为文件系统的空间，从1600到4095作为储存的缓存
+#define FLASH_SECTOR_SIZE         4096
+#define FLASH_SECTOR_COUNT        512
 
 #define sFLASH_W25Q16_ID          0xEF4015
 

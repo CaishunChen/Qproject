@@ -44,7 +44,7 @@
 #define MSC_OUT_EP                   0x02
 #define MSC_MAX_PACKET                64
 
-#define MSC_MEDIA_PACKET              512
+#define MSC_MEDIA_PACKET              4096
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

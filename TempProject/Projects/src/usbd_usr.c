@@ -27,8 +27,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_usr.h"
-#include "ff.h"
 #include "stdio.h"
+#include "global.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -94,16 +94,7 @@ void USBD_USR_DeviceSuspended(void)
   */
 void USBD_USR_DeviceResumed(void)
 {
-//	FATFS fs;
-//  FRESULT res;
-//  FIL MyFile;
-//  uint32_t byteswritten;
-//	uint8_t Tx_Buffer[256] = "Firmware Library Example: communication with an M25P64 SPI FLASHSTM32F10x SPI Firmware ";
-//	res = f_mount(0,&fs);
-//	res = f_open(&MyFile, "0:/testusb.TXT", FA_CREATE_ALWAYS | FA_WRITE);
-//	res = f_write(&MyFile, Tx_Buffer, sizeof(Tx_Buffer), (void *)&byteswritten);
-//	res = f_close(&MyFile);
-//	res = f_mount(0,NULL);
+	//global_USB=10;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

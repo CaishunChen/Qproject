@@ -28,50 +28,50 @@
 /* Includes ------------------------------------------------------------------*/ 
 #include  "usbd_msc_core.h"
 #include  "usbd_usr.h"
-#include "spi_spiflash.h"
-#include "pdf.h"
+#include  "spi_spiflash.h"
+#include  "global.h"
+#include  "ff.h"
+#include  "pdf.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 USB_CORE_HANDLE  USB_Device_dev ;
-
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
-
+uint8_t  global_USB=0;
 /**
   * @brief  Program entry point
   * @param  None
   * @retval None
   */
+FRESULT res;
 int main(void)
 {
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-  
-  /* Enable SCK, MOSI, MISO and NSS GPIO clocks */
+	FATFS fs;
+	FIL MyFile;
+	uint32_t byteswritten;
+	uint8_t Tx_Buffer[256] = "Firmware Library Example: communication with an M25P64 SPI FLASHSTM32F10x SPI Firmware ";
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
-  /*!< At this stage the microcontrollers clock setting is already configured, 
-  this is done through SystemInit() function which is called from startup
-  file (startup_stm32f072.s) before to branch to application main.
-  To reconfigure the default setting of SystemInit() function, refer to
-  system_stm32f0xx.c file
-  */  
-  
-  /* The Application layer has only to call USBD_Init to 
-  initialize the USB low level driver, the USB device library, the USB clock 
-  ,pins and interrupt service routine (BSP) to start the Library*/
+	
 	SPI_Config();
   USBD_Init(&USB_Device_dev,
             &USR_desc, 
             &USBD_MSC_cb, 
             &USR_cb);
-  
-	while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0));
+	
+  while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0));
 	PDF_Gen_Func();
+	
   while (1)
   {
-		
+		if(global_USB==10)
+		{
+			res = f_mount(0,&fs);
+			res = f_open(&MyFile, "0:/testusb.TXT", FA_CREATE_ALWAYS | FA_WRITE);
+			res = f_write(&MyFile, Tx_Buffer, sizeof(Tx_Buffer), (void *)&byteswritten);
+			res = f_close(&MyFile);
+			res = f_mount(0,NULL);
+			global_USB=0;
+		}
   }
 }
 

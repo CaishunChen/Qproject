@@ -7,13 +7,11 @@
 /*-----------------------------------------------------------------------*/
 #include <string.h>
 #include "diskio.h"
-#include "spi_flash.h"
+#include "spi_spiflash.h"
 /*-----------------------------------------------------------------------*/
 /* Correspondence between physical drive number and physical drive.      */
 /* Note that Tiny-FatFs supports only single drive and always            */
 /* accesses drive number 0.                                              */
-
-#define SECTOR_SIZE 512U
 
 /*-----------------------------------------------------------------------*/
 /* Inidialize a Drive                                                    */
@@ -92,24 +90,24 @@ DRESULT disk_ioctl (
 		case CTRL_SYNC :
 			break;
 		
+	  case GET_SECTOR_SIZE:
+			*(WORD*)buff = FLASH_SECTOR_SIZE;
+			break;
+	 
+	  case GET_SECTOR_COUNT:
+			*(DWORD*)buff = FLASH_SECTOR_COUNT;
+			break;
+	 
+	  case GET_BLOCK_SIZE:
+			*(DWORD*)buff = FLASH_SECTOR_SIZE;
+			break;
+		
 		//ÉÈÇø²Á³ý
 		case CTRL_ERASE_SECTOR:
 			nFrom = *((DWORD*)buff);
 			nTo = *(((DWORD*)buff)+1);
 			for(i = nFrom;i <= nTo;i ++)
-				SPI_FLASH_PageErase(i*FLASH_SECTOR_SIZE);	
-			break;
-		
-		case GET_BLOCK_SIZE:
-			*(DWORD*)buff = FLASH_SECTOR_SIZE;
-			break;
-		
-		case GET_SECTOR_SIZE:
-			*(DWORD*)buff = FLASH_SECTOR_SIZE;
-			break;
-		
-		case GET_SECTOR_COUNT:
-			*(DWORD*)buff = FLASH_SECTOR_COUNT;
+				sFLASH_EraseSector(i*FLASH_SECTOR_SIZE);	
 			break;
 			
 		default:

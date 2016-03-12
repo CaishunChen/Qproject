@@ -52,24 +52,30 @@ void SPI_Config(void)
   SPI_Init(SPI2, &SPI_InitStructure); 
   SPI_RxFIFOThresholdConfig(SPI2, SPI_RxFIFOThreshold_QF);
 	SPI_Cmd(SPI2, ENABLE);
-}	
+}
 
-uint8_t buffer_data[4096];
 void sFLASH_sector_write(uint8_t * buffer, uint32_t sector, uint16_t sector_number)
 {
-	uint32_t Address;
-  Address = sector * sFLASH_SPI_SectorSIZE;
-	
-	SPI_Flash_Write(buffer,Address,sFLASH_SPI_SectorSIZE*sector_number);
+	uint32_t Address=0,sector_num=0;
+  Address = sector * FLASH_SECTOR_SIZE;
+	while(sector_number--)
+	{
+		sFLASH_EraseSector(Address+sector_num*4096);
+		sFLASH_WriteBuffer(buffer,Address,FLASH_SECTOR_SIZE);
+		Address+=FLASH_SECTOR_SIZE;
+		sector_num++;
+	}
 }
 
 void sFLASH_sector_read(uint8_t * buffer, uint32_t sector, uint16_t sector_number)
 {
 	uint32_t Address;
 	
-	Address = sector * sFLASH_SPI_SectorSIZE;
-  sFLASH_ReadBuffer(buffer,Address,sFLASH_SPI_SectorSIZE*sector_number);
+	Address = sector * FLASH_SECTOR_SIZE;
+  sFLASH_ReadBuffer(buffer,Address,FLASH_SECTOR_SIZE*sector_number);
 }
+
+uint8_t buffer_data[4096];
 void SPI_Flash_Write(uint8_t* pBuffer,uint32_t WriteAddr,uint16_t NumByteToWrite)  
 {
 	uint32_t cycle_number=0;
