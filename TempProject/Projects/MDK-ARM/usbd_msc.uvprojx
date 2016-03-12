@@ -373,7 +373,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F072</Define>
               <Undefine></Undefine>
-              <IncludePath>..\inc;..\..\Libraries\CMSIS\Device\ST\\STM32F0xx\Include;..\..\Libraries\STM32F0xx_StdPeriph_Driver\inc;..\..\Libraries\STM32_USB_Device_Driver\inc;..\..\Libraries\STM32_USB_Device_Library\Core\inc;..\..\Libraries\STM32_USB_Device_Library\Class\msc\inc;..\..\Utilities\FatFs_v0.08b</IncludePath>
+              <IncludePath>..\inc;..\..\Libraries\CMSIS\Device\ST\\STM32F0xx\Include;..\..\Libraries\STM32F0xx_StdPeriph_Driver\inc;..\..\Libraries\STM32_USB_Device_Driver\inc;..\..\Libraries\STM32_USB_Device_Library\Core\inc;..\..\Libraries\STM32_USB_Device_Library\Class\msc\inc;..\..\Utilities\FatFs_v0.08b;..\src\PDFlib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -680,6 +680,16 @@
               <FileName>readme.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\readme.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>PdfLib</GroupName>
+          <Files>
+            <File>
+              <FileName>pdf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\PDFlib\pdf.c</FilePath>
             </File>
           </Files>
         </Group>
