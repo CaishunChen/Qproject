@@ -1,0 +1,7 @@
+
+
+
+先下载TempProject_USB_Storage，再下载TempProjectPDF_Create&measure
+
+左键是生成PDF后进入USB_Storage，右键是直接进入USB_Storage，先直接进入USB_Storage，将SDFile中的文件拷贝进入板子，再插拔
+USB，按左键就可以从demo.txt 中生成PDF ，生成完成后跳转USB_Storage
