@@ -63,15 +63,15 @@ int main(void)
 	
   while (1)
   {
-		if(global_USB==10)
-		{
-			res = f_mount(0,&fs);
-			res = f_open(&MyFile, "0:/testusb.TXT", FA_CREATE_ALWAYS | FA_WRITE);
-			res = f_write(&MyFile, Tx_Buffer, sizeof(Tx_Buffer), (void *)&byteswritten);
-			res = f_close(&MyFile);
-			res = f_mount(0,NULL);
-			global_USB=0;
-		}
+//		if(global_USB==10)
+//		{
+//			res = f_mount(0,&fs);
+//			res = f_open(&MyFile, "0:/testusb.TXT", FA_CREATE_ALWAYS | FA_WRITE);
+//			res = f_write(&MyFile, Tx_Buffer, sizeof(Tx_Buffer), (void *)&byteswritten);
+//			res = f_close(&MyFile);
+//			res = f_mount(0,NULL);
+//			global_USB=0;
+//		}
   }
 }
 

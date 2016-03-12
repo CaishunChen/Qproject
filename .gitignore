@@ -100,3 +100,5 @@ Qproject_Qproject.dep
 *.hex
 *.lst
 *.hex
+TempProject/Projects/MDK-ARM/STM32F072B/STM32F072B.hex
+*.hex
