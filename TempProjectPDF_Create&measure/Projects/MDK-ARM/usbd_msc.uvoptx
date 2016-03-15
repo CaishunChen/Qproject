@@ -172,32 +172,52 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>PdfGobRes</ItemText>
+          <ItemText>dataLinesArray</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DataLineBuf</ItemText>
+          <ItemText>pdfLinesArray</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DataLineFile,0x0A</ItemText>
+          <ItemText>lastPagePointCount,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DATA_POINT_LENGTH</ItemText>
+          <ItemText>lastPageReadCount,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pdfLinesPtr</ItemText>
+          <ItemText>lastPageFillNullCount,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>dataLinesPtr</ItemText>
+          <ItemText>crtDataLineCounter</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pdfFilePtr</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lastPageReadCount,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lastPagePointCount</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lastPageFillNullCount,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
