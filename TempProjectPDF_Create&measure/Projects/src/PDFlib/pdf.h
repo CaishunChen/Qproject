@@ -7,6 +7,7 @@
 #include "stdlib.h"
 #include "stm32f0xx.h"
 #include "string.h"
+#include "math.h"
 
 #define DATA_START_ADDR		34304
 #define DATA_POINT_LENGTH	42
@@ -24,7 +25,10 @@
 
 #define PDF_PAGE_COUNT_PARAM_ADDR 167
 
-void PDF_Gen_Func(unsigned int dataPointCount);
+// Average,std
+#define RAW_DATA_LENGTH_PER_READ 4096
 
+void PDF_Gen_Func(unsigned int dataPointCount);
+void PDF_Get_Average_Stdev(unsigned short dataPointCount);
 #endif
 

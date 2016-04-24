@@ -191,6 +191,100 @@ void PDF_Gen_Func(unsigned int dataPointCount)
 	f_close(&DataLineFile);
 	f_close(&PDFFile);
 }
+
+float AverageA=0,AverageB=0,StdA=0,StdB=0,MaxA=0,MinA=0,MaxB=-100,MinB=0;
+void PDF_Get_Average_Stdev(unsigned short dataPointCount)
+{
+	double SumA=0,SumB=0;
+	unsigned short i=0,j=0;
+	short *temp;
+	unsigned char readCount;
+	unsigned short lastReadLength;
+	double buf=0;
+	PdfGobRes = f_mount(0,&PdfFileSystem);
+	readCount=dataPointCount/(RAW_DATA_LENGTH_PER_READ/4);
+	lastReadLength=dataPointCount%(RAW_DATA_LENGTH_PER_READ/4);
+	lastReadLength*=4;
+	PdfGobRes=f_open(&DataLineFile,"Data.bin",FA_READ);
+	for(i=0;i<readCount;i++)
+	{
+		PdfGobRes=f_read(&DataLineFile,pdfLinesArray,RAW_DATA_LENGTH_PER_READ,&PdfByte2Read);
+		temp=(void*)&pdfLinesArray[0];
+		for(j=0;j<RAW_DATA_LENGTH_PER_READ/4;j++)
+		{
+			SumA+=*temp;
+			if(*temp>MaxA)MaxA=*temp;
+			if(*temp<MinA)MinA=*temp;
+			temp++;
+			SumB+=*temp;
+			if(*temp>MaxB)MaxB=*temp;
+			if(*temp<MinB)MinB=*temp;		
+			temp++;
+		}
+	}
+	PdfGobRes=f_read(&DataLineFile,pdfLinesArray,lastReadLength,&PdfByte2Read);
+	temp=(void*)&pdfLinesArray[0];
+	for(j=0;j<lastReadLength/4;j++)
+	{
+			SumA+=*temp;
+			if(*temp>MaxA)MaxA=*temp;
+			if(*temp<MinA)MinA=*temp;
+			temp++;
+			SumB+=*temp;
+			if(*temp>MaxB)MaxB=*temp;
+			if(*temp<MinB)MinB=*temp;		
+			temp++;
+	}
+	AverageA=SumA/dataPointCount;
+	AverageB=SumB/dataPointCount;
+	
+	SumA=0;
+	SumB=0;
+	//std
+	f_lseek(&DataLineFile,0);
+	for(i=0;i<readCount;i++)
+	{
+		PdfGobRes=f_read(&DataLineFile,pdfLinesArray,RAW_DATA_LENGTH_PER_READ,&PdfByte2Read);
+		temp=(void*)&pdfLinesArray[0];
+		for(j=0;j<RAW_DATA_LENGTH_PER_READ/4;j++)
+		{
+			buf=(*temp)-AverageA;
+			buf=buf*buf;
+			SumA+=buf;
+			temp++;
+			buf=(*temp)-AverageB;
+			buf=buf*buf;
+			SumB+=buf;
+			temp++;			
+		}
+	}
+	PdfGobRes=f_read(&DataLineFile,pdfLinesArray,lastReadLength,&PdfByte2Read);
+	temp=(void*)&pdfLinesArray[0];
+	for(j=0;j<lastReadLength/4;j++)
+	{
+			buf=(*temp)-AverageA;
+			buf=buf*buf;
+			SumA+=buf;
+			temp++;
+			buf=(*temp)-AverageB;
+			buf=buf*buf;
+			SumB+=buf;
+			temp++;
+	}
+	StdA=SumA/(dataPointCount);
+	StdB=SumB/(dataPointCount);
+	
+	StdA=sqrt(StdA);
+	StdB=sqrt(StdB);
+	AverageA/=10;
+	AverageB/=10;
+	StdA/=10;
+	StdB/=10;
+	MaxA/=10;
+	MaxB/=10;
+	MinA/=10;
+	MinB/=10;
+}
 //void PDF_Gen_Func(void)
 //{
 //	char i=0,j=0;
