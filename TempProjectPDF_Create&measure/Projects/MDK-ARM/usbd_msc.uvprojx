@@ -427,99 +427,9 @@
               <FilePath>..\src\stm32_it.c</FilePath>
             </File>
             <File>
-              <FileName>usb_bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\usb_bsp.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_desc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\usbd_desc.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\usbd_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_usr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\usbd_usr.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_storage_msd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\src\usbd_storage_msd.c</FilePath>
-            </File>
-            <File>
               <FileName>spi_spiflash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\spi_spiflash.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>USB_Class</GroupName>
-          <Files>
-            <File>
-              <FileName>usbd_msc_bot.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Class\msc\src\usbd_msc_bot.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Class\msc\src\usbd_msc_core.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc_data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Class\msc\src\usbd_msc_data.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_msc_scsi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Class\msc\src\usbd_msc_scsi.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>USB_Drivers</GroupName>
-          <Files>
-            <File>
-              <FileName>usb_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Driver\src\usb_core.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_dcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Driver\src\usb_dcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>usb_dcd_int.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Driver\src\usb_dcd_int.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>USB_Library</GroupName>
-          <Files>
-            <File>
-              <FileName>usbd_core.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Core\src\usbd_core.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_ioreq.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Core\src\usbd_ioreq.c</FilePath>
-            </File>
-            <File>
-              <FileName>usbd_req.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Libraries\STM32_USB_Device_Library\Core\src\usbd_req.c</FilePath>
             </File>
           </Files>
         </Group>

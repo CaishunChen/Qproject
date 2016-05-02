@@ -70,6 +70,7 @@ uint8_t JumpToUSBStorage(uint32_t Addr)
   * @retval None
   */
 
+
 int main(void)
 {
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
@@ -83,7 +84,9 @@ int main(void)
 	}
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)){
 		//PDF_Gen_Func(1234);
-		PDF_Get_Average_Stdev(8280);
+		//PDF_Get_Average_Stdev(8280);
+		//Pdf_Gen_ConfigFile();
+		ReadConfigFileToInternalFlash();
 	}
 	JumpToUSBStorage(USBStorage_ADDRESS);
   while (1)

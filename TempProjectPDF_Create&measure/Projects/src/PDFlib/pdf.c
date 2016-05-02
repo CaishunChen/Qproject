@@ -285,68 +285,61 @@ void PDF_Get_Average_Stdev(unsigned short dataPointCount)
 	MinA/=10;
 	MinB/=10;
 }
-//void PDF_Gen_Func(void)
+//const PdfConstantParameter DemoConfig=
 //{
-//	char i=0,j=0;
-//	char* tempPtr1;
-//	char* tempPtr2;
-//	char dataLineCounter=0;
-//	//char* dataLinePtr;
-//	PdfGobRes = f_mount(0,&PdfFileSystem);												//挂载文件系统
-//	//dataLinePtr=malloc(1);
-//	dataLineCounter=0;
-//	for(j=0;j<2;j++)
-//	{
-//			PdfGobRes=f_open(&DataLineFile,"0:demo.txt",FA_READ);
-//			f_lseek(&DataLineFile,j*DATA_LINES_BUF_LENGTH);
-//			PdfGobRes=f_read(&DataLineFile,dataLinesPtr,DATA_LINES_BUF_LENGTH,&PdfByte2Read);
-//			f_close(&DataLineFile);
-//			tempPtr1=&pdfLinesPtr[0];
-//			tempPtr2=&dataLinesPtr[0];
-//			for(i=0;i<DATA_POINT_COUNT_2_BUFFER;i++)
-//			{				
-//						if(dataLineCounter==60)
-//						{
-//								memcpy(tempPtr1,pdfDataPointLineHeaderSp,sizeof(pdfDataPointLineHeaderSp)-1);
-//								tempPtr1+=sizeof(pdfDataPointLineHeaderSp)-1;
-//						}
-//						else
-//						{
-//								memcpy(tempPtr1,pdfDataPointLineHeader,sizeof(pdfDataPointLineHeader)-1);
-//								tempPtr1+=sizeof(pdfDataPointLineHeader)-1;
-//						}
-//						memcpy(tempPtr1,tempPtr2,DATA_LINE_LENGTH);
-//						tempPtr1+=DATA_LINE_LENGTH;
-//						tempPtr2+=DATA_LINE_LENGTH;
-//						memcpy(tempPtr1,pdfDataPointLinefooter,sizeof(pdfDataPointLinefooter)-1);
-//						tempPtr1+=sizeof(pdfDataPointLinefooter)-1;
-//						dataLineCounter++;
-//			}
-//			PdfGobRes=f_open(&PDFFile,"0:2ptmp.pdf",FA_WRITE);
-//			f_lseek(&PDFFile,34304+j*PDF_DATA_POINT_LINE_BUF_LENGTH);
-//			PdfGobRes=f_write(&PDFFile,pdfLinesPtr,PDF_DATA_POINT_LINE_BUF_LENGTH,&PdfByte2Write);
-//			f_close(&PDFFile);
-//	}
-
-//	
-////	PdfGobRes=f_open(&DataLineFile,"0:demo.txt",FA_READ);					//初始化读文件
-////	PdfGobRes=f_open(&PDFFile,"0:2ptmp.pdf",FA_WRITE);						//初始化写文件
-////	//PDFFile.fptr=DATA_START_ADDR;																	//移动文件指针到数据条地址
-////	for(lop=0;lop<120;lop++)																				//测试插入10条数据
-////	{
-
-////		f_lseek(&DataLineFile,lop*(DATA_POINT_LENGTH+2));
-////		PdfGobRes=f_read(&DataLineFile,DataLineBuf,DATA_POINT_LENGTH+2,&PdfByte2Read);
-
-////		
-////		f_lseek(&PDFFile,lop*DATA_POINT_OFFSET+DATA_START_ADDR);																
-////		PdfGobRes=f_write(&PDFFile,DataLineBuf,DATA_POINT_LENGTH,&PdfByte2Write);
-////									
-////	}
-////	f_close(&DataLineFile);
-////	f_close(&PDFFile);
-//	
-
-//	f_mount(0,NULL);
-//	//while(1);
+//	{"Company name 20bytes"},
+//	{"A150001"},
+//	{"20160502"},
+//	{"1403001"},
+//	{"V1.0"},
+//	{"UTC+8"},
+//	60,
+//	30,
+//	20,
+//	0,
+//	2,
+//	{"Temperature"},
+//	{"Humidity"},
+//	{" "},
+//	{".C"},
+//	{"%RH"},
+//	{" "},
+//	70,
+//	60,
+//	0,
+//	10,
+//	20,
+//	0,	
+//};
+//void Pdf_Gen_ConfigFile()
+//{
+//	PdfGobRes = f_mount(0,&PdfFileSystem);
+//	PdfGobRes=f_open(&PDFFile,"0:Conf.bin",FA_CREATE_ALWAYS|FA_WRITE);
+//	PdfGobRes=f_write(&PDFFile,(void*)&DemoConfig,sizeof(DemoConfig),&PdfByte2Write);
+//	PdfGobRes=f_close(&PDFFile);
+//	//PdfGobRes = f_mount(0,&PdfFileSystem);
 //}
+PdfConstantParameter* pdfParam;
+char ReadConfigFileToInternalFlash()
+{
+	short i=0;
+	FLASH_Status flSta;
+	uint32_t startAddr=PDF_ConfData_ADDRESS;
+	PdfGobRes = f_mount(0,&PdfFileSystem);
+	PdfGobRes=f_open(&PDFFile,"0:Conf.bin",FA_READ);
+	PdfGobRes=f_read(&PDFFile,pdfLinesArray,sizeof(PdfConstantParameter),&PdfByte2Read);
+	FLASH_Unlock();
+	FLASH_ClearFlag(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_BSY);
+	flSta=FLASH_ErasePage(PDF_ConfData_ADDRESS);//擦除一个扇区
+	for(i=0;i<sizeof(PdfConstantParameter);i+=4)
+	{
+		flSta=FLASH_ProgramWord(startAddr,*(uint32_t*)&pdfLinesArray[i]);
+		startAddr+=4;
+		//PDF_ConfData_ADDRESS+=4;
+	}
+	FLASH_Lock();
+	pdfParam=(PdfConstantParameter*)PDF_ConfData_ADDRESS;
+	
+	return 0;
+}
+
