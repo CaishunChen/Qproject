@@ -29,8 +29,8 @@ void PDF_Gen_Func(unsigned int dataPointCount)
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	fullPagesCount=dataPointCount/DATA_POINT_PER_PAGE;
 	lastPagePointCount=dataPointCount%DATA_POINT_PER_PAGE;
-	PdfGobRes=f_open(&DataLineFile,"0:demo.txt",FA_READ);
-	PdfGobRes=f_open(&PDFFile,"0:2ptmp.pdf",FA_WRITE);
+	PdfGobRes=f_open(&DataLineFile,"0:Sys/dtli.dl",FA_READ);
+	PdfGobRes=f_open(&PDFFile,"0:dataLog.pdf",FA_WRITE);
 	
 	if(lastPagePointCount!=0)pdfPageCount=fullPagesCount+2;
 	else pdfPageCount=fullPagesCount+1;
@@ -205,7 +205,7 @@ void PDF_Get_Average_Stdev(unsigned short dataPointCount)
 	readCount=dataPointCount/(RAW_DATA_LENGTH_PER_READ/4);
 	lastReadLength=dataPointCount%(RAW_DATA_LENGTH_PER_READ/4);
 	lastReadLength*=4;
-	PdfGobRes=f_open(&DataLineFile,"Data.bin",FA_READ);
+	PdfGobRes=f_open(&DataLineFile,"Sys/dtbs.dt",FA_READ);
 	for(i=0;i<readCount;i++)
 	{
 		PdfGobRes=f_read(&DataLineFile,pdfLinesArray,RAW_DATA_LENGTH_PER_READ,&PdfByte2Read);
@@ -285,40 +285,40 @@ void PDF_Get_Average_Stdev(unsigned short dataPointCount)
 	MinA/=10;
 	MinB/=10;
 }
-//const PdfConstantParameter DemoConfig=
-//{
-//	{"Company name 20bytes"},
-//	{"A150001"},
-//	{"20160502"},
-//	{"1403001"},
-//	{"V1.0"},
-//	{"UTC+8"},
-//	60,
-//	30,
-//	20,
-//	0,
-//	2,
-//	{"Temperature"},
-//	{"Humidity"},
-//	{" "},
-//	{".C"},
-//	{"%RH"},
-//	{" "},
-//	70,
-//	60,
-//	0,
-//	10,
-//	20,
-//	0,	
-//};
-//void Pdf_Gen_ConfigFile()
-//{
-//	PdfGobRes = f_mount(0,&PdfFileSystem);
-//	PdfGobRes=f_open(&PDFFile,"0:Conf.bin",FA_CREATE_ALWAYS|FA_WRITE);
-//	PdfGobRes=f_write(&PDFFile,(void*)&DemoConfig,sizeof(DemoConfig),&PdfByte2Write);
-//	PdfGobRes=f_close(&PDFFile);
-//	//PdfGobRes = f_mount(0,&PdfFileSystem);
-//}
+const PdfConstantParameter DemoConfig=
+{
+	{"Company name hear"},
+	{"A150001"},
+	{"20160502"},
+	{"1605001"},
+	{"V1.0"},
+	{"UTC+8"},
+	60,
+	30,
+	20,
+	0,
+	2,
+	{"Temperature"},
+	{"Humidity"},
+	{" "},
+	{".C"},
+	{"%RH"},
+	{" "},
+	70,
+	60,
+	0,
+	10,
+	20,
+	0,	
+};
+void Pdf_Gen_ConfigFile()
+{
+	PdfGobRes = f_mount(0,&PdfFileSystem);
+	PdfGobRes=f_open(&PDFFile,"0:Sys/Conf.bin",FA_CREATE_ALWAYS|FA_WRITE);
+	PdfGobRes=f_write(&PDFFile,(void*)&DemoConfig,sizeof(DemoConfig),&PdfByte2Write);
+	PdfGobRes=f_close(&PDFFile);
+	//PdfGobRes = f_mount(0,&PdfFileSystem);
+}
 PdfConstantParameter* pdfParam;
 char ReadConfigFileToInternalFlash()
 {
@@ -326,8 +326,9 @@ char ReadConfigFileToInternalFlash()
 	FLASH_Status flSta;
 	uint32_t startAddr=PDF_ConfData_ADDRESS;
 	PdfGobRes = f_mount(0,&PdfFileSystem);
-	PdfGobRes=f_open(&PDFFile,"0:Conf.bin",FA_READ);
+	PdfGobRes=f_open(&PDFFile,"0:Sys/conf.cf",FA_READ);
 	PdfGobRes=f_read(&PDFFile,pdfLinesArray,sizeof(PdfConstantParameter),&PdfByte2Read);
+	PdfGobRes=f_close(&PDFFile);
 	FLASH_Unlock();
 	FLASH_ClearFlag(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_BSY);
 	flSta=FLASH_ErasePage(PDF_ConfData_ADDRESS);//²Á³ýÒ»¸öÉÈÇø

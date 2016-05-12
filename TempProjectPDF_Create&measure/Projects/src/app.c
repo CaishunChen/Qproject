@@ -83,10 +83,10 @@ int main(void)
 		JumpToUSBStorage(USBStorage_ADDRESS);
 	}
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)){
-		//PDF_Gen_Func(1234);
+		PDF_Gen_Func(200);
 		//PDF_Get_Average_Stdev(8280);
 		//Pdf_Gen_ConfigFile();
-		ReadConfigFileToInternalFlash();
+		//ReadConfigFileToInternalFlash();
 	}
 	JumpToUSBStorage(USBStorage_ADDRESS);
   while (1)

@@ -32,7 +32,7 @@
 void PDF_Gen_Func(unsigned int dataPointCount);
 void PDF_Get_Average_Stdev(unsigned short dataPointCount);
 char ReadConfigFileToInternalFlash();
-//void Pdf_Gen_ConfigFile();
+void Pdf_Gen_ConfigFile();
 
 #define PDF_ConfData_ADDRESS     ((uint32_t)0x801C000)
 typedef struct
