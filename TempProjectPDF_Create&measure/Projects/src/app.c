@@ -83,8 +83,9 @@ int main(void)
 		JumpToUSBStorage(USBStorage_ADDRESS);
 	}
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)){
-		PDF_Gen_Func(200);
-		//PDF_Get_Average_Stdev(8280);
+		PDF_Gen_Func(100);
+		PDF_Get_Average_Stdev(100);
+		Pdf_Draw_Charts(100,1);
 		//Pdf_Gen_ConfigFile();
 		//ReadConfigFileToInternalFlash();
 	}

@@ -102,13 +102,13 @@ BT /FHB 9 Tf
  0  -10 TD[(Total time below                )]TJ ET
 BT /FH 9 Tf
 415 665 TD[(Temperature                     )]TJ              
- 0  -10 TD[(-10.1°C                         )]TJ              
- 0  -10 TD[(-10.2°C                         )]TJ              
- 0  -10 TD[(-10.3°C                         )]TJ              
- 0  -10 TD[(-10.4°C                         )]TJ              
- 0  -10 TD[(-10.5°C                         )]TJ              
- 0  -10 TD[(-10.6°C                         )]TJ              
- 0  -10 TD[(-10.7°C                         )]TJ              
+ 0  -10 TD[(-10.1.C                         )]TJ              
+ 0  -10 TD[(-10.2.C                         )]TJ              
+ 0  -10 TD[(-10.3.C                         )]TJ              
+ 0  -10 TD[(-10.4.C                         )]TJ              
+ 0  -10 TD[(-10.5.C                         )]TJ              
+ 0  -10 TD[(-10.6.C                         )]TJ              
+ 0  -10 TD[(-10.7.C                         )]TJ              
  0  -10 TD[(999Days 10Hrs. 11Min.           )]TJ              
  0  -10 TD[(999Days 10Hrs. 12Min.           )]TJ              
  0  -10 TD[(999Days 10Hrs. 13Min.           )]TJ ET
@@ -181,7 +181,7 @@ BT 550 102 TD[(14:23)]TJ -25 -7 TD[(30 Nov. 2014)]TJ ET
 92 180 m 562 180 l 92 250 m 562 250 l 92 320 m 562 320 l S
 209 110 m 209 390 l 326 110 m 326 390 l 443 110 m 443 390 l S
 /DeviceRGB cs 0 0 0 scn /FH 6 Tf
-BT 33 400 TD[( °C           )]TJ ET                           
+BT 33 400 TD[( .C           )]TJ ET                           
 BT 33 388 TD[( 60           )]TJ                              
     0 -70 TD[( 50           )]TJ                              
     0 -70 TD[( 40           )]TJ                              
@@ -527,8 +527,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(   1                                      )]TJ  
   0   -11 TD[(   2                                      )]TJ  
@@ -658,8 +658,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 121                                      )]TJ  
   0   -11 TD[( 122                                      )]TJ  
@@ -789,8 +789,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 241                                      )]TJ  
   0   -11 TD[( 242                                      )]TJ  
@@ -920,8 +920,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 361                                      )]TJ  
   0   -11 TD[( 362                                      )]TJ  
@@ -1051,8 +1051,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 481                                      )]TJ  
   0   -11 TD[( 482                                      )]TJ  
@@ -1182,8 +1182,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 601                                      )]TJ  
   0   -11 TD[( 602                                      )]TJ  
@@ -1313,8 +1313,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 721                                      )]TJ  
   0   -11 TD[( 722                                      )]TJ  
@@ -1444,8 +1444,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 841                                      )]TJ  
   0   -11 TD[( 842                                      )]TJ  
@@ -1575,8 +1575,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[( 961                                      )]TJ  
   0   -11 TD[( 962                                      )]TJ  
@@ -1706,8 +1706,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1081                                      )]TJ  
   0   -11 TD[(1082                                      )]TJ  
@@ -1837,8 +1837,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1201                                      )]TJ  
   0   -11 TD[(1202                                      )]TJ  
@@ -1968,8 +1968,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1321                                      )]TJ  
   0   -11 TD[(1322                                      )]TJ  
@@ -2099,8 +2099,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1441                                      )]TJ  
   0   -11 TD[(1442                                      )]TJ  
@@ -2230,8 +2230,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1561                                      )]TJ  
   0   -11 TD[(1562                                      )]TJ  
@@ -2361,8 +2361,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1681                                      )]TJ  
   0   -11 TD[(1682                                      )]TJ  
@@ -2492,8 +2492,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1801                                      )]TJ  
   0   -11 TD[(1802                                      )]TJ  
@@ -2623,8 +2623,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(1921                                      )]TJ  
   0   -11 TD[(1922                                      )]TJ  
@@ -2754,8 +2754,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2041                                      )]TJ  
   0   -11 TD[(2042                                      )]TJ  
@@ -2885,8 +2885,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2161                                      )]TJ  
   0   -11 TD[(2162                                      )]TJ  
@@ -3016,8 +3016,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2281                                      )]TJ  
   0   -11 TD[(2282                                      )]TJ  
@@ -3147,8 +3147,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2401                                      )]TJ  
   0   -11 TD[(2402                                      )]TJ  
@@ -3278,8 +3278,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2521                                      )]TJ  
   0   -11 TD[(2522                                      )]TJ  
@@ -3409,8 +3409,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2641                                      )]TJ  
   0   -11 TD[(2642                                      )]TJ  
@@ -3540,8 +3540,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2761                                      )]TJ  
   0   -11 TD[(2762                                      )]TJ  
@@ -3671,8 +3671,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(2881                                      )]TJ  
   0   -11 TD[(2882                                      )]TJ  
@@ -3802,8 +3802,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3001                                      )]TJ  
   0   -11 TD[(3002                                      )]TJ  
@@ -3933,8 +3933,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3121                                      )]TJ  
   0   -11 TD[(3122                                      )]TJ  
@@ -4064,8 +4064,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3241                                      )]TJ  
   0   -11 TD[(3242                                      )]TJ  
@@ -4195,8 +4195,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3361                                      )]TJ  
   0   -11 TD[(3362                                      )]TJ  
@@ -4326,8 +4326,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3481                                      )]TJ  
   0   -11 TD[(3482                                      )]TJ  
@@ -4457,8 +4457,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3601                                      )]TJ  
   0   -11 TD[(3602                                      )]TJ  
@@ -4588,8 +4588,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3721                                      )]TJ  
   0   -11 TD[(3722                                      )]TJ  
@@ -4719,8 +4719,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3841                                      )]TJ  
   0   -11 TD[(3842                                      )]TJ  
@@ -4850,8 +4850,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(3961                                      )]TJ  
   0   -11 TD[(3962                                      )]TJ  
@@ -4981,8 +4981,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4081                                      )]TJ  
   0   -11 TD[(4082                                      )]TJ  
@@ -5112,8 +5112,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4201                                      )]TJ  
   0   -11 TD[(4202                                      )]TJ  
@@ -5243,8 +5243,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4321                                      )]TJ  
   0   -11 TD[(4322                                      )]TJ  
@@ -5374,8 +5374,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4441                                      )]TJ  
   0   -11 TD[(4442                                      )]TJ  
@@ -5505,8 +5505,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4561                                      )]TJ  
   0   -11 TD[(4562                                      )]TJ  
@@ -5636,8 +5636,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4681                                      )]TJ  
   0   -11 TD[(4682                                      )]TJ  
@@ -5767,8 +5767,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4801                                      )]TJ  
   0   -11 TD[(4802                                      )]TJ  
@@ -5898,8 +5898,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(4921                                      )]TJ  
   0   -11 TD[(4922                                      )]TJ  
@@ -6029,8 +6029,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5041                                      )]TJ  
   0   -11 TD[(5042                                      )]TJ  
@@ -6160,8 +6160,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5161                                      )]TJ  
   0   -11 TD[(5162                                      )]TJ  
@@ -6291,8 +6291,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5281                                      )]TJ  
   0   -11 TD[(5282                                      )]TJ  
@@ -6422,8 +6422,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5401                                      )]TJ  
   0   -11 TD[(5402                                      )]TJ  
@@ -6553,8 +6553,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5521                                      )]TJ  
   0   -11 TD[(5522                                      )]TJ  
@@ -6684,8 +6684,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5641                                      )]TJ  
   0   -11 TD[(5642                                      )]TJ  
@@ -6815,8 +6815,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5761                                      )]TJ  
   0   -11 TD[(5762                                      )]TJ  
@@ -6946,8 +6946,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(5881                                      )]TJ  
   0   -11 TD[(5882                                      )]TJ  
@@ -7077,8 +7077,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6001                                      )]TJ  
   0   -11 TD[(6002                                      )]TJ  
@@ -7208,8 +7208,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6121                                      )]TJ  
   0   -11 TD[(6122                                      )]TJ  
@@ -7339,8 +7339,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6241                                      )]TJ  
   0   -11 TD[(6242                                      )]TJ  
@@ -7470,8 +7470,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6361                                      )]TJ  
   0   -11 TD[(6362                                      )]TJ  
@@ -7601,8 +7601,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6481                                      )]TJ  
   0   -11 TD[(6482                                      )]TJ  
@@ -7732,8 +7732,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6601                                      )]TJ  
   0   -11 TD[(6602                                      )]TJ  
@@ -7863,8 +7863,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6721                                      )]TJ  
   0   -11 TD[(6722                                      )]TJ  
@@ -7994,8 +7994,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6841                                      )]TJ  
   0   -11 TD[(6842                                      )]TJ  
@@ -8125,8 +8125,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(6961                                      )]TJ  
   0   -11 TD[(6962                                      )]TJ  
@@ -8256,8 +8256,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7081                                      )]TJ  
   0   -11 TD[(7082                                      )]TJ  
@@ -8387,8 +8387,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7201                                      )]TJ  
   0   -11 TD[(7202                                      )]TJ  
@@ -8518,8 +8518,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7321                                      )]TJ  
   0   -11 TD[(7322                                      )]TJ  
@@ -8649,8 +8649,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7441                                      )]TJ  
   0   -11 TD[(7442                                      )]TJ  
@@ -8780,8 +8780,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7561                                      )]TJ  
   0   -11 TD[(7562                                      )]TJ  
@@ -8911,8 +8911,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7681                                      )]TJ  
   0   -11 TD[(7682                                      )]TJ  
@@ -9042,8 +9042,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7801                                      )]TJ  
   0   -11 TD[(7802                                      )]TJ  
@@ -9173,8 +9173,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(7921                                      )]TJ  
   0   -11 TD[(7922                                      )]TJ  
@@ -9304,8 +9304,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(8041                                      )]TJ  
   0   -11 TD[(8042                                      )]TJ  
@@ -9435,8 +9435,8 @@ endobj
 >> stream
 /DeviceRGB cs 0.9 0.9 0.9 scn /DeviceRGB CS 0 0 0 SCN 1 i 0.5 w 30 720 m 30 745 l 570 745 l 570 720 l 30 720 l B S /DeviceRGB cs 0 0 0 scn                        
 30 50 m 570 50 l 30 50 m 30 720 l 570 50 m 570 720 l 285 50 m 285 720 l 310 50 m 310 720 l 70 50 m 70 720 l 155 50 m 155 720 l 240 50 m 240 720 l 240 50 m 240 720 l 240 50 m 240 720 l 355 50 m 355 720 l 440 50 m 440 720 l 525 50 m 525 720 l 525 50 m 525 720 l 525 50 m 525 720 l S BT /FHB 11 Tf 
- 35 727 TD[(Index          Date                   Time             °C       )]TJ                                              
- 284 0  TD[(Index          Date                   Time             °C       )]TJ ET BT
+ 35 727 TD[(Index          Date                   Time             .C       )]TJ                                              
+ 284 0  TD[(Index          Date                   Time             .C       )]TJ ET BT
 /DeviceRGB CS 1 0.2 0.2 SCN /FH 10 Tf 38 718 TD[()]TJ                                                             
   0   -11 TD[(8161                                      )]TJ  
   0   -11 TD[(8162                                      )]TJ  
