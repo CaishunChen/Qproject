@@ -13,7 +13,7 @@
  220 795 TD[(Multiple Function)]TJ 30 -25 TD[(Data logger)]TJ ET
  BT /FHB 12 Tf 25 770 TD[(company lala 20bytes)]TJ ET
  BT /FHB 16 Tf 422 772 TD[(A150001)]TJ 0 25 TD[(SN      )]TJ ET
- /DeviceRGB cs 1 0 0 scn /DeviceRGB CS 1 0 0 SCN
+ /DeviceRGB cs 0 1 0 scn /DeviceRGB CS 1 0 0 SCN
  BT /FHB 14 Tf 501 785 TD[(ALERT)]TJ S /FH 14 Tf ET
 /DeviceRGB cs 0 0 0 scn /DeviceRGB CS 0 0 0 SCN 1 i
 111 111 m 111 111 m 500 791 m
@@ -102,7 +102,7 @@ BT /FHB 9 Tf
  0  -10 TD[(Total time below                )]TJ ET
 BT /FH 9 Tf
 415 665 TD[(Temperature                     )]TJ              
- 0  -10 TD[(-10.1.C                         )]TJ              
+ 0  -10 TD[(-10.1¡æ                         )]TJ              
  0  -10 TD[(-10.2.C                         )]TJ              
  0  -10 TD[(-10.3.C                         )]TJ              
  0  -10 TD[(-10.4.C                         )]TJ              

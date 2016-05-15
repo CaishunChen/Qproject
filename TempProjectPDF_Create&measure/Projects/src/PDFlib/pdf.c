@@ -328,22 +328,67 @@ void PDF_Get_Average_Stdev(unsigned short dataPointCount)
 #define X_AXIS_POINT_COUNT 471
 #define Y_AXIS_POINT_COUNT 280
 
-#define HIGH_LARM_A 50.0
-#define LOW_LARM_A	00.0
+//#define HIGH_LARM_A 50.0
+//#define LOW_LARM_A	00.0
 
-#define X_AXIS_BASE_ADDR 10670
-#define X_AXIS_1PR4_ADDR 10606
-#define X_AXIS_2PR4_ADDR 10542
-#define X_AXIS_3PR4_ADDR 10478
-#define X_AXIS_4PR4_ADDR 10414
+//#define HIGH_LARM_B 50.0
+//#define LOW_LARM_B	00.0
+
+//#define HIGH_LARM_C 50.0
+//#define LOW_LARM_C	00.0
+
+#define HIGH_LARM_A pdfParam->ParamA_HighAlarm
+#define LOW_LARM_A	pdfParam->ParamA_LowAlarm
+
+#define HIGH_LARM_B pdfParam->ParamB_HighAlarm
+#define LOW_LARM_B	pdfParam->ParamB_LowAlarm
+
+#define HIGH_LARM_C pdfParam->ParamC_HighAlarm
+#define LOW_LARM_C	pdfParam->ParamC_LowAlarm
+
+#define X_AXIS_BASE_TIME_ADDR 9703
+#define X_AXIS_BASE_DATE_ADDR 9724
+
+#define X_AXIS_1PR4_TIME_ADDR 9767
+#define X_AXIS_1PR4_DATE_ADDR 9788
+
+#define X_AXIS_2PR4_TIME_ADDR 9831
+#define X_AXIS_2PR4_DATE_ADDR 9852
+
+#define X_AXIS_3PR4_TIME_ADDR 9895
+#define X_AXIS_3PR4_DATE_ADDR 9916
+
+#define X_AXIS_4PR4_TIME_ADDR 9959
+#define X_AXIS_4PR4_DATE_ADDR 9980
+
+
+#define Y_AXIS_BASE_ADDR 10670
+#define Y_AXIS_1PR4_ADDR 10606
+#define Y_AXIS_2PR4_ADDR 10542
+#define Y_AXIS_3PR4_ADDR 10478
+#define Y_AXIS_4PR4_ADDR 10414
 
 #define CHART_A_ADDR 10944
+#define CHART_B_ADDR 16256 
+#define CHART_C_ADDR 21568
 
 #define HIGH_ALARM_A_ADDR1 10884
 #define HIGH_ALARM_A_ADDR2 10894
 
 #define LOW_ALARM_A_ADDR1 10904
 #define LOW_ALARM_A_ADDR2 10914
+
+#define HIGH_ALARM_B_ADDR1 16196
+#define HIGH_ALARM_B_ADDR2 16206
+
+#define LOW_ALARM_B_ADDR1 16216
+#define LOW_ALARM_B_ADDR2 16226
+
+#define HIGH_ALARM_C_ADDR1 21508
+#define HIGH_ALARM_C_ADDR2 21518
+
+#define LOW_ALARM_C_ADDR1 21528
+#define LOW_ALARM_C_ADDR2 21538
 
 //#define HIGH_LARM_B
 //#define LOW_LARM_B
@@ -360,11 +405,15 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	#define pdfChartLine pdfLinesArray
 	
 	float valuePerPoint_A,xAxisOrigin_A;
+	float valuePerPoint_B,xAxisOrigin_B;
+	float valuePerPoint_C,xAxisOrigin_C;
+	
 	float sampleStepSize;
 	unsigned short i;
 	float chartData;
 	char *pdfChartLinePtr;
 	sampleStepSize=(float)dataPointCount/(float)X_AXIS_POINT_COUNT;
+	
 	if(HIGH_LARM_A>=MaxA&&LOW_LARM_A<=MinA)
 	{
 		valuePerPoint_A=(HIGH_LARM_A-LOW_LARM_A)/140;
@@ -385,6 +434,53 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 		valuePerPoint_A=(MaxA-MinA)/140;
 		xAxisOrigin_A=MinA-(valuePerPoint_A*70);
 	}
+	if(paramCount>=2)
+	{
+		if(HIGH_LARM_B>=MaxB&&LOW_LARM_B<=MinB)
+		{
+			valuePerPoint_B=(HIGH_LARM_B-LOW_LARM_B)/140;
+			xAxisOrigin_B=LOW_LARM_B-(valuePerPoint_B*70);
+		}
+		else if(HIGH_LARM_B<=MaxB&&LOW_LARM_B<=MinB)
+		{
+			valuePerPoint_B=(MaxB-LOW_LARM_B)/140;
+			xAxisOrigin_B=LOW_LARM_B-(valuePerPoint_B*70);
+		}
+		else if(HIGH_LARM_B>=MaxB&&LOW_LARM_B>=MinB)
+		{
+			valuePerPoint_B=(HIGH_LARM_B-MinB)/140;
+			xAxisOrigin_B=MinB-(valuePerPoint_B*70);
+		}
+		else if(HIGH_LARM_B<=MaxB&&LOW_LARM_B>=MinB)
+		{
+			valuePerPoint_B=(MaxB-MinB)/140;
+			xAxisOrigin_B=MinB-(valuePerPoint_B*70);
+		}
+	}
+	if(paramCount>=3)
+	{
+		if(HIGH_LARM_C>=MaxC&&LOW_LARM_C<=MinC)
+		{
+			valuePerPoint_C=(HIGH_LARM_C-LOW_LARM_C)/140;
+			xAxisOrigin_C=LOW_LARM_C-(valuePerPoint_C*70);
+		}
+		else if(HIGH_LARM_C<=MaxC&&LOW_LARM_C<=MinC)
+		{
+			valuePerPoint_C=(MaxC-LOW_LARM_C)/140;
+			xAxisOrigin_C=LOW_LARM_C-(valuePerPoint_C*70);
+		}
+		else if(HIGH_LARM_C>=MaxC&&LOW_LARM_C>=MinC)
+		{
+			valuePerPoint_C=(HIGH_LARM_C-MinC)/140;
+			xAxisOrigin_C=MinC-(valuePerPoint_C*70);
+		}
+		else if(HIGH_LARM_C<=MaxC&&LOW_LARM_C>=MinC)
+		{
+			valuePerPoint_C=(MaxC-MinC)/140;
+			xAxisOrigin_C=MinC-(valuePerPoint_C*70);
+		}
+	}
+	
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	PdfGobRes=f_open(&DataLineFile,"Sys/Dtbs.dt",FA_READ);
 	for(i=0;i<443;i++)
@@ -408,6 +504,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 			chartData=(float)(*(unsigned short*)(chartRawData1+i*6))/10;
 			chartData=(chartData-xAxisOrigin_A)/valuePerPoint_A+Y_AXIS_OFFSET;
 			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
 			snprintf(pdfChartLinePtr,11,"%03d %03d m ",i+X_AXIS_OFFSET,(unsigned short)chartData);
 			pdfChartLinePtr+=10;
 		}
@@ -442,22 +539,6 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	PdfGobRes=f_lseek(&PDFFile,CHART_A_ADDR);
 	PdfGobRes=f_write(&PDFFile,pdfChartLine,5022,&PdfByte2Write);
 	
-	snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A);
-	PdfGobRes=f_lseek(&PDFFile,X_AXIS_BASE_ADDR);
-	PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
-	snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+70*valuePerPoint_A);
-	PdfGobRes=f_lseek(&PDFFile,X_AXIS_1PR4_ADDR);
-	PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
-	snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+140*valuePerPoint_A);
-	PdfGobRes=f_lseek(&PDFFile,X_AXIS_2PR4_ADDR);
-	PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
-	snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+210*valuePerPoint_A);
-	PdfGobRes=f_lseek(&PDFFile,X_AXIS_3PR4_ADDR);
-	PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
-	snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+280*valuePerPoint_A);
-	PdfGobRes=f_lseek(&PDFFile,X_AXIS_4PR4_ADDR);
-	PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
-	
 	snprintf(strTemp,4,"%03d",(unsigned short)((HIGH_LARM_A-xAxisOrigin_A)/valuePerPoint_A+Y_AXIS_OFFSET));
 	PdfGobRes=f_lseek(&PDFFile,HIGH_ALARM_A_ADDR1);
 	PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
@@ -468,14 +549,504 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
 	PdfGobRes=f_lseek(&PDFFile,LOW_ALARM_A_ADDR2);
 	PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+	if(paramCount>=2)
+	{
+		pdfChartLinePtr=pdfChartLine;
+		for(i=0;i<443;i++)
+		{
+			if(i==0)
+			{
+				//pdfChartLine[0]='m';
+				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+2))/10;
+				chartData=(chartData-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET;
+				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
+				snprintf(pdfChartLinePtr,11,"%03d %03d m ",i+X_AXIS_OFFSET,(unsigned short)chartData);
+				pdfChartLinePtr+=10;
+			}
+			else
+			{
+				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+2))/10;
+				chartData=(chartData-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET;
+				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
+				snprintf(pdfChartLinePtr,11,"%03d %03d l ",i+X_AXIS_OFFSET,(unsigned short)chartData);
+				pdfChartLinePtr+=10;
+			}
+			if((i+1)%6==0)
+			{
+				memcpy(pdfChartLinePtr,chartLineFooter,4),pdfChartLinePtr+=4;
+			}
+		}
+		for(;i<X_AXIS_POINT_COUNT;i++)
+		{
+			chartData=(float)(*(unsigned short*)(chartRawData2+(i-443)*6+2))/10;
+			chartData=(chartData-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET;
+			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
+			snprintf(pdfChartLinePtr,11,"%03d %03d l ",i+X_AXIS_OFFSET,(unsigned short)chartData);
+			pdfChartLinePtr+=10;
+			if((i+1)%6==0)
+			{
+				memcpy(pdfChartLinePtr,chartLineFooter,4),pdfChartLinePtr+=4;
+			}
+		}
+		PdfGobRes=f_lseek(&PDFFile,CHART_B_ADDR);
+		PdfGobRes=f_write(&PDFFile,pdfChartLine,5022,&PdfByte2Write);	
+		
+		snprintf(strTemp,4,"%03d",(unsigned short)((HIGH_LARM_B-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET));
+		PdfGobRes=f_lseek(&PDFFile,HIGH_ALARM_B_ADDR1);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+		PdfGobRes=f_lseek(&PDFFile,HIGH_ALARM_B_ADDR2);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+		snprintf(strTemp,4,"%03d",(unsigned short)((LOW_LARM_B-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET));
+		PdfGobRes=f_lseek(&PDFFile,LOW_ALARM_B_ADDR1);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+		PdfGobRes=f_lseek(&PDFFile,LOW_ALARM_B_ADDR2);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+	}
+	if(paramCount>=3)
+	{
+		pdfChartLinePtr=pdfChartLine;
+		for(i=0;i<443;i++)
+		{
+			if(i==0)
+			{
+				//pdfChartLine[0]='m';
+				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+4))/10;
+				chartData=(chartData-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET;
+				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
+				snprintf(pdfChartLinePtr,11,"%03d %03d m ",i+X_AXIS_OFFSET,(unsigned short)chartData);
+				pdfChartLinePtr+=10;
+			}
+			else
+			{
+				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+4))/10;
+				chartData=(chartData-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET;
+				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
+				snprintf(pdfChartLinePtr,11,"%03d %03d l ",i+X_AXIS_OFFSET,(unsigned short)chartData);
+				pdfChartLinePtr+=10;
+			}
+			if((i+1)%6==0)
+			{
+				memcpy(pdfChartLinePtr,chartLineFooter,4),pdfChartLinePtr+=4;
+			}
+		}
+		for(;i<X_AXIS_POINT_COUNT;i++)
+		{
+			chartData=(float)(*(unsigned short*)(chartRawData2+(i-443)*6+4))/10;
+			chartData=(chartData-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET;
+			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
+			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
+			snprintf(pdfChartLinePtr,11,"%03d %03d l ",i+X_AXIS_OFFSET,(unsigned short)chartData);
+			pdfChartLinePtr+=10;
+			if((i+1)%6==0)
+			{
+				memcpy(pdfChartLinePtr,chartLineFooter,4),pdfChartLinePtr+=4;
+			}
+		}
+		PdfGobRes=f_lseek(&PDFFile,CHART_C_ADDR);
+		PdfGobRes=f_write(&PDFFile,pdfChartLine,5022,&PdfByte2Write);
+		
+		snprintf(strTemp,4,"%03d",(unsigned short)((HIGH_LARM_C-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET));
+		PdfGobRes=f_lseek(&PDFFile,HIGH_ALARM_C_ADDR1);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+		PdfGobRes=f_lseek(&PDFFile,HIGH_ALARM_C_ADDR2);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+		snprintf(strTemp,4,"%03d",(unsigned short)((LOW_LARM_C-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET));
+		PdfGobRes=f_lseek(&PDFFile,LOW_ALARM_C_ADDR1);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+		PdfGobRes=f_lseek(&PDFFile,LOW_ALARM_C_ADDR2);
+		PdfGobRes=f_write(&PDFFile,strTemp,3,&PdfByte2Write);
+	}
+	
+	if(paramCount==1)
+	{
+		snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_BASE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+70*valuePerPoint_A);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_1PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+140*valuePerPoint_A);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_2PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+210*valuePerPoint_A);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_3PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f          ",xAxisOrigin_A+280*valuePerPoint_A);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_4PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+	}
+	else if(paramCount==2)
+	{
+		snprintf(strTemp,15," %4.1f %4.1f     ",xAxisOrigin_A,xAxisOrigin_B);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_BASE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f %4.1f     ",xAxisOrigin_A+70*valuePerPoint_A,xAxisOrigin_B+70*valuePerPoint_B);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_1PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f %4.1f     ",xAxisOrigin_A+140*valuePerPoint_A,xAxisOrigin_B+140*valuePerPoint_B);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_2PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f %4.1f     ",xAxisOrigin_A+210*valuePerPoint_A,xAxisOrigin_B+210*valuePerPoint_B);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_3PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15," %4.1f %4.1f     ",xAxisOrigin_A+280*valuePerPoint_A,xAxisOrigin_B+280*valuePerPoint_B);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_4PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+	}	
+	else if(paramCount==3)
+	{
+		snprintf(strTemp,15,"%4.0f %4.0f %4.0f ",xAxisOrigin_A,xAxisOrigin_B,xAxisOrigin_C);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_BASE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15,"%4.0f %4.0f %4.0f ",xAxisOrigin_A+70*valuePerPoint_A,xAxisOrigin_B+70*valuePerPoint_B,xAxisOrigin_C+70*valuePerPoint_C);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_1PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15,"%4.0f %4.0f %4.0f ",xAxisOrigin_A+140*valuePerPoint_A,xAxisOrigin_B+140*valuePerPoint_B,xAxisOrigin_C+140*valuePerPoint_C);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_2PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15,"%4.0f %4.0f %4.0f ",xAxisOrigin_A+210*valuePerPoint_A,xAxisOrigin_B+210*valuePerPoint_B,xAxisOrigin_C+210*valuePerPoint_C);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_3PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+		snprintf(strTemp,15,"%4.0f %4.0f %4.0f ",xAxisOrigin_A+280*valuePerPoint_A,xAxisOrigin_B+280*valuePerPoint_B,xAxisOrigin_C+280*valuePerPoint_C);
+		PdfGobRes=f_lseek(&PDFFile,Y_AXIS_4PR4_ADDR);
+		PdfGobRes=f_write(&PDFFile,strTemp,14,&PdfByte2Write);
+	}	
+	PdfGobRes = f_close(&PDFFile);
+	PdfGobRes = f_mount(0,NULL);
+}
+#define COMPLANY_NAME_ADDR 1341
+#define COMPLANY_NAME_LENGTH 20
+#define SERIAL_NUM_ADDR 1397
+#define SERIAL_NUM_LENGTH 7
+#define ALERT_STATUS_COLOR_ADDR 1450
+#define ALERT_STATUS_COLOR_LENGTH 6
+#define ALERT_STATUS_ADDR 1512
+#define ALERT_STATUS_LENGTH 5
+
+#define MARKED_EVENT_1_ADDR 2149
+#define MARKED_EVENT_2_ADDR 2213
+#define MARKED_EVENT_3_ADDR 2277
+#define MARKED_EVENT_4_ADDR 2341
+#define MARKED_EVENT_5_ADDR 2405
+#define MARKED_EVENT_6_ADDR 2469
+#define MARKED_EVENT_7_ADDR 2533
+#define MARKED_EVENT_8_ADDR 2597
+
+#define FILE_CREATED_INFO_ADDR 4812 
+
+#define PRODUCTION_DATE_ADDR 3700
+#define PRODUCTION_LOT_ADDR 3764
+#define FIRMWARE_VERSION_ADDR 3828
+#define ORIGINAL_TIME_ZONE_ADDR 3892
+#define START_TIME_ADDR 3956
+#define FINISH_TIME_ADDR 4020
+#define DURATION_TIME_ADDR 4084
+#define SAMPLING_RATE_ADDR 4148
+#define START_DELAY_ADDR 4212
+#define READING_COUNTS_ADDR 4276
+#define ALARM_DELAY_ADDR 4340
+#define ALARM_TYPE_ADDR 4404
+
+#define PARAM_A_NAME_ADDR 5859
+#define PARAM_A_HIGH_ALARM_ADDR 5923
+#define PARAM_A_LOW_ALARM_ADDR 5987
+#define PARAM_A_MAXIMUN_ADDR 6051
+#define PARAM_A_AVERAGE_ADDR 6115
+#define PARAM_A_MINIMUM_ADDR 6179
+#define PARAM_A_STDDEV_ADDR 6243
+#define PARAM_A_MKT_ADDR 6307
+#define PARAM_A_TOTAL_TIME_WITHIN_ADDR 6371
+#define PARAM_A_TOTAL_TIME_ABOVE_ADDR 6435
+#define PARAM_A_TOTAL_TIME_BELOW_ADDR 6499
+
+#define PARAM_B_NAME_ADDR 7477
+#define PARAM_B_HIGH_ALARM_ADDR 7541
+#define PARAM_B_LOW_ALARM_ADDR 7605
+#define PARAM_B_MAXIMUN_ADDR 7669
+#define PARAM_B_AVERAGE_ADDR 7733
+#define PARAM_B_MINIMUM_ADDR 7797
+#define PARAM_B_STDDEV_ADDR 7861
+#define PARAM_B_TOTAL_TIME_WITHIN_ADDR 7925
+#define PARAM_B_TOTAL_TIME_ABOVE_ADDR 7989
+#define PARAM_B_TOTAL_TIME_BELOW_ADDR 8053
+
+#define PARAM_C_NAME_ADDR 9037
+#define PARAM_C_HIGH_ALARM_ADDR 9101
+#define PARAM_C_LOW_ALARM_ADDR 9165
+#define PARAM_C_MAXIMUN_ADDR 9229
+#define PARAM_C_AVERAGE_ADDR 9293
+#define PARAM_C_MINIMUM_ADDR 9357
+#define PARAM_C_STDDEV_ADDR 9421
+#define PARAM_C_TOTAL_TIME_WITHIN_ADDR 9485
+#define PARAM_C_TOTAL_TIME_ABOVE_ADDR 9549
+#define PARAM_C_TOTAL_TIME_BELOW_ADDR 9613
+
+
+
+const char alertStatusAlertColor[]="1 0 0 ";
+const char alertStatusOkColor[]="0 1 0";
+const char alertStatusAlertStr[]="ALERT";
+const char alertStatusOkStr[]="  OK ";
+const unsigned short markedEventLineAddr[8]=
+{
+	MARKED_EVENT_1_ADDR,
+	MARKED_EVENT_2_ADDR,
+	MARKED_EVENT_3_ADDR,
+	MARKED_EVENT_4_ADDR,
+	MARKED_EVENT_5_ADDR,
+	MARKED_EVENT_6_ADDR,
+	MARKED_EVENT_7_ADDR,
+	MARKED_EVENT_8_ADDR,
+};
+
+#define DEVICE_SPEC_DATA_LENGTH 32
+#define MARKED_EVENTS_LENTH 29
+void Pdf_Update_Parameter(char paramCount)
+{
+	#define strNull pdfDataPointLineNull
+	#define strBuf4UpdataParam pdfLineBuf 
+	#define markedEventBuf dataLinesArray
+	
+	char i=0;
+	PdfGobRes = f_mount(0,&PdfFileSystem);
+	PdfGobRes=f_open(&DataLineFile,"0:Sys/Mkevt.mk",FA_READ);
+	PdfGobRes=f_read(&DataLineFile,markedEventBuf,MARKED_EVENTS_LENTH*8,&PdfByte2Read);
+	PdfGobRes=f_close(&DataLineFile);
+
+	PdfGobRes=f_open(&PDFFile,"0:dataLog.pdf",FA_WRITE);
+	for(i=0;i<8;i++)
+	{
+		PdfGobRes=f_lseek(&PDFFile,markedEventLineAddr[i]);
+		PdfGobRes=f_write(&PDFFile,markedEventBuf+i*MARKED_EVENTS_LENTH,MARKED_EVENTS_LENTH,&PdfByte2Write);
+	}
+	PdfGobRes=f_lseek(&PDFFile,COMPLANY_NAME_ADDR);
+	PdfGobRes=f_write(&PDFFile,pdfParam->CompanyName,COMPLANY_NAME_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,SERIAL_NUM_ADDR);
+	PdfGobRes=f_write(&PDFFile,pdfParam->Serialnumber,7,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,PRODUCTION_DATE_ADDR);
+	PdfGobRes=f_write(&PDFFile,pdfParam->ProductionDate,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,PRODUCTION_LOT_ADDR);
+	PdfGobRes=f_write(&PDFFile,pdfParam->ProductLot,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,ORIGINAL_TIME_ZONE_ADDR);
+	PdfGobRes=f_write(&PDFFile,pdfParam->OriginalTimeZone,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,FILE_CREATED_INFO_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,START_TIME_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,FINISH_TIME_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,DURATION_TIME_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%d seconds",pdfParam->SamplingRate_s);
+	PdfGobRes=f_lseek(&PDFFile,SAMPLING_RATE_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%d seconds",pdfParam->StartDelay_s);
+	PdfGobRes=f_lseek(&PDFFile,START_DELAY_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,READING_COUNTS_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%d seconds",pdfParam->AlarmDelay_s);
+	PdfGobRes=f_lseek(&PDFFile,ALARM_DELAY_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	if(pdfParam->AlarmType==0)
+	{
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"Disable");
+	}
+	else if(pdfParam->AlarmType==1)
+	{
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"Single");
+	}
+	else if(pdfParam->AlarmType==1)
+	{
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"Culmulative");
+	}
+	PdfGobRes=f_lseek(&PDFFile,ALARM_TYPE_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_NAME_ADDR);
+	PdfGobRes=f_write(&PDFFile,pdfParam->ParamA_Name,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",(double)pdfParam->ParamA_HighAlarm,pdfParam->ParamA_Unit);
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_HIGH_ALARM_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",(double)pdfParam->ParamA_LowAlarm,pdfParam->ParamA_Unit);
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_LOW_ALARM_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",MaxA,pdfParam->ParamA_Unit);
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_MAXIMUN_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",AverageA,pdfParam->ParamA_Unit);
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_AVERAGE_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",MinA,pdfParam->ParamA_Unit);
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_MINIMUM_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",StdA,pdfParam->ParamA_Unit);
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_STDDEV_ADDR);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_MKT_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_WITHIN_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_ABOVE_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_BELOW_ADDR);
+	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	
+	if(paramCount>=2)
+	{
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_NAME_ADDR);
+		PdfGobRes=f_write(&PDFFile,pdfParam->ParamB_Name,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",(double)pdfParam->ParamB_HighAlarm,pdfParam->ParamB_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_HIGH_ALARM_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",(double)pdfParam->ParamB_LowAlarm,pdfParam->ParamB_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_LOW_ALARM_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",MaxB,pdfParam->ParamB_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_MAXIMUN_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",AverageB,pdfParam->ParamB_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_AVERAGE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",MinB,pdfParam->ParamB_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_MINIMUM_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",StdB,pdfParam->ParamB_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_STDDEV_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_TOTAL_TIME_WITHIN_ADDR);
+		PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_TOTAL_TIME_ABOVE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		PdfGobRes=f_lseek(&PDFFile,PARAM_B_TOTAL_TIME_BELOW_ADDR);
+		PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	}
+	if(paramCount>=3)
+	{
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_NAME_ADDR);
+		PdfGobRes=f_write(&PDFFile,pdfParam->ParamC_Name,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",(double)pdfParam->ParamC_HighAlarm,pdfParam->ParamC_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_HIGH_ALARM_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",(double)pdfParam->ParamC_LowAlarm,pdfParam->ParamC_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_LOW_ALARM_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",MaxC,pdfParam->ParamC_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_MAXIMUN_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",AverageC,pdfParam->ParamC_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_AVERAGE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",MinC,pdfParam->ParamC_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_MINIMUM_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",StdC,pdfParam->ParamC_Unit);
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_STDDEV_ADDR);
+		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_TOTAL_TIME_WITHIN_ADDR);
+		PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_TOTAL_TIME_ABOVE_ADDR);
+		PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+
+		PdfGobRes=f_lseek(&PDFFile,PARAM_C_TOTAL_TIME_BELOW_ADDR);
+		PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);		
+	}
+	
+	
+	if(MaxA>HIGH_LARM_A||MaxB>HIGH_LARM_B||MaxC>HIGH_LARM_C||MinA<LOW_LARM_A||MinB<LOW_LARM_B||MinB<LOW_LARM_B)
+	{
+		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+		PdfGobRes=f_write(&PDFFile,alertStatusAlertColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+		
+		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+		PdfGobRes=f_write(&PDFFile,alertStatusAlertStr,ALERT_STATUS_LENGTH,&PdfByte2Write);
+		
+	}
+	else
+	{
+		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+		PdfGobRes=f_write(&PDFFile,alertStatusOkColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+		
+		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+		PdfGobRes=f_write(&PDFFile,alertStatusOkStr,ALERT_STATUS_LENGTH,&PdfByte2Write);		
+	}
+	
+
 	
 	PdfGobRes = f_close(&PDFFile);
 	PdfGobRes = f_mount(0,NULL);
 }
-
 const PdfConstantParameter DemoConfig=
 {
-	{"Company name hear"},
+	{"AZ Instrument       "},
 	{"A150001"},
 	{"20160502"},
 	{"1605001"},
@@ -488,41 +1059,43 @@ const PdfConstantParameter DemoConfig=
 	2,
 	{"Temperature"},
 	{"Humidity"},
-	{" "},
-	{".C"},
+	{"CO2"},
+	{"°C"},
 	{"%RH"},
-	{" "},
-	70,
-	60,
-	0,
-	10,
-	20,
-	0,	
+	{"ppm"},
+	100,
+	100,
+	100,
+	-10,
+	-10,
+	-10,	
 };
 void Pdf_Gen_ConfigFile()
 {
 	PdfGobRes = f_mount(0,&PdfFileSystem);
-	PdfGobRes=f_open(&PDFFile,"0:Sys/Conf.bin",FA_CREATE_ALWAYS|FA_WRITE);
+	PdfGobRes=f_open(&PDFFile,"0:Sys/Conf.cf",FA_CREATE_ALWAYS|FA_WRITE);
 	PdfGobRes=f_write(&PDFFile,(void*)&DemoConfig,sizeof(DemoConfig),&PdfByte2Write);
 	PdfGobRes=f_close(&PDFFile);
-	//PdfGobRes = f_mount(0,&PdfFileSystem);
+	PdfGobRes = f_mount(0,NULL);
 }
 PdfConstantParameter* pdfParam;
 char ReadConfigFileToInternalFlash()
 {
+	#define pdfParamBuf pdfLinesArray 
 	short i=0;
 	FLASH_Status flSta;
 	uint32_t startAddr=PDF_ConfData_ADDRESS;
 	PdfGobRes = f_mount(0,&PdfFileSystem);
-	PdfGobRes=f_open(&PDFFile,"0:Sys/conf.cf",FA_READ);
-	PdfGobRes=f_read(&PDFFile,pdfLinesArray,sizeof(PdfConstantParameter),&PdfByte2Read);
+	PdfGobRes=f_open(&PDFFile,"0:Sys/Conf.cf",FA_READ);
+	PdfGobRes=f_read(&PDFFile,pdfParamBuf,sizeof(PdfConstantParameter),&PdfByte2Read);
 	PdfGobRes=f_close(&PDFFile);
+	PdfGobRes = f_mount(0,NULL);
 	FLASH_Unlock();
 	FLASH_ClearFlag(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_BSY);
 	flSta=FLASH_ErasePage(PDF_ConfData_ADDRESS);//²Á³ýÒ»¸öÉÈÇø
 	for(i=0;i<sizeof(PdfConstantParameter);i+=4)
 	{
-		flSta=FLASH_ProgramWord(startAddr,*(uint32_t*)&pdfLinesArray[i]);
+		flSta=FLASH_ProgramWord(startAddr,*(uint32_t*)&pdfParamBuf[i]);
 		startAddr+=4;
 		//PDF_ConfData_ADDRESS+=4;
 	}

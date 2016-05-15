@@ -34,15 +34,16 @@ void PDF_Get_Average_Stdev(unsigned short dataPointCount);
 char ReadConfigFileToInternalFlash();
 void Pdf_Gen_ConfigFile();
 void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount);
+void Pdf_Update_Parameter(char paramCount);
 #define PDF_ConfData_ADDRESS     ((uint32_t)0x801C000)
 typedef struct
 {
 	char CompanyName[20];
 	char Serialnumber[7];
-	char ProductionDate[8];
-	char ProductLot[7];
-	char FirmwareVersion[4];
-	char OriginalTimeZone[6];
+	char ProductionDate[32];
+	char ProductLot[32];
+	char FirmwareVersion[32];
+	char OriginalTimeZone[32];
 	unsigned short SamplingRate_s;
 	unsigned short StartDelay_s;
 	unsigned short AlarmDelay_s;
@@ -54,13 +55,14 @@ typedef struct
 	char ParamA_Unit[4];
 	char ParamB_Unit[4];
 	char ParamC_Unit[4];
-	short ParamA_HighAlarm;
-	short ParamB_HighAlarm;
-	short ParamC_HighAlarm;
-	short ParamA_LowAlarm;
-	short ParamB_LowAlarm;
-	short ParamC_LowAlarm;
+	float ParamA_HighAlarm;
+	float ParamB_HighAlarm;
+	float ParamC_HighAlarm;
+	float ParamA_LowAlarm;
+	float ParamB_LowAlarm;
+	float ParamC_LowAlarm;
 }PdfConstantParameter;//该部分参数从文件系统读出后存入Flash,之后通过指针调用。不占用RAM
+extern PdfConstantParameter* pdfParam;
 typedef struct
 {
 	unsigned int StartTime;					//unix timestamp
