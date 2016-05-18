@@ -71,8 +71,10 @@ uint8_t JumpToUSBStorage(uint32_t Addr)
   */
 
 
+PdfConstantParameter* pcP;
 int main(void)
 {
+	int i;
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
 	
 	SPI_Config();
@@ -84,14 +86,18 @@ int main(void)
 	}
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)){
 
-		Pdf_Gen_ConfigFile();
-		ReadConfigFileToInternalFlash();
-		
-		PDF_Gen_Func(SAMPLE_READINGS);
-		PDF_Get_Average_Stdev(SAMPLE_READINGS);
-		Pdf_Draw_Charts(SAMPLE_READINGS,3);
-		
-		Pdf_Update_Parameter(3);
+		pcP=pdfInit();
+		pdfSetStartTimeStamp(1460902036);
+		for(i=0;i<50;i++)
+		{
+			pdfAddData(i,0,0);			
+		}
+		for(i=0;i<8;i++)
+		{
+			pdfAddMarkedEventData(1460902036);
+		}
+		pdfCreat(1460902036);
+
 	}
 	JumpToUSBStorage(USBStorage_ADDRESS);
   while (1)

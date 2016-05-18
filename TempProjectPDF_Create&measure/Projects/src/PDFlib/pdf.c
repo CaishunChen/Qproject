@@ -206,7 +206,7 @@ void PDF_Get_Average_Stdev(unsigned short dataPointCount)
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	readCount=dataPointCount/(RAW_DATA_LENGTH_PER_READ/6);
 	lastReadLength=dataPointCount%(RAW_DATA_LENGTH_PER_READ/6);
-	lastReadLength*=4;
+	lastReadLength*=6;
 	PdfGobRes=f_open(&DataLineFile,"Sys/Dtbs.dt",FA_READ);
 	for(i=0;i<readCount;i++)
 	{
@@ -451,7 +451,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 		if(i==0)
 		{
 			//pdfChartLine[0]='m';
-			chartData=(float)(*(unsigned short*)(chartRawData1+i*6))/10;
+			chartData=(float)(*(short*)(chartRawData1+i*6))/10;
 			chartData=(chartData-xAxisOrigin_A)/valuePerPoint_A+Y_AXIS_OFFSET;
 			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -460,7 +460,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 		}
 		else
 		{
-			chartData=(float)(*(unsigned short*)(chartRawData1+i*6))/10;
+			chartData=(float)(*(short*)(chartRawData1+i*6))/10;
 			chartData=(chartData-xAxisOrigin_A)/valuePerPoint_A+Y_AXIS_OFFSET;
 			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -474,7 +474,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	}
 	for(;i<X_AXIS_POINT_COUNT;i++)
 	{
-		chartData=(float)(*(unsigned short*)(chartRawData2+(i-443)*6))/10;
+		chartData=(float)(*(short*)(chartRawData2+(i-443)*6))/10;
 		chartData=(chartData-xAxisOrigin_A)/valuePerPoint_A+Y_AXIS_OFFSET;
 		if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 		else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -507,7 +507,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 			if(i==0)
 			{
 				//pdfChartLine[0]='m';
-				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+2))/10;
+				chartData=(float)(*(short*)(chartRawData1+i*6+2))/10;
 				chartData=(chartData-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET;
 				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -516,7 +516,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 			}
 			else
 			{
-				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+2))/10;
+				chartData=(float)(*(short*)(chartRawData1+i*6+2))/10;
 				chartData=(chartData-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET;
 				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -530,7 +530,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 		}
 		for(;i<X_AXIS_POINT_COUNT;i++)
 		{
-			chartData=(float)(*(unsigned short*)(chartRawData2+(i-443)*6+2))/10;
+			chartData=(float)(*(short*)(chartRawData2+(i-443)*6+2))/10;
 			chartData=(chartData-xAxisOrigin_B)/valuePerPoint_B+Y_AXIS_OFFSET;
 			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -563,7 +563,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 			if(i==0)
 			{
 				//pdfChartLine[0]='m';
-				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+4))/10;
+				chartData=(float)(*( short*)(chartRawData1+i*6+4))/10;
 				chartData=(chartData-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET;
 				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -572,7 +572,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 			}
 			else
 			{
-				chartData=(float)(*(unsigned short*)(chartRawData1+i*6+4))/10;
+				chartData=(float)(*( short*)(chartRawData1+i*6+4))/10;
 				chartData=(chartData-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET;
 				if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 				else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -586,7 +586,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 		}
 		for(;i<X_AXIS_POINT_COUNT;i++)
 		{
-			chartData=(float)(*(unsigned short*)(chartRawData2+(i-443)*6+4))/10;
+			chartData=(float)(*( short*)(chartRawData2+(i-443)*6+4))/10;
 			chartData=(chartData-xAxisOrigin_C)/valuePerPoint_C+Y_AXIS_OFFSET;
 			if(chartData>Y_AXIS_MAX)chartData=Y_AXIS_MAX;
 			else if(chartData<Y_AXIS_MIN)chartData=Y_AXIS_MIN;
@@ -741,8 +741,7 @@ const unsigned short markedEventLineAddr[8]=
 	MARKED_EVENT_8_ADDR,
 };
 
-#define DEVICE_SPEC_DATA_LENGTH 32
-#define MARKED_EVENTS_LENTH 29
+
 void Pdf_Update_Parameter(char paramCount)
 {
 	#define strNull pdfDataPointLineNull
@@ -753,6 +752,7 @@ void Pdf_Update_Parameter(char paramCount)
 	unsigned int tempTimeStamp;
 	struct tm *localTime;
 	
+	//if(MARKED_EVENT_COUNT>0)
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	PdfGobRes=f_open(&DataLineFile,"0:Sys/Mkevt.mk",FA_READ);
 	PdfGobRes=f_read(&DataLineFile,markedEventBuf,MARKED_EVENTS_LENTH*8,&PdfByte2Read);
@@ -1060,7 +1060,7 @@ const PdfConstantParameter DemoConfig=
 	30,
 	20,
 	0,
-	2,
+	3,
 	{"Temperature"},
 	{"Humidity"},
 	{"CO2"},
@@ -1094,18 +1094,22 @@ char ReadConfigFileToInternalFlash()
 	PdfGobRes=f_read(&PDFFile,pdfParamBuf,sizeof(PdfConstantParameter),&PdfByte2Read);
 	PdfGobRes=f_close(&PDFFile);
 	PdfGobRes = f_mount(0,NULL);
-	FLASH_Unlock();
-	FLASH_ClearFlag(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_BSY);
-	flSta=FLASH_ErasePage(PDF_ConfData_ADDRESS);//擦除一个扇区
-	for(i=0;i<sizeof(PdfConstantParameter);i+=4)
+	if(PdfGobRes==FR_OK)
 	{
-		flSta=FLASH_ProgramWord(startAddr,*(uint32_t*)&pdfParamBuf[i]);
-		startAddr+=4;
-		//PDF_ConfData_ADDRESS+=4;
+		FLASH_Unlock();
+		FLASH_ClearFlag(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_BSY);
+		flSta=FLASH_ErasePage(PDF_ConfData_ADDRESS);//擦除一个扇区
+		for(i=0;i<sizeof(PdfConstantParameter);i+=4)
+		{
+			flSta=FLASH_ProgramWord(startAddr,*(uint32_t*)&pdfParamBuf[i]);
+			startAddr+=4;
+			//PDF_ConfData_ADDRESS+=4;
+		}
+		FLASH_Lock();
+		pdfParam=(PdfConstantParameter*)PDF_ConfData_ADDRESS;
+		return 1;
 	}
-	FLASH_Lock();
-	pdfParam=(PdfConstantParameter*)PDF_ConfData_ADDRESS;
-	
+	pdfParam==NULL;
 	return 0;
 }
 

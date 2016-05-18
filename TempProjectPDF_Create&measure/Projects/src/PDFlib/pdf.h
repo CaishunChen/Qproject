@@ -10,8 +10,52 @@
 #include "math.h"
 #include "time.h"
 
-#define SAMPLE_READINGS 8280
+typedef struct
+{
+	char CompanyName[20];
+	char Serialnumber[7];
+	char ProductionDate[32];
+	char ProductLot[32];
+	char FirmwareVersion[32];
+	char OriginalTimeZone[32];
+	unsigned short SamplingRate_s;
+	unsigned short StartDelay_s;
+	unsigned short AlarmDelay_s;
+	char AlarmType;
+	char ParameterCount;
+	char ParamA_Name[32];
+	char ParamB_Name[32];
+	char ParamC_Name[32];
+	char ParamA_Unit[4];
+	char ParamB_Unit[4];
+	char ParamC_Unit[4];
+	float ParamA_HighAlarm;
+	float ParamB_HighAlarm;
+	float ParamC_HighAlarm;
+	float ParamA_LowAlarm;
+	float ParamB_LowAlarm;
+	float ParamC_LowAlarm;
+}PdfConstantParameter;//该部分参数从文件系统读出后存入Flash,之后通过指针调用。不占用RAM
 
+typedef struct
+{
+	unsigned int startTimeStamp;
+	unsigned int fileCreatedTimeStamp;
+	unsigned short sampleReadings;
+	unsigned char markedEventCount;
+	double mktCalcuValue;
+}PdfRuntimeParameter;
+extern PdfConstantParameter* pdfParam;
+extern PdfRuntimeParameter pdfRuntimeParam;
+
+extern FATFS PdfFileSystem;
+extern FRESULT PdfGobRes;
+extern FIL PDFFile,DataLineFile;
+extern UINT PdfByte2Read,PdfByte2Write;
+
+
+#define SAMPLE_READINGS pdfRuntimeParam.sampleReadings
+#define MAX_READINGS 8280
 
 #define DATA_START_ADDR		34304  //pdf 数据条开始地址
 #define DATA_POINT_LENGTH	42     //pdf 数据条长度
@@ -56,9 +100,12 @@
 
 #define HIGH_LARM_C pdfParam->ParamC_HighAlarm
 #define LOW_LARM_C	pdfParam->ParamC_LowAlarm
+#define MKT_H	100
+#define MKT_R	8.314472
 
-#define START_TIME_STAMP	1460902036
-#define FILE_CREATED_TIME	1463499652
+#define START_TIME_STAMP	pdfRuntimeParam.startTimeStamp
+#define FILE_CREATED_TIME	pdfRuntimeParam.fileCreatedTimeStamp
+//#define FILE_CREATED_TIME	1463499652
 //#define SOTP_TIME_STAMP	1463494036
 
 #define X_AXIS_BASE_TIME_ADDR 9703
@@ -114,6 +161,7 @@
 #define ALERT_STATUS_ADDR 1512
 #define ALERT_STATUS_LENGTH 5
 
+#define MARKED_EVENT_COUNT	pdfRuntimeParam.markedEventCount
 #define MARKED_EVENT_1_ADDR 2149
 #define MARKED_EVENT_2_ADDR 2213
 #define MARKED_EVENT_3_ADDR 2277
@@ -122,7 +170,9 @@
 #define MARKED_EVENT_6_ADDR 2469
 #define MARKED_EVENT_7_ADDR 2533
 #define MARKED_EVENT_8_ADDR 2597
+#define MARKED_EVENTS_LENTH 29
 
+#define DEVICE_SPEC_DATA_LENGTH 32
 #define FILE_CREATED_INFO_ADDR 4812 
 
 #define PRODUCTION_DATE_ADDR 3700
@@ -179,41 +229,17 @@ void Pdf_Gen_ConfigFile();
 void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount);
 void Pdf_Update_Parameter(char paramCount);
 #define PDF_ConfData_ADDRESS     ((uint32_t)0x801C000)
-typedef struct
-{
-	char CompanyName[20];
-	char Serialnumber[7];
-	char ProductionDate[32];
-	char ProductLot[32];
-	char FirmwareVersion[32];
-	char OriginalTimeZone[32];
-	unsigned short SamplingRate_s;
-	unsigned short StartDelay_s;
-	unsigned short AlarmDelay_s;
-	char AlarmType;
-	char ParameterCount;
-	char ParamA_Name[32];
-	char ParamB_Name[32];
-	char ParamC_Name[32];
-	char ParamA_Unit[4];
-	char ParamB_Unit[4];
-	char ParamC_Unit[4];
-	float ParamA_HighAlarm;
-	float ParamB_HighAlarm;
-	float ParamC_HighAlarm;
-	float ParamA_LowAlarm;
-	float ParamB_LowAlarm;
-	float ParamC_LowAlarm;
-}PdfConstantParameter;//该部分参数从文件系统读出后存入Flash,之后通过指针调用。不占用RAM
-extern PdfConstantParameter* pdfParam;
 
-typedef struct
-{
-	unsigned int startTimeStamp;
-	unsigned short sampleReadings;
-	unsigned char markedEventCount;
-	double mktCalcuValue;
-}pdfRuntimeParameter;
+extern const char pdfDataPointLineNull[42];
+extern char dataLinesArray[DATA_LINES_BUF_LENGTH];
+extern char pdfLinesArray[PDF_DATA_POINT_LINE_BUF_LENGTH];
+extern char pdfLineBuf[DATA_POINT_LINE_LENGTH];
+
+PdfConstantParameter* pdfInit();
+char pdfSetStartTimeStamp(unsigned int time);
+char pdfAddData(float dataA,float dataB,float dataC);
+char pdfAddMarkedEventData(unsigned int time);
+char pdfCreat(unsigned int time);
 
 //typedef struct
 //{
