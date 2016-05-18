@@ -591,6 +591,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\PDFlib\pdf.c</FilePath>
             </File>
+            <File>
+              <FileName>pdfApi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\PDFlib\pdfApi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

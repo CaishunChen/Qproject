@@ -87,9 +87,9 @@ int main(void)
 		Pdf_Gen_ConfigFile();
 		ReadConfigFileToInternalFlash();
 		
-		PDF_Gen_Func(100);
-		PDF_Get_Average_Stdev(100);
-		Pdf_Draw_Charts(100,3);
+		PDF_Gen_Func(SAMPLE_READINGS);
+		PDF_Get_Average_Stdev(SAMPLE_READINGS);
+		Pdf_Draw_Charts(SAMPLE_READINGS,3);
 		
 		Pdf_Update_Parameter(3);
 	}
