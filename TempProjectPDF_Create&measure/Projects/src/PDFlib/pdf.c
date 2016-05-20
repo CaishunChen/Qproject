@@ -842,7 +842,7 @@ void Pdf_Update_Parameter(char paramCount)
 	{
 		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"Single");
 	}
-	else if(pdfParam->AlarmType==1)
+	else if(pdfParam->AlarmType==2)
 	{
 		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"Culmulative");
 	}
