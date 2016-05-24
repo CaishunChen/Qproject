@@ -80,23 +80,23 @@ int main(void)
 	SPI_Config();
 
 	
-  while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)&&GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1));
-	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1)){
+  while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)&&GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4));
+	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)){
 		JumpToUSBStorage(USBStorage_ADDRESS);
 	}
-	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)){
+	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4)){
 
-		pcP=pdfInit();
-		pdfSetStartTimeStamp(1460902036);
-		for(i=0;i<50;i++)
-		{
-			pdfAddData(i,0,0);			
-		}
-		for(i=0;i<8;i++)
-		{
-			pdfAddMarkedEventData(1460902036);
-		}
-		pdfCreat(1460902036);
+//		pcP=pdfInit();
+//		pdfSetStartTimeStamp(1460902036);
+//		for(i=0;i<50;i++)
+//		{
+//			pdfAddData(i,0,0);			
+//		}
+//		for(i=0;i<8;i++)
+//		{
+//			pdfAddMarkedEventData(1460902036);
+//		}
+//		pdfCreat(1460902036);
 
 	}
 	JumpToUSBStorage(USBStorage_ADDRESS);
