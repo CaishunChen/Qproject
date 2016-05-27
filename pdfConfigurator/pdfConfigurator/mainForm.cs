@@ -16,8 +16,29 @@ namespace pdfConfigurator
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// 日期转换成unix时间戳
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+         long DateTimeToUnixTimestamp(DateTime dateTime)
+        {
+            var start = new DateTime(1970, 1, 1, 0, 0, 0, dateTime.Kind);
+            return Convert.ToInt64((dateTime - start).TotalSeconds);
+        }
 
+        ///// <summary>
+        ///// unix时间戳转换成日期
+        ///// </summary>
+        ///// <param name="unixTimeStamp">时间戳（秒）</param>
+        ///// <returns></returns>
+        //DateTime UnixTimestampToDateTime(this DateTime target, long timestamp)
+        //{
+        //    var start = new DateTime(1970, 1, 1, 0, 0, 0, target.Kind);
+        //    return start.AddSeconds(timestamp);
+        //}
         string configFilePath="./Sys/Conf.cf";
+        string timeFilePath = "./Sys/Time.tm";
         pdfConfigParam PdfConfig; 
         private void mainForm_Load(object sender, EventArgs e)
         {
@@ -53,6 +74,10 @@ namespace pdfConfigurator
             AlarmTypeCombBox.Text = PdfConfig.alarmType.ToString();
             HighAlarmATextBOX.Text = PdfConfig.ParamA_HighAlarm.ToString();
             LowAlarmATextBox.Text = PdfConfig.ParamA_LowAlarm.ToString();
+            UInt32 timeStamp=(UInt32)DateTimeToUnixTimestamp(DateTime.Now);
+            byte[] dataArray = BitConverter.GetBytes(timeStamp);
+            File.WriteAllBytes(timeFilePath, dataArray);
+
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
