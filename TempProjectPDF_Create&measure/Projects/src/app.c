@@ -82,8 +82,8 @@ int main(void)
 	
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 , ENABLE);
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
@@ -95,11 +95,16 @@ int main(void)
   GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_SetBits(GPIOB,GPIO_Pin_0);
 	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
 	SPI_Config();
 
 	
   while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)&&GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4));
+	GPIO_SetBits(GPIOA,GPIO_Pin_2);
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)){
+		
 		JumpToUSBStorage(USBStorage_ADDRESS);
 	}
 	if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4)){

@@ -86,7 +86,10 @@ int main(void)
   
   while (1)
   {
-
+			if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_9)==0){
+			//__disable_irq();
+			NVIC_SystemReset();
+		}
   }
 }
 
