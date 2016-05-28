@@ -50,6 +50,7 @@
             this.HighAlarmATextBOX = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.SysTimeCalButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -275,19 +276,31 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.SaveButton.Location = new System.Drawing.Point(122, 340);
+            this.SaveButton.Location = new System.Drawing.Point(14, 335);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.Size = new System.Drawing.Size(127, 23);
             this.SaveButton.TabIndex = 3;
-            this.SaveButton.Text = "Save";
+            this.SaveButton.Text = "Save Parameter";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // SysTimeCalButton
+            // 
+            this.SysTimeCalButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.SysTimeCalButton.Location = new System.Drawing.Point(176, 335);
+            this.SysTimeCalButton.Name = "SysTimeCalButton";
+            this.SysTimeCalButton.Size = new System.Drawing.Size(127, 23);
+            this.SysTimeCalButton.TabIndex = 4;
+            this.SysTimeCalButton.Text = "System Time Cal";
+            this.SysTimeCalButton.UseVisualStyleBackColor = true;
+            this.SysTimeCalButton.Click += new System.EventHandler(this.SysTimeCalButton_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(329, 370);
+            this.Controls.Add(this.SysTimeCalButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -295,6 +308,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "mainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DataLogger Configurator";
             this.Load += new System.EventHandler(this.mainForm_Load);
             this.groupBox1.ResumeLayout(false);
@@ -328,6 +342,7 @@
         private System.Windows.Forms.TextBox HighAlarmATextBOX;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button SysTimeCalButton;
 
     }
 }

@@ -74,9 +74,7 @@ namespace pdfConfigurator
             AlarmTypeCombBox.Text = PdfConfig.alarmType.ToString();
             HighAlarmATextBOX.Text = PdfConfig.ParamA_HighAlarm.ToString();
             LowAlarmATextBox.Text = PdfConfig.ParamA_LowAlarm.ToString();
-            UInt32 timeStamp=(UInt32)DateTimeToUnixTimestamp(DateTime.Now);
-            byte[] dataArray = BitConverter.GetBytes(timeStamp);
-            File.WriteAllBytes(timeFilePath, dataArray);
+
 
         }
 
@@ -126,6 +124,26 @@ namespace pdfConfigurator
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+        }
+
+        private void SysTimeCalButton_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == MessageBox.Show("确认需要校准设备时间吗", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)) 
+            {
+                try
+                {
+                    UInt32 timeStamp = (UInt32)DateTimeToUnixTimestamp(DateTime.Now);
+                    byte[] dataArray = BitConverter.GetBytes(timeStamp);
+                    File.WriteAllBytes(timeFilePath, dataArray);
+                    MessageBox.Show("请拔出设备并重新插入设备使时间校准生效");
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+    
+            }
+
         }
     }
     class pdfConfigParam 

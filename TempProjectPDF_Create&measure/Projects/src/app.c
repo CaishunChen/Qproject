@@ -74,8 +74,26 @@ uint8_t JumpToUSBStorage(uint32_t Addr)
 PdfConstantParameter* pcP;
 int main(void)
 {
+	ADC_InitTypeDef     ADC_InitStructure;
+  GPIO_InitTypeDef    GPIO_InitStructure;
 	int i;
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
+
+	
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 , ENABLE);
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  GPIO_SetBits(GPIOB,GPIO_Pin_0);
 	
 	SPI_Config();
 
