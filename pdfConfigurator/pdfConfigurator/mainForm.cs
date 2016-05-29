@@ -39,6 +39,7 @@ namespace pdfConfigurator
         //}
         string configFilePath="./Sys/Conf.cf";
         string timeFilePath = "./Sys/Time.tm";
+        string RsmpFilePath = "./Sys/Rsmp.rm";
         pdfConfigParam PdfConfig; 
         private void mainForm_Load(object sender, EventArgs e)
         {
@@ -135,6 +136,36 @@ namespace pdfConfigurator
                     UInt32 timeStamp = (UInt32)DateTimeToUnixTimestamp(DateTime.Now);
                     byte[] dataArray = BitConverter.GetBytes(timeStamp);
                     File.WriteAllBytes(timeFilePath, dataArray);
+                    
+                    if(File.Exists(RsmpFilePath)==false)
+                    {
+                        byte[] timeBytes = new byte[4];
+                        timeBytes[0] = 0;
+                        timeBytes[1] = 0;
+                        timeBytes[2] = 0;
+                        timeBytes[3] = 2;
+                        File.WriteAllBytes(RsmpFilePath, timeBytes);
+
+                    }
+                    else 
+                    {
+                        byte[] timeBytes=File.ReadAllBytes(RsmpFilePath);
+                        if (timeBytes.Length >= 4)
+                        {
+                            timeBytes[3] = 2;
+                        }
+                        else 
+                        {
+                            timeBytes = new byte[4];
+                            timeBytes[0] = 0;
+                            timeBytes[1] = 0;
+                            timeBytes[2] = 0;
+                            timeBytes[3] = 2;
+
+                        }
+                        File.Delete(RsmpFilePath);
+                        File.WriteAllBytes(RsmpFilePath, timeBytes);
+                    }
                     MessageBox.Show("请拔出设备并重新插入设备使时间校准生效");
                 }
                 catch (Exception ex) 
