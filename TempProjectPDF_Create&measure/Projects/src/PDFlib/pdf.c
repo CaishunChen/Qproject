@@ -193,7 +193,7 @@ void PDF_Gen_Func(unsigned int dataPointCount)
 	f_mount(0,NULL);
 }
 
-float AverageA=0,AverageB=0,AverageC=0,StdA=0,StdB=0,StdC=0,MaxA=-100,MinA=0,MaxB=-100,MinB=0,MaxC=-100,MinC=0;
+float AverageA=0,AverageB=0,AverageC=0,StdA=0,StdB=0,StdC=0,MaxA=-10000,MinA=10000,MaxB=-10000,MinB=10000,MaxC=-10000,MinC=10000;
 unsigned short overAlarmA=0,overAlarmB=0,overAlarmC=0,belowAlarmA=0,belowAlarmB=0,belowAlarmC=0;
 void PDF_Get_Average_Stdev(unsigned short dataPointCount)
 {
