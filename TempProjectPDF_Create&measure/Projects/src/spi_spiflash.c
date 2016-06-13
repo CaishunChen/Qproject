@@ -1,14 +1,13 @@
 #include "spi_spiflash.h"
 
-void SPI_Config(void)
+void SPI_GPIO_Config(void)
 {
-  GPIO_InitTypeDef GPIO_InitStructure;
-  SPI_InitTypeDef  SPI_InitStructure;
-	
-  /* Enable the SPI periph */
+	GPIO_InitTypeDef GPIO_InitStructure;
+	SPI_InitTypeDef  SPI_InitStructure;
+	/* Enable the SPI periph */
   RCC_APB1PeriphClockCmd(SPIx_CLK, ENABLE);
-  
-  /* Enable SCK, MOSI, MISO and NSS GPIO clocks */
+	
+	  /* Enable SCK, MOSI, MISO and NSS GPIO clocks */
   RCC_AHBPeriphClockCmd(SPIx_SCK_GPIO_CLK | SPIx_MISO_GPIO_CLK | SPIx_MOSI_GPIO_CLK, ENABLE);
   
   GPIO_PinAFConfig(SPIx_SCK_GPIO_PORT, SPIx_SCK_SOURCE, SPIx_SCK_AF);
@@ -17,7 +16,7 @@ void SPI_Config(void)
   
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_DOWN;
+  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_Level_3;
 
   /* SPI SCK pin configuration */
@@ -35,7 +34,12 @@ void SPI_Config(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_Pin = SPIx_CS_PIN;
 	GPIO_Init(SPIx_CS_GPIO_PORT, &GPIO_InitStructure);
-  
+}
+
+void SPI_Config(void)
+{
+  SPI_InitTypeDef  SPI_InitStructure;
+  SPI_GPIO_Config();
 	sFLASH_CS_HIGH();
 	
   /* SPI configuration -------------------------------------------------------*/
@@ -418,6 +422,34 @@ void sFLASH_WriteEnable(void)
   /*!< Deselect the FLASH: Chip Select high */
   sFLASH_CS_HIGH();
 }
+
+void sFLASH_PowerDown(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+  /*!< Select the FLASH: Chip Select low */
+  sFLASH_CS_LOW();
+
+  /*!< Send "Write Enable" instruction */
+  sFLASH_SendByte(sFLASH_CMD_PD);
+
+  /*!< Deselect the FLASH: Chip Select high */
+  sFLASH_CS_HIGH();
+}
+
+void sFLASH_ReleasePowerDown(void)
+{
+	SPI_GPIO_Config();
+	
+  /*!< Select the FLASH: Chip Select low */
+  sFLASH_CS_LOW();
+
+  /*!< Send "Write Enable" instruction */
+  sFLASH_SendByte(sFLASH_CMD_Re);
+
+  /*!< Deselect the FLASH: Chip Select high */
+  sFLASH_CS_HIGH();
+}
+
 
 /**
   * @brief  Polls the status of the Write In Progress (WIP) flag in the FLASH's

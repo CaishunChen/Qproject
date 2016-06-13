@@ -49,7 +49,7 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Heap_Size       EQU     0x00000200
+Heap_Size       EQU     0x00000600
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -67,23 +67,21 @@ __heap_limit
                 EXPORT  __Vectors_Size
 
 __Vectors       DCD     __initial_sp                   ; Top of Stack
-                        DCD     Reset_Handler                  ; Reset Handler
-                        DCD     NMI_Handler                    ; NMI Handler
-                        DCD     HardFault_Handler              ; Hard Fault Handler
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     SVC_Handler                    ; SVCall Handler
-                        DCD     0                              ; Reserved
-                        DCD     0                              ; Reserved
-                        DCD     PendSV_Handler                 ; PendSV Handler
-                        DCD     SysTick_Handler                ; SysTick Handler
-
-                ; External Interrupts
+				DCD     Reset_Handler                  ; Reset Handler
+				DCD     NMI_Handler                    ; NMI Handler
+				DCD     HardFault_Handler              ; Hard Fault Handler
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     SVC_Handler                    ; SVCall Handler
+				DCD     0                              ; Reserved
+				DCD     0                              ; Reserved
+				DCD     PendSV_Handler                 ; PendSV Handler
+				DCD     SysTick_Handler                ; SysTick Handler                ; External Interrupts
                 DCD     WWDG_IRQHandler                ; Window Watchdog
                 DCD     PVD_VDDIO2_IRQHandler          ; PVD and VDDIO2 through EXTI Line detect
                 DCD     RTC_IRQHandler                 ; RTC through EXTI Line

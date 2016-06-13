@@ -10,7 +10,7 @@ PdfConstantParameter* pdfInit()
 	pdfRuntimeParam.mktCalcuValue=0;
 	pdfRuntimeParam.sampleReadings=0;
 	pdfRuntimeParam.startTimeStamp=0;
-	PdfGobRes = f_mount(0,&PdfFileSystem);	
+	PdfGobRes = f_mount(0,&PdfFileSystem);
 	PdfGobRes=f_open(&pdfApiFIL,"0:Sys/Dtli.dl",FA_CREATE_ALWAYS);
 	PdfGobRes=f_close(&pdfApiFIL);
 	PdfGobRes=f_open(&pdfApiFIL,"0:Sys/Dtbs.dt",FA_CREATE_ALWAYS);

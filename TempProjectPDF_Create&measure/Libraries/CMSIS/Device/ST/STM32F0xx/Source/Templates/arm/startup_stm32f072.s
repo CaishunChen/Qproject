@@ -1,8 +1,8 @@
 ;******************** (C) COPYRIGHT 2014 STMicroelectronics ********************
 ;* File Name          : startup_stm32f072.s
 ;* Author             : MCD Application Team
-;* Version            : V1.3.1
-;* Date               : 17-January-2014 
+;* Version            : V1.5.0
+;* Date               : 05-December-2014
 ;* Description        : STM32F072 Devices vector table for
 ;*                      for MDK-ARM toolchain.
 ;*                      This module performs:
@@ -38,7 +38,7 @@
 ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Stack_Size      EQU     0x0000400
+Stack_Size      EQU     0x00000400
 
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
@@ -127,7 +127,35 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 Reset_Handler    PROC
                  EXPORT  Reset_Handler                 [WEAK]
         IMPORT  __main
-        IMPORT  SystemInit  
+        IMPORT  SystemInit
+
+
+
+        LDR     R0, =__initial_sp          ; set stack pointer 
+        MSR     MSP, R0  
+
+;;Check if boot space corresponds to test memory 
+
+        LDR R0,=0x00000004
+        LDR R1, [R0]
+        LSRS R1, R1, #24
+        LDR R2,=0x1F
+        CMP R1, R2
+        
+        BNE ApplicationStart  
+     
+;; SYSCFG clock enable    
+     
+        LDR R0,=0x40021018 
+        LDR R1,=0x00000001
+        STR R1, [R0]
+        
+;; Set CFGR1 register with flash memory remap at address 0
+
+        LDR R0,=0x40010000 
+        LDR R1,=0x00000000
+        STR R1, [R0]
+ApplicationStart        
                  LDR     R0, =SystemInit
                  BLX     R0
                  LDR     R0, =__main

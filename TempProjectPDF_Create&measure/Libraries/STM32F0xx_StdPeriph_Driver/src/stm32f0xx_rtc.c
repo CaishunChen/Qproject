@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_rtc.c
   * @author  MCD Application Team
-  * @version V1.3.0
-  * @date    16-January-2014
+  * @version V1.5.0
+  * @date    05-December-2014
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Real-Time Clock (RTC) peripheral:
   *           + Initialization
@@ -1120,13 +1120,14 @@ void RTC_SetAlarm(uint32_t RTC_Format, uint32_t RTC_Alarm, RTC_AlarmTypeDef* RTC
   }  
   else
   {
-    tmpreg = (((uint32_t)RTC_ByteToBcd2(RTC_AlarmStruct->RTC_AlarmTime.RTC_Hours) << 16) | \
+    tmpreg = ((uint32_t)RTC_ByteToBcd2(RTC_AlarmStruct->RTC_AlarmTime.RTC_Seconds)) |\
+		         ((uint32_t)RTC_AlarmStruct->RTC_AlarmMask); /*(((uint32_t)RTC_ByteToBcd2(RTC_AlarmStruct->RTC_AlarmTime.RTC_Hours) << 16) | \
               ((uint32_t)RTC_ByteToBcd2(RTC_AlarmStruct->RTC_AlarmTime.RTC_Minutes) << 8) | \
               ((uint32_t)RTC_ByteToBcd2(RTC_AlarmStruct->RTC_AlarmTime.RTC_Seconds)) | \
               ((uint32_t)(RTC_AlarmStruct->RTC_AlarmTime.RTC_H12) << 16) | \
               ((uint32_t)RTC_ByteToBcd2(RTC_AlarmStruct->RTC_AlarmDateWeekDay) << 24) | \
               ((uint32_t)RTC_AlarmStruct->RTC_AlarmDateWeekDaySel) | \
-              ((uint32_t)RTC_AlarmStruct->RTC_AlarmMask)); 
+              ((uint32_t)RTC_AlarmStruct->RTC_AlarmMask)); */
   }
 
   /* Disable the write protection for RTC registers */

@@ -94,7 +94,7 @@ void USBD_USR_DeviceSuspended(void)
   */
 void USBD_USR_DeviceResumed(void)
 {
-	//global_USB=10;
+
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

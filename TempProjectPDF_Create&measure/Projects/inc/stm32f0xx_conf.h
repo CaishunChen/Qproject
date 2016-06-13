@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
-  * @file    stm32f0xx_conf.h 
+  * @file    USART/USART_8xUsartsOneBoard/stm32f0xx_conf.h 
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    31-January-2014
+  * @version V1.4.0
+  * @date    24-July-2014
   * @brief   Library configuration file.
   ******************************************************************************
   * @attention
@@ -23,7 +23,7 @@
   * limitations under the License.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F0XX_CONF_H
@@ -59,7 +59,7 @@
 /* Exported constants --------------------------------------------------------*/
 /* Uncomment the line below to expanse the "assert_param" macro in the 
    Standard Peripheral Library drivers code */
-/*#define USE_FULL_ASSERT    1*/
+/* #define USE_FULL_ASSERT    1 */
 
 /* Exported macro ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT

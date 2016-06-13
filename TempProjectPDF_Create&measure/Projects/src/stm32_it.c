@@ -1,36 +1,7 @@
-/**
-  ******************************************************************************
-  * @file    stm32_it.c
-  * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    31-January-2014
-  * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and peripherals
-  *          interrupt service routine.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT 2014 STMicroelectronics</center></h2>
-  *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/software_license_agreement_liberty_v2
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
-  *
-  ******************************************************************************
-  */
-
-
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_it.h"
-
+#include "Lp_Mode.h"
+#include "pdf.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -41,7 +12,6 @@
 /******************************************************************************/
 /*            Cortex-M0 Processor Exceptions Handlers                         */
 /******************************************************************************/
-
 /**
   * @brief  This function handles NMI exception.
   * @param  None
@@ -61,6 +31,7 @@ void HardFault_Handler(void)
   /* Go to infinite loop when Hard Fault exception occurs */
   while (1)
   {
+		
   }
 }
 
@@ -109,15 +80,89 @@ void USB_IRQHandler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_stm32f072.s).                                            */
 /******************************************************************************/
-
-/**
-  * @brief  This function handles PPP interrupt request.
-  * @param  None
-  * @retval None
-  */
-/*void PPP_IRQHandler(void)
+void PVD_VDDIO2_IRQHandler(void)
 {
-}*/
+	if(EXTI_GetITStatus(EXTI_Line16) != RESET)//µÍµçÑ¹Í£Ö¹²ÉÑù
+  {
+		pdfRsmp.RunParamVb = Vbat_L;
+		pdfRsmp.RunParamSS = Run_Stop;
+    /* Clear the Button EXTI line pending bit */
+    EXTI_ClearITPendingBit(EXTI_Line16);
+  }
+}
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+extern PdfConstantParameter* pcP;
+uint32_t time_unit=0;
+uint32_t delay_unit=0;
+void RTC_IRQHandler(void)
+{
+  if (RTC_GetITStatus(RTC_IT_ALRA) != RESET)
+  {
+		SYSCLKConfig_STOP(4);	
+    /* Clear the Alarm A Pending Bit */
+    RTC_ClearITPendingBit(RTC_IT_ALRA);
+    /* Clear EXTI line17 pending bit */
+    EXTI_ClearITPendingBit(EXTI_Line17);
+		time_unit++;
+		delay_unit=1;
+		RTC_AlarmConfig(RTC_Unit);
+  }
+}
+
+void EXTI2_3_IRQHandler(void)
+{
+	static uint8_t button_status=0;
+	uint32_t button=0;
+  if(EXTI_GetITStatus(EXTI_Line3) != RESET)
+  {
+		EXTI_ClearITPendingBit(EXTI_Line3);
+		while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)==Bit_RESET)
+		{
+			LED_Status.LEDUp_On=1;
+	    LED_Control(DISABLE);
+			button++;
+			if(button>50000)
+			{
+				button_status++;
+				break;
+			}
+		}
+		if(button_status<3)
+		{
+			if(button_status==1)pdfRsmp.RunParamSS = Run_Start;
+			else if(button_status==2)pdfRsmp.RunParamSS = Run_Stop;
+		}
+  }
+}
+extern uint8_t old_RunParamSS;
+void EXTI4_15_IRQHandler(void)
+{
+  if(EXTI_GetITStatus(EXTI_Line4) != RESET)
+  {
+    /* Clear the Button EXTI line pending bit */
+    EXTI_ClearITPendingBit(EXTI_Line4);
+		if(pdfRsmp.RunParamSS==Run_Sample || pdfRsmp.RunParamSS==Run_DelaySample)
+		{
+			LED_Status.LEDUp_On=1;
+	    LED_Control(ENABLE);
+			old_RunParamSS=pdfRsmp.RunParamSS;
+			pdfRsmp.RunParamSS = Run_Mark;
+		}
+  }
+	
+	if(EXTI_GetITStatus(EXTI_Line5) != RESET)
+  {
+    /* Clear the Button EXTI line pending bit */
+    EXTI_ClearITPendingBit(EXTI_Line5);
+  }
+	
+	if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+  {
+    /* Clear the Button EXTI line pending bit */
+    EXTI_ClearITPendingBit(EXTI_Line8);
+		LED_Status.LEDUp_On=1;
+	  LED_Control(ENABLE);
+		pdfRsmp.RunParamSS = Run_USB_Yes;
+  }
+}
 

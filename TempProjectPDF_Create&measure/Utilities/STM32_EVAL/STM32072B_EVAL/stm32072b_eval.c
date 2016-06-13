@@ -432,15 +432,15 @@ void SD_LowLevel_Init(void)
             on write baudrate is considered.
           - SD card SPI interface max baudrate is 25MHz for write/read
        */
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+     SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
 
-	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
-	SPI_InitStructure.SPI_CRCPolynomial = 7;
-	SPI_Init(SD_SPI, &SPI_InitStructure);
-
-	SPI_RxFIFOThresholdConfig(SD_SPI, SPI_RxFIFOThreshold_QF);
-
-	SPI_Cmd(SD_SPI, ENABLE); /* SD_SPI enable */
+     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
+     SPI_InitStructure.SPI_CRCPolynomial = 7;
+     SPI_Init(SD_SPI, &SPI_InitStructure);
+  
+     SPI_RxFIFOThresholdConfig(SD_SPI, SPI_RxFIFOThreshold_QF);
+  
+     SPI_Cmd(SD_SPI, ENABLE); /* SD_SPI enable */
 }
 
 /**

@@ -55,39 +55,35 @@ uint8_t  global_USB=0;
 #elif defined ( __TASKING__ )
   __IO uint32_t VectorTable[48] __at(0x20000000);
 #endif
+__IO uint32_t LsiFreq = 32768;
 int main(void)
 {
-
-	
+	GPIO_InitTypeDef GPIO_InitStructure;
 	uint32_t i = 0;
-
-/* Relocate by software the vector table to the internal SRAM at 0x20000000 ***/  
-
+  /* Relocate by software the vector table to the internal SRAM at 0x20000000 ***/
   /* Copy the vector table from the Flash (mapped at the base of the application
-     load address 0x08003000) to the base address of the SRAM at 0x20000000. */
-        
+     load address 0x08003000) to the base address of the SRAM at 0x20000000. */       
   for(i = 0; i < 48; i++)
   {
     VectorTable[i] = *(__IO uint32_t*)(APPLICATION_ADDRESS + (i<<2));
   }
-
   /* Enable the SYSCFG peripheral clock*/
-  //RCC_APB2PeriphResetCmd(RCC_APB2Periph_SYSCFG, ENABLE); 
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE); 
   /* Remap SRAM at 0x00000000 */
   SYSCFG_MemoryRemapConfig(SYSCFG_MemoryRemap_SRAM);
 	
-	
 	SPI_Config();
+	sFLASH_ReleasePowerDown();
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
   USBD_Init(&USB_Device_dev,
             &USR_desc, 
             &USBD_MSC_cb, 
             &USR_cb);
 	
-  
   while (1)
   {
-			if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_9)==0){
-			//__disable_irq();
+		if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8)==0)
+		{
 			NVIC_SystemReset();
 		}
   }

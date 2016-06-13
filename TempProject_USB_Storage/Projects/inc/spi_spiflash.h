@@ -8,6 +8,7 @@
 #define sFLASH_CMD_RDID           0x9F  /*!< Read identification */
 #define sFLASH_CMD_SE             0x20  /*!< Sector Erase instruction */
 #define sFLASH_CMD_BE             0xC7  /*!< Bulk Erase instruction */
+#define sFLASH_CMD_Re             0xAB
 
 #define sFLASH_WIP_FLAG           0x01  /*!< Write In Progress (WIP) flag */
 
@@ -67,6 +68,7 @@ uint8_t sFLASH_ReadByte(void);
 uint8_t sFLASH_SendByte(uint8_t byte);
 uint16_t sFLASH_SendHalfWord(uint16_t HalfWord);
 void sFLASH_WriteEnable(void);
+void sFLASH_ReleasePowerDown(void);
 void sFLASH_WaitForWriteEnd(void);
 
 void SPI_Config(void);

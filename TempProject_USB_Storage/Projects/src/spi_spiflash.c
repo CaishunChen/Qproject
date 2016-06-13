@@ -419,6 +419,18 @@ void sFLASH_WriteEnable(void)
   sFLASH_CS_HIGH();
 }
 
+void sFLASH_ReleasePowerDown(void)
+{
+  /*!< Select the FLASH: Chip Select low */
+  sFLASH_CS_LOW();
+
+  /*!< Send "Write Enable" instruction */
+  sFLASH_SendByte(sFLASH_CMD_Re);
+
+  /*!< Deselect the FLASH: Chip Select high */
+  sFLASH_CS_HIGH();
+}
+
 /**
   * @brief  Polls the status of the Write In Progress (WIP) flag in the FLASH's
   *         status register and loop until write opertaion has completed.

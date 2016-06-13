@@ -799,7 +799,7 @@ void Pdf_Update_Parameter(char paramCount)
 	
 	
 	PdfGobRes=f_lseek(&PDFFile,FINISH_TIME_ADDR);
-	tempTimeStamp=START_TIME_STAMP+SAMPLE_READINGS*pdfParam->SamplingRate_s;
+	tempTimeStamp=START_TIME_STAMP+(SAMPLE_READINGS-1)*pdfParam->SamplingRate_s;
 	localTime=localtime(&tempTimeStamp);
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
 	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%04d/%02d/%02d %02d:%02d:%02d",localTime->tm_year+1900,\
@@ -1024,24 +1024,67 @@ void Pdf_Update_Parameter(char paramCount)
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);		
 	}
 	
-	
-	if(MaxA>HIGH_LARM_A||MaxB>HIGH_LARM_B||MaxC>HIGH_LARM_C||MinA<LOW_LARM_A||MinB<LOW_LARM_B||MinB<LOW_LARM_B)
+	if(pdfParam->ParameterCount==1)
 	{
-		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
-		PdfGobRes=f_write(&PDFFile,alertStatusAlertColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
-		
-		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
-		PdfGobRes=f_write(&PDFFile,alertStatusAlertStr,ALERT_STATUS_LENGTH,&PdfByte2Write);
-		
+		if(MaxA>HIGH_LARM_A||MinA<LOW_LARM_A)
+		{
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusAlertColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+			
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusAlertStr,ALERT_STATUS_LENGTH,&PdfByte2Write);
+			
+		}
+		else
+		{
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusOkColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+			
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusOkStr,ALERT_STATUS_LENGTH,&PdfByte2Write);		
+		}		
+	}
+	else if(pdfParam->ParameterCount==2)
+	{
+		if(MaxA>HIGH_LARM_A||MaxB>HIGH_LARM_B||MinA<LOW_LARM_A||MinB<LOW_LARM_B)
+		{
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusAlertColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+			
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusAlertStr,ALERT_STATUS_LENGTH,&PdfByte2Write);
+			
+		}
+		else
+		{
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusOkColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+			
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusOkStr,ALERT_STATUS_LENGTH,&PdfByte2Write);		
+		}		
 	}
 	else
 	{
-		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
-		PdfGobRes=f_write(&PDFFile,alertStatusOkColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
-		
-		PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
-		PdfGobRes=f_write(&PDFFile,alertStatusOkStr,ALERT_STATUS_LENGTH,&PdfByte2Write);		
+		if(MaxA>HIGH_LARM_A||MaxB>HIGH_LARM_B||MaxC>HIGH_LARM_C||MinA<LOW_LARM_A||MinB<LOW_LARM_B||MinC<LOW_LARM_C)
+		{
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusAlertColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+			
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusAlertStr,ALERT_STATUS_LENGTH,&PdfByte2Write);
+			
+		}
+		else
+		{
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_COLOR_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusOkColor,ALERT_STATUS_COLOR_LENGTH,&PdfByte2Write);
+			
+			PdfGobRes=f_lseek(&PDFFile,ALERT_STATUS_ADDR);
+			PdfGobRes=f_write(&PDFFile,alertStatusOkStr,ALERT_STATUS_LENGTH,&PdfByte2Write);		
+		}
 	}
+	
 	
 
 	
@@ -1109,7 +1152,7 @@ char ReadConfigFileToInternalFlash()
 		pdfParam=(PdfConstantParameter*)PDF_ConfData_ADDRESS;
 		return 1;
 	}
-	pdfParam==NULL;
+	pdfParam=NULL;
 	return 0;
 }
 
