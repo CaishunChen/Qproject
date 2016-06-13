@@ -73,6 +73,11 @@ char pdfAddData(float dataA,float dataB,float dataC)
 		PdfGobRes=f_write(&pdfApiFIL,pdfApiBuf,6,&PdfByte2Write);	
 		PdfGobRes=f_close(&pdfApiFIL);
 		PdfGobRes = f_mount(0,NULL);	
+		dataA+=dataA+237.15;//to kevin temperature
+		dataA*=MKT_R_;	
+		dataA=MKT_H_/dataA*-1;
+		pdfRuntimeParam.mktCalcuValue+=exp(dataA);
+		
 		return 1;		
 	}
 	return 0;

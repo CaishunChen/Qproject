@@ -222,6 +222,9 @@ extern UINT PdfByte2Read,PdfByte2Write;
 #define PARAM_C_TOTAL_TIME_ABOVE_ADDR 9549
 #define PARAM_C_TOTAL_TIME_BELOW_ADDR 9613
 
+#define MKT_H_ (83.14472) 
+#define MKT_R_ (8.314472)
+
 void PDF_Gen_Func(unsigned int dataPointCount);
 void PDF_Get_Average_Stdev(unsigned short dataPointCount);
 char ReadConfigFileToInternalFlash();
@@ -234,7 +237,6 @@ extern const char pdfDataPointLineNull[42];
 extern char dataLinesArray[DATA_LINES_BUF_LENGTH];
 extern char pdfLinesArray[PDF_DATA_POINT_LINE_BUF_LENGTH];
 extern char pdfLineBuf[DATA_POINT_LINE_LENGTH];
-
 PdfConstantParameter* pdfInit();
 char pdfSetStartTimeStamp(unsigned int time);
 char pdfAddData(float dataA,float dataB,float dataC);

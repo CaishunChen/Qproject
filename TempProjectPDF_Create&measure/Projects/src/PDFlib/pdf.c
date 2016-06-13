@@ -884,7 +884,13 @@ void Pdf_Update_Parameter(char paramCount)
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
 	PdfGobRes=f_lseek(&PDFFile,PARAM_A_MKT_ADDR);
-	PdfGobRes=f_write(&PDFFile,strNull,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	pdfRuntimeParam.mktCalcuValue/=SAMPLE_READINGS;
+	pdfRuntimeParam.mktCalcuValue=log(pdfRuntimeParam.mktCalcuValue)*-1;
+	pdfRuntimeParam.mktCalcuValue=MKT_H_/MKT_R_/pdfRuntimeParam.mktCalcuValue;
+	pdfRuntimeParam.mktCalcuValue-=237.15;
+	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",pdfRuntimeParam.mktCalcuValue,pdfParam->ParamA_Unit);
+	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
 	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_WITHIN_ADDR);
 	tempTimeStamp=(SAMPLE_READINGS-overAlarmA-belowAlarmA)*pdfParam->SamplingRate_s;
