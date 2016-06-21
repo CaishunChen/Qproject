@@ -473,7 +473,7 @@ void State_Machine(void)
 	{
 		printf("other:%d\n",pdfRsmp.RunParamSS);
 	}
-	if(pdfRsmp.RunParamSS == Run_USB_Yes)
+	if((pdfRsmp.RunParamSS == Run_USB_Yes) || (GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8)==Bit_SET))
 	{
 		RTC_ITConfig(RTC_IT_ALRA, DISABLE);
 		SYSCLKConfig_STOP(48);
