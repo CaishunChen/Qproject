@@ -56,6 +56,34 @@ uint8_t  global_USB=0;
   __IO uint32_t VectorTable[48] __at(0x20000000);
 #endif
 __IO uint32_t LsiFreq = 32768;
+
+#define LED_Down_Pin    GPIO_Pin_2
+#define LED_Down_Port   GPIOA
+#define LED_Down_Clk    RCC_AHBPeriph_GPIOA
+
+#define LED_Up_Pin    GPIO_Pin_1
+#define LED_Up_Port   GPIOA
+#define LED_Up_Clk    RCC_AHBPeriph_GPIOA
+
+#define LED_Up_On     GPIO_ResetBits(GPIOA,GPIO_Pin_1)
+#define LED_Up_Off    GPIO_SetBits(GPIOA,GPIO_Pin_1)
+#define LED_Down_On   GPIO_ResetBits(GPIOA,GPIO_Pin_2)
+#define LED_Down_Off  GPIO_SetBits(GPIOA,GPIO_Pin_2)
+
+void LED_Config(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	RCC_AHBPeriphClockCmd(LED_Down_Clk | LED_Up_Clk, ENABLE);
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
+	GPIO_InitStructure.GPIO_Pin = LED_Down_Pin;
+	GPIO_Init(LED_Down_Port, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = LED_Up_Pin;
+	GPIO_Init(LED_Up_Port, &GPIO_InitStructure);
+	LED_Up_On;LED_Down_On;
+}
+
 int main(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -71,7 +99,7 @@ int main(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE); 
   /* Remap SRAM at 0x00000000 */
   SYSCFG_MemoryRemapConfig(SYSCFG_MemoryRemap_SRAM);
-	
+	LED_Config();
 	SPI_Config();
 	sFLASH_ReleasePowerDown();
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);

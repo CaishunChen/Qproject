@@ -23,7 +23,7 @@ void PVD_Config(void)
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 	
-  PWR_PVDLevelConfig(PWR_PVDLevel_7);
+  PWR_PVDLevelConfig(PWR_PVDLevel_3);
 	PWR_PVDCmd(ENABLE); 	
 }
 
@@ -204,6 +204,7 @@ void LED_Control(FunctionalState NeedDelay)
 		GPIO_InitStructure.GPIO_Pin = LED_Up_Pin;
 		GPIO_Init(LED_Up_Port, &GPIO_InitStructure);
     LED_Up_On;
+		LED_Status.LEDUp_On=0;
 	}
 	if(LED_Status.LEDDown_On==1)
 	{
@@ -214,6 +215,7 @@ void LED_Control(FunctionalState NeedDelay)
 		GPIO_InitStructure.GPIO_Pin = LED_Down_Pin;
 		GPIO_Init(LED_Down_Port, &GPIO_InitStructure);
     LED_Down_On;
+		LED_Status.LEDDown_On=0;
 	}
 	if(NeedDelay==ENABLE)LED_Delay();
 }
@@ -331,8 +333,9 @@ float ADC_Start(void)
 	/* Get ADC1 converted data */
 	ADC1ConvertedVoltage =ADC_GetConversionValue(ADC1);
 
-  R_Sample=(10000*ADC1ConvertedValue)/(ADC1ConvertedVoltage-ADC1ConvertedValue);
-	return 12.5;
+  R_Sample=(NTC_R0*ADC1ConvertedValue)/(ADC1ConvertedVoltage-ADC1ConvertedValue);
+	
+	return (NTC_B*NTC_T0*log10(NTC_E))/(NTC_B*log10(NTC_E)+log10(R_Sample)*NTC_T0-(log10(NTC_R0)*NTC_T0));
 }
 
 #define pdfRsmpBuf dataLinesArray
@@ -341,6 +344,7 @@ PdfRunStateMachineParameter pdfRsmp;
 extern PdfConstantParameter* pcP;
 void Rsmp_Init(void)
 {
+	PVD_Config();
 	sFLASH_ReleasePowerDown();//退出
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	PdfGobRes=f_open(&pdfRsmpFIL,"0:Sys/Rsmp.rm",FA_READ);
@@ -390,10 +394,8 @@ void State_Machine(void)
 	float Temp_NTC=0;
 	static uint16_t ParamA_Alarm=0;
 	static float ParamA_Temp_NTC=0;
-	//time_unit++;
 	if(pdfRsmp.RunParamSS == Run_Start)//状态为开始则导入pdf开始时间
 	{
-		printf("Start Sample\n");
 		RTC_Unit=2;
 		sFLASH_ReleasePowerDown();//退出
 		pdfRsmp.RunParamFS = Run_Second;
@@ -417,7 +419,6 @@ void State_Machine(void)
 			(((time_unit*2)==(pcP->SamplingRate_s))&&(pdfRsmp.RunParamSS==Run_Sample)))
 			//开始后等待时间后开始采样或开始采样
 		{
-			printf("Sample:%d 's Time_unit:%d\n",pdfRsmp.RunParamSS,time_unit);
 			Temp_NTC=ADC_Start();
 			if(pcP->AlarmType == AlarmType_Single)//大于阀值灯报警，立即
 			{
@@ -459,7 +460,6 @@ void State_Machine(void)
 	}
 	else if(pdfRsmp.RunParamSS==Run_Mark)
 	{
-		printf("Run Mark\n");
 		pdfRsmp.RunParamSS = old_RunParamSS;
 		sFLASH_ReleasePowerDown();//退出
 		pdfAddMarkedEventData(time_conversion());
@@ -467,12 +467,17 @@ void State_Machine(void)
 	}
 	else if(pdfRsmp.RunParamSS==Run_Stop)
 	{
-		printf("Run Stop\n");
 	}
 	else 
 	{
-		printf("other:%d\n",pdfRsmp.RunParamSS);
 	}
+	
+	if(Vabt_ADC()==ENABLE)
+	{
+		pdfRsmp.RunParamVb = Vbat_L;
+		pdfRsmp.RunParamSS = Run_Stop;
+	}
+	
 	if((pdfRsmp.RunParamSS == Run_USB_Yes) || (GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8)==Bit_SET))
 	{
 		RTC_ITConfig(RTC_IT_ALRA, DISABLE);
@@ -493,10 +498,9 @@ void State_Machine(void)
 			JumpToUSBStorage(USBStorage_ADDRESS);
 		}
 	}
-	LED_Status.LEDUp_On=1;
 	if((pdfRsmp.RunParamVb == Vbat_L)||(pdfRsmp.RunParamVb==ParamA_Alarm_Flag && time_unit%2==0))
 	{
-		LED_Status.LEDDown_On=1;
+		LED_Status.LEDUp_On=1;
 	}
 	LED_Control(ENABLE);
 	delay_unit=2;
@@ -528,9 +532,11 @@ void UART_restart(void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOA, &GPIO_InitStructure);  
 }
-uint16_t ADC_Vbat=0;
-float Vabt_ADC(void)
+
+FunctionalState Vabt_ADC(void)
 {
+	float ADC_Vbat=0;
+	
 	ADC_InitTypeDef     ADC_InitStructure;
   GPIO_InitTypeDef    GPIO_InitStructure;
 	
@@ -540,6 +546,15 @@ float Vabt_ADC(void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+  GPIO_SetBits(GPIOB,GPIO_Pin_5);
+	
 	LED_Delay();
   /* ADCs DeInit */  
   ADC_DeInit(ADC1);
@@ -574,6 +589,13 @@ float Vabt_ADC(void)
 	while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
 
 	/* Get ADC1 converted data */
-	ADC_Vbat =ADC_GetConversionValue(ADC1);
-	return 12.5;
+	ADC_Vbat =(ADC_GetConversionValue(ADC1) *3.3) / 4096;
+	if(ADC_Vbat>Low_Vbat)
+	{
+		return DISABLE;
+	}
+	else
+	{
+		return ENABLE;
+	}
 }

@@ -106,19 +106,46 @@ void RTC_IRQHandler(void)
 		time_unit++;
 		delay_unit=1;
 		RTC_AlarmConfig(RTC_Unit);
+	  LED_Status.LEDDown_On=1;
   }
 }
+extern uint8_t old_RunParamSS;
 
 void EXTI2_3_IRQHandler(void)
 {
-	static uint8_t button_status=0;
 	uint32_t button=0;
   if(EXTI_GetITStatus(EXTI_Line3) != RESET)
   {
 		EXTI_ClearITPendingBit(EXTI_Line3);
 		while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)==Bit_RESET)
 		{
-			LED_Status.LEDUp_On=1;
+			LED_Status.LEDDown_On=1;
+	    LED_Control(DISABLE);
+			button++;
+			if(button>25000)
+			{
+				if(pdfRsmp.RunParamSS==Run_Sample || pdfRsmp.RunParamSS==Run_DelaySample)
+				{
+					LED_Status.LEDUp_On=1;
+					LED_Control(ENABLE);
+					old_RunParamSS=pdfRsmp.RunParamSS;
+					pdfRsmp.RunParamSS = Run_Mark;
+				}
+				break;
+			}
+		}
+  }
+}
+void EXTI4_15_IRQHandler(void)
+{
+	static uint8_t button_status=0;
+	uint32_t button=0;
+  if(EXTI_GetITStatus(EXTI_Line4) != RESET)
+  {
+    EXTI_ClearITPendingBit(EXTI_Line4);
+		while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4)==Bit_RESET)
+		{
+			LED_Status.LEDDown_On=1;
 	    LED_Control(DISABLE);
 			button++;
 			if(button>50000)
@@ -131,22 +158,6 @@ void EXTI2_3_IRQHandler(void)
 		{
 			if(button_status==1)pdfRsmp.RunParamSS = Run_Start;
 			else if(button_status==2)pdfRsmp.RunParamSS = Run_Stop;
-		}
-  }
-}
-extern uint8_t old_RunParamSS;
-void EXTI4_15_IRQHandler(void)
-{
-  if(EXTI_GetITStatus(EXTI_Line4) != RESET)
-  {
-    /* Clear the Button EXTI line pending bit */
-    EXTI_ClearITPendingBit(EXTI_Line4);
-		if(pdfRsmp.RunParamSS==Run_Sample || pdfRsmp.RunParamSS==Run_DelaySample)
-		{
-			LED_Status.LEDUp_On=1;
-	    LED_Control(ENABLE);
-			old_RunParamSS=pdfRsmp.RunParamSS;
-			pdfRsmp.RunParamSS = Run_Mark;
 		}
   }
 	

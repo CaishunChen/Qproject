@@ -24,6 +24,13 @@ typedef struct LEDSta
 	uint8_t LEDDown_Num;
 }LED_Sta;
 
+#define NTC_B   3950
+#define NTC_E   2.71828182845904523536
+#define NTC_T0  298.15
+#define NTC_R0  10
+
+#define Low_Vbat  4.8/3
+
 #define Run_First  1
 #define Run_Second 2
 #define Run_third  3
@@ -78,4 +85,4 @@ void Rsmp_Init(void);
 void State_Machine(void);
 void RTC_TimeShow(char *TimeBuff);
 void UART_restart(void);
-float Vabt_ADC(void);
+FunctionalState Vabt_ADC(void);

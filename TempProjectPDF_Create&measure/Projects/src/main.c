@@ -43,7 +43,7 @@ int main(void)
   SPI_Config();
 	sFLASH_PowerDown();//让SPIFlash进入静态模式
 	RTC_Config();
-	LED_Status.LEDUp_On=1;
+	LED_Status.LEDDown_On=1;
 	LED_Control(DISABLE);
 	Rsmp_Init();
   while (1)
