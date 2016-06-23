@@ -799,7 +799,7 @@ void Pdf_Update_Parameter(char paramCount)
 	
 	
 	PdfGobRes=f_lseek(&PDFFile,FINISH_TIME_ADDR);
-	tempTimeStamp=START_TIME_STAMP+(SAMPLE_READINGS-1)*pdfParam->SamplingRate_s;
+	tempTimeStamp=START_TIME_STAMP+(SAMPLE_READINGS)*pdfParam->SamplingRate_s;
 	localTime=localtime(&tempTimeStamp);
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
 	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%04d/%02d/%02d %02d:%02d:%02d",localTime->tm_year+1900,\
