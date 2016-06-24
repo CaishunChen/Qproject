@@ -276,7 +276,7 @@
             // SaveButton
             // 
             this.SaveButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.SaveButton.Location = new System.Drawing.Point(14, 335);
+            this.SaveButton.Location = new System.Drawing.Point(101, 335);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(127, 23);
             this.SaveButton.TabIndex = 3;
@@ -293,6 +293,7 @@
             this.SysTimeCalButton.TabIndex = 4;
             this.SysTimeCalButton.Text = "System Time Cal";
             this.SysTimeCalButton.UseVisualStyleBackColor = true;
+            this.SysTimeCalButton.Visible = false;
             this.SysTimeCalButton.Click += new System.EventHandler(this.SysTimeCalButton_Click);
             // 
             // mainForm

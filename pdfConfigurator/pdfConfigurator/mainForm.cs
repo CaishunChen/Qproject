@@ -81,14 +81,14 @@ namespace pdfConfigurator
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            try 
+            try
             {
                 if (SamplingRateCombBox.Text.Contains("Seconds"))
                 {
-                    
+
                     PdfConfig.SamplingRate_s = UInt16.Parse(SamplingRateCombBox.Text.Remove(SamplingRateCombBox.Text.Length - 7));
                 }
-                else 
+                else
                 {
                     PdfConfig.SamplingRate_s = (UInt16)(UInt16.Parse(SamplingRateCombBox.Text.Remove(SamplingRateCombBox.Text.Length - 7)) * 60);
                 }
@@ -106,9 +106,9 @@ namespace pdfConfigurator
                 }
                 else
                 {
-                    PdfConfig.AlarmDelay_s = (UInt16)(UInt16.Parse(AlarmDelayCombBox.Text.Remove(AlarmDelayCombBox.Text.Length - 7))*60);
+                    PdfConfig.AlarmDelay_s = (UInt16)(UInt16.Parse(AlarmDelayCombBox.Text.Remove(AlarmDelayCombBox.Text.Length - 7)) * 60);
                 }
-                switch (AlarmTypeCombBox.Text) 
+                switch (AlarmTypeCombBox.Text)
                 {
                     case "Disable": PdfConfig.alarmType = pdfConfigParam.ALARMTYPE.Disable; break;
                     case "Single": PdfConfig.alarmType = pdfConfigParam.ALARMTYPE.Single; break;
@@ -118,9 +118,45 @@ namespace pdfConfigurator
                 PdfConfig.ParamA_HighAlarm = float.Parse(HighAlarmATextBOX.Text);
                 PdfConfig.ParamA_LowAlarm = float.Parse(LowAlarmATextBox.Text);
                 PdfConfig.SaveToFile(configFilePath);
-                MessageBox.Show("Save Done");
+                
 
+
+                UInt32 timeStamp = (UInt32)DateTimeToUnixTimestamp(DateTime.Now);
+                byte[] dataArray = BitConverter.GetBytes(timeStamp);
+                File.WriteAllBytes(timeFilePath, dataArray);
+
+                if (File.Exists(RsmpFilePath) == false)
+                {
+                    byte[] timeBytes = new byte[4];
+                    timeBytes[0] = 0;
+                    timeBytes[1] = 0;
+                    timeBytes[2] = 0;
+                    timeBytes[3] = 2;
+                    File.WriteAllBytes(RsmpFilePath, timeBytes);
+
+                }
+                else
+                {
+                    byte[] timeBytes = File.ReadAllBytes(RsmpFilePath);
+                    if (timeBytes.Length >= 4)
+                    {
+                        timeBytes[3] = 2;
+                    }
+                    else
+                    {
+                        timeBytes = new byte[4];
+                        timeBytes[0] = 0;
+                        timeBytes[1] = 0;
+                        timeBytes[2] = 0;
+                        timeBytes[3] = 2;
+
+                    }
+                    File.Delete(RsmpFilePath);
+                    File.WriteAllBytes(RsmpFilePath, timeBytes);
+                }
+                MessageBox.Show("Save Done");
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
