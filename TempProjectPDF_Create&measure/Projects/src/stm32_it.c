@@ -93,19 +93,18 @@ void PVD_VDDIO2_IRQHandler(void)
 
 extern PdfConstantParameter* pcP;
 uint32_t time_unit=0;
-uint32_t delay_unit=0;
 void RTC_IRQHandler(void)
 {
   if (RTC_GetITStatus(RTC_IT_ALRA) != RESET)
   {
-		SYSCLKConfig_STOP(4);	
-    /* Clear the Alarm A Pending Bit */
+		SYSCLKConfig_STOP(1);
+		/* Clear the Alarm A Pending Bit */
     RTC_ClearITPendingBit(RTC_IT_ALRA);
     /* Clear EXTI line17 pending bit */
     EXTI_ClearITPendingBit(EXTI_Line17);
-		time_unit++;
-		delay_unit=1;
+		
 		RTC_AlarmConfig(RTC_Unit);
+		time_unit++;
 	  LED_Status.LEDDown_On=1;
   }
 }
@@ -116,18 +115,17 @@ void EXTI2_3_IRQHandler(void)
 	uint32_t button=0;
   if(EXTI_GetITStatus(EXTI_Line3) != RESET)
   {
+		SYSCLKConfig_STOP(1);
 		EXTI_ClearITPendingBit(EXTI_Line3);
 		while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_3)==Bit_RESET)
 		{
 			LED_Status.LEDDown_On=1;
 	    LED_Control(DISABLE);
 			button++;
-			if(button>25000)
+			if(button>3000)
 			{
 				if(pdfRsmp.RunParamSS==Run_Sample || pdfRsmp.RunParamSS==Run_DelaySample)
 				{
-					LED_Status.LEDUp_On=1;
-					LED_Control(ENABLE);
 					old_RunParamSS=pdfRsmp.RunParamSS;
 					pdfRsmp.RunParamSS = Run_Mark;
 				}
@@ -142,13 +140,14 @@ void EXTI4_15_IRQHandler(void)
 	uint32_t button=0;
   if(EXTI_GetITStatus(EXTI_Line4) != RESET)
   {
+		SYSCLKConfig_STOP(1);
     EXTI_ClearITPendingBit(EXTI_Line4);
 		while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_4)==Bit_RESET)
 		{
 			LED_Status.LEDDown_On=1;
 	    LED_Control(DISABLE);
 			button++;
-			if(button>50000)
+			if(button>5000)
 			{
 				button_status++;
 				break;
@@ -169,10 +168,11 @@ void EXTI4_15_IRQHandler(void)
 	
 	if(EXTI_GetITStatus(EXTI_Line8) != RESET)
   {
+		SYSCLKConfig_STOP(8);	
     /* Clear the Button EXTI line pending bit */
     EXTI_ClearITPendingBit(EXTI_Line8);
 		LED_Status.LEDUp_On=1;
-	  LED_Control(ENABLE);
+	  LED_Control(DISABLE);
 		pdfRsmp.RunParamSS = Run_USB_Yes;
   }
 }

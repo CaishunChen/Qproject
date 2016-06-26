@@ -19,7 +19,7 @@ void PVD_Config(void)
 	
 	/* Enable and set EXTI0 Interrupt */
   NVIC_InitStructure.NVIC_IRQChannel = PVD_VDDIO2_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
+  NVIC_InitStructure.NVIC_IRQChannelPriority = 0x01;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 	
@@ -53,7 +53,7 @@ void button_config(void)
 	
 	/* Enable and set Button EXTI Interrupt to the lowest priority */
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI2_3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPriority = 0x03;
+	NVIC_InitStructure.NVIC_IRQChannelPriority = 0x02;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure); 
 	
@@ -75,7 +75,7 @@ void USB_Check_config(void)
 	EXTI_Init(&EXTI_InitStructure);	
 	
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_15_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPriority = 0x03;
+	NVIC_InitStructure.NVIC_IRQChannelPriority = 0x01;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure); 
 }
@@ -94,14 +94,14 @@ void MCU_Periph_LP(void)
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 	GPIO_Init(GPIOF, &GPIO_InitStructure);
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_Pin_3) & (~GPIO_Pin_4) & (~GPIO_Pin_8);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_Pin_3) & (~GPIO_Pin_4) & (~GPIO_Pin_8) ;// & (~GPIO_Pin_13) & (~GPIO_Pin_14);
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	/* Disable GPIOs clock */
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB | RCC_AHBPeriph_GPIOC |
                          RCC_AHBPeriph_GPIOD | RCC_AHBPeriph_GPIOF, DISABLE);
-	
-	RCC_APB1PeriphClockCmd(SPIx_CLK, DISABLE);
+
+	ADC_DeInit(ADC1);
 }
 
 void RTC_AlarmConfig(uint8_t Alarm_Time)
@@ -129,12 +129,10 @@ void RTC_AlarmConfig(uint8_t Alarm_Time)
 	{
 		RTC_AlarmStructure.RTC_AlarmTime.RTC_Seconds = seconds_unit;
 	}
-	printf("set alarm sec:%d",seconds_unit);
   RTC_AlarmStructure.RTC_AlarmMask = RTC_AlarmMask_DateWeekDay | RTC_AlarmMask_Minutes |
                                      RTC_AlarmMask_Hours;
   RTC_SetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
   RTC_GetAlarm(RTC_Format_BIN, RTC_Alarm_A, &RTC_AlarmStructure);
-	printf("Get alarm sec:%d",RTC_AlarmStructure.RTC_AlarmTime.RTC_Seconds);
   	
   /* Enable the RTC Alarm A interrupt */
   RTC_ITConfig(RTC_IT_ALRA, ENABLE);
@@ -172,6 +170,11 @@ void SYSCLKConfig_STOP(uint8_t SysClk)
 		while (RCC_GetSYSCLKSource() != 0x08)
 		{}		
 	}	
+	else if(SysClk==8)
+	{
+		RCC_HCLKConfig(RCC_SYSCLK_Div1);
+		RCC_SYSCLKConfig(RCC_SYSCLKSource_HSE);	
+	}
   else if(SysClk==4)
 	{
     RCC_HCLKConfig(RCC_SYSCLK_Div2);
@@ -187,8 +190,9 @@ void SYSCLKConfig_STOP(uint8_t SysClk)
 void LED_Delay(void)
 {
 	uint16_t i=0;
-	for(i=0;i<5000;i++)
+	for(i=0;i<200;i++)
 	{
+		
 	}
 }
 
@@ -241,12 +245,17 @@ uint32_t time_conversion(void)
 	
 	return mktime(&GetTime);
 }
-uint16_t  ADC1ConvertedValue = 0, ADC1ConvertedVoltage = 0;
 float R_Sample=0;
 float ADC_Start(void)
 {
+	uint16_t  ADC1ConvertedValue = 0, ADC1ConvertedVoltage = 0;
+  //float R_Sample=0;
+	
 	ADC_InitTypeDef     ADC_InitStructure;
   GPIO_InitTypeDef    GPIO_InitStructure;
+	
+  /* ADCs DeInit */  
+  ADC_DeInit(ADC1);	
 	
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 , ENABLE);
@@ -262,9 +271,6 @@ float ADC_Start(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_SetBits(GPIOB,GPIO_Pin_0);
-	LED_Delay();
-  /* ADCs DeInit */  
-  ADC_DeInit(ADC1);
   
   /* Initialize ADC structure */
   ADC_StructInit(&ADC_InitStructure);
@@ -313,7 +319,7 @@ float ADC_Start(void)
   ADC_Init(ADC1, &ADC_InitStructure); 
   
   /* Convert the ADC1 Channel 7 with 239.5 Cycles as sampling time */ 
-  ADC_ChannelConfig(ADC1, ADC_Channel_7 , ADC_SampleTime_239_5Cycles);
+  ADC_ChannelConfig(ADC1, ADC_Channel_7 , ADC_SampleTime_55_5Cycles);
 
   /* ADC Calibration */
   ADC_GetCalibrationFactor(ADC1);
@@ -333,9 +339,10 @@ float ADC_Start(void)
 	/* Get ADC1 converted data */
 	ADC1ConvertedVoltage =ADC_GetConversionValue(ADC1);
 
-  R_Sample=(NTC_R0*ADC1ConvertedValue)/(ADC1ConvertedVoltage-ADC1ConvertedValue);
+  R_Sample=(NTC_R0*ADC1ConvertedValue*NTC_R_Pro)/(ADC1ConvertedVoltage-ADC1ConvertedValue);
 	
-	return (NTC_B*NTC_T0*log10(NTC_E))/(NTC_B*log10(NTC_E)+log10(R_Sample)*NTC_T0-(log10(NTC_R0)*NTC_T0));
+	return ((NTC_B*NTC_T0*log10(NTC_E))/(NTC_B*log10(NTC_E)+log10(R_Sample/NTC_R_Pro)*NTC_T0-(log10(NTC_R0)*NTC_T0)))-NTC_K;
+	//return 25.0;
 }
 
 #define pdfRsmpBuf dataLinesArray
@@ -376,8 +383,6 @@ void Rsmp_Init(void)
 	sFLASH_PowerDown();//让SPIFlash进入静态模式
 	USB_Check_config();
 	RTC_AlarmConfig(RTC_Unit);
-	MCU_Periph_LP();
-	PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFI);
 }
 
 void Rsmp_Write(void)
@@ -396,6 +401,7 @@ void State_Machine(void)
 	static float ParamA_Temp_NTC=0;
 	if(pdfRsmp.RunParamSS == Run_Start)//状态为开始则导入pdf开始时间
 	{
+		SYSCLKConfig_STOP(8);
 		RTC_Unit=2;
 		sFLASH_ReleasePowerDown();//退出
 		pdfRsmp.RunParamFS = Run_Second;
@@ -419,6 +425,7 @@ void State_Machine(void)
 			(((time_unit*2)==(pcP->SamplingRate_s))&&(pdfRsmp.RunParamSS==Run_Sample)))
 			//开始后等待时间后开始采样或开始采样
 		{
+			SYSCLKConfig_STOP(8);
 			Temp_NTC=ADC_Start();
 			if(pcP->AlarmType == AlarmType_Single)//大于阀值灯报警，立即
 			{
@@ -460,6 +467,7 @@ void State_Machine(void)
 	}
 	else if(pdfRsmp.RunParamSS==Run_Mark)
 	{
+		SYSCLKConfig_STOP(8);
 		pdfRsmp.RunParamSS = old_RunParamSS;
 		sFLASH_ReleasePowerDown();//退出
 		pdfAddMarkedEventData(time_conversion());
@@ -486,7 +494,7 @@ void State_Machine(void)
 		if(pdfRsmp.RunParamFS == Run_Second)
 		{
 			sFLASH_ReleasePowerDown();
-			pdfCreat(time_conversion());
+			if((time_conversion()-pdfRuntimeParam.startTimeStamp) > pcP->StartDelay_s)pdfCreat(time_conversion());
 			pdfRsmp.RunParamFS = Run_third;
 			Rsmp_Write();
 			JumpToUSBStorage(USBStorage_ADDRESS);
@@ -498,12 +506,12 @@ void State_Machine(void)
 			JumpToUSBStorage(USBStorage_ADDRESS);
 		}
 	}
+	SYSCLKConfig_STOP(1);	
 	if((pdfRsmp.RunParamVb == Vbat_L)||(pdfRsmp.RunParamVb==ParamA_Alarm_Flag && time_unit%2==0))
 	{
 		LED_Status.LEDUp_On=1;
 	}
 	LED_Control(ENABLE);
-	delay_unit=2;
 	MCU_Periph_LP();
 	PWR_EnterSTOPMode(PWR_Regulator_LowPower, PWR_STOPEntry_WFI);
 }
@@ -540,6 +548,8 @@ FunctionalState Vabt_ADC(void)
 	ADC_InitTypeDef     ADC_InitStructure;
   GPIO_InitTypeDef    GPIO_InitStructure;
 	
+	ADC_DeInit(ADC1);
+	
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA | RCC_AHBPeriph_GPIOB, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 , ENABLE);
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
@@ -555,10 +565,6 @@ FunctionalState Vabt_ADC(void)
   GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_SetBits(GPIOB,GPIO_Pin_5);
 	
-	LED_Delay();
-  /* ADCs DeInit */  
-  ADC_DeInit(ADC1);
-  
   /* Initialize ADC structure */
   ADC_StructInit(&ADC_InitStructure);
   
@@ -571,7 +577,7 @@ FunctionalState Vabt_ADC(void)
   ADC_Init(ADC1, &ADC_InitStructure); 
   
   /* Convert the ADC1 Channel 6 with 239.5 Cycles as sampling time */ 
-  ADC_ChannelConfig(ADC1, ADC_Channel_0 , ADC_SampleTime_239_5Cycles);
+  ADC_ChannelConfig(ADC1, ADC_Channel_0 , ADC_SampleTime_55_5Cycles);
 
   /* ADC Calibration */
   ADC_GetCalibrationFactor(ADC1);
@@ -590,6 +596,7 @@ FunctionalState Vabt_ADC(void)
 
 	/* Get ADC1 converted data */
 	ADC_Vbat =(ADC_GetConversionValue(ADC1) *3.3) / 4096;
+
 	if(ADC_Vbat>Low_Vbat)
 	{
 		return DISABLE;

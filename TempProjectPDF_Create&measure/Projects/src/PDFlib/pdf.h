@@ -239,7 +239,7 @@ extern char pdfLinesArray[PDF_DATA_POINT_LINE_BUF_LENGTH];
 extern char pdfLineBuf[DATA_POINT_LINE_LENGTH];
 PdfConstantParameter* pdfInit();
 char pdfSetStartTimeStamp(unsigned int time);
-char pdfAddData(float dataA,float dataB,float dataC);
+char pdfAddData(double dataA,float dataB,float dataC);
 char pdfAddMarkedEventData(unsigned int time);
 char pdfCreat(unsigned int time);
 

@@ -36,7 +36,7 @@ char pdfDataBaseBuffer4Convert[60];
 //char *pdfDataLineBuffer4ConvertPtr;
 //char *pdfDataBaseBuffer4ConvertPtr;
 char pdfBufferIndex=0;
-char pdfAddData(float dataA,float dataB,float dataC)
+char pdfAddData(double dataA,float dataB,float dataC)
 {
 	unsigned int crtTime;
 	struct tm *localTime;
@@ -93,7 +93,7 @@ char pdfAddData(float dataA,float dataB,float dataC)
 			
 		}
 		
-		dataA+=dataA+237.15;//to kevin temperature
+		dataA+=273.15;//to kevin temperature
 		dataA*=MKT_R_;	
 		dataA=MKT_H_/dataA*-1;
 		pdfRuntimeParam.mktCalcuValue+=exp(dataA);
@@ -153,7 +153,6 @@ char pdfSaveLastData()
 {	
 		if(pdfBufferIndex!=0)
 		{
-			pdfBufferIndex=0;
 			PdfGobRes = f_mount(0,&PdfFileSystem);
 			PdfGobRes=f_open(&pdfApiFIL,"0:Sys/Dtli.dl",FA_WRITE );
 			PdfGobRes=f_lseek(&pdfApiFIL,pdfApiFIL.fsize);
@@ -165,6 +164,7 @@ char pdfSaveLastData()
 			PdfGobRes=f_write(&pdfApiFIL,pdfDataBaseBuffer4Convert,6*pdfBufferIndex,&PdfByte2Write);	
 			PdfGobRes=f_close(&pdfApiFIL);
 			PdfGobRes = f_mount(0,NULL);
+			pdfBufferIndex=0;
 		}
 		return 1;	
 }

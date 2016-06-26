@@ -810,7 +810,7 @@ void Pdf_Update_Parameter(char paramCount)
 	PdfGobRes=f_lseek(&PDFFile,DURATION_TIME_ADDR);
 	tempTimeStamp-=START_TIME_STAMP;
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 	tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
@@ -887,7 +887,7 @@ void Pdf_Update_Parameter(char paramCount)
 	pdfRuntimeParam.mktCalcuValue/=SAMPLE_READINGS;
 	pdfRuntimeParam.mktCalcuValue=log(pdfRuntimeParam.mktCalcuValue)*-1;
 	pdfRuntimeParam.mktCalcuValue=MKT_H_/MKT_R_/pdfRuntimeParam.mktCalcuValue;
-	pdfRuntimeParam.mktCalcuValue-=237.15;
+	pdfRuntimeParam.mktCalcuValue-= 273.15;
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
 	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%.1f %s",pdfRuntimeParam.mktCalcuValue,pdfParam->ParamA_Unit);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
@@ -895,7 +895,7 @@ void Pdf_Update_Parameter(char paramCount)
 	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_WITHIN_ADDR);
 	tempTimeStamp=(SAMPLE_READINGS-overAlarmA-belowAlarmA)*pdfParam->SamplingRate_s;
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 	tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
@@ -903,14 +903,14 @@ void Pdf_Update_Parameter(char paramCount)
 	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_ABOVE_ADDR);
 	tempTimeStamp=overAlarmA*pdfParam->SamplingRate_s;
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 	tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
 	PdfGobRes=f_lseek(&PDFFile,PARAM_A_TOTAL_TIME_BELOW_ADDR);
 	tempTimeStamp=belowAlarmA*pdfParam->SamplingRate_s;
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 	tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
@@ -953,7 +953,7 @@ void Pdf_Update_Parameter(char paramCount)
 		PdfGobRes=f_lseek(&PDFFile,PARAM_B_TOTAL_TIME_WITHIN_ADDR);
 		tempTimeStamp=(SAMPLE_READINGS-overAlarmB-belowAlarmB)*pdfParam->SamplingRate_s;
 		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 		tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 		
@@ -961,14 +961,14 @@ void Pdf_Update_Parameter(char paramCount)
 		PdfGobRes=f_lseek(&PDFFile,PARAM_B_TOTAL_TIME_ABOVE_ADDR);
 		tempTimeStamp=overAlarmB*pdfParam->SamplingRate_s;
 		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 		tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 		
 		PdfGobRes=f_lseek(&PDFFile,PARAM_B_TOTAL_TIME_BELOW_ADDR);
 		tempTimeStamp=belowAlarmB*pdfParam->SamplingRate_s;
 		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 		tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	}
@@ -1010,7 +1010,7 @@ void Pdf_Update_Parameter(char paramCount)
 		PdfGobRes=f_lseek(&PDFFile,PARAM_C_TOTAL_TIME_WITHIN_ADDR);
 		tempTimeStamp=(SAMPLE_READINGS-overAlarmC-belowAlarmC)*pdfParam->SamplingRate_s;
 		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 		tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 		
@@ -1018,14 +1018,14 @@ void Pdf_Update_Parameter(char paramCount)
 		PdfGobRes=f_lseek(&PDFFile,PARAM_C_TOTAL_TIME_ABOVE_ADDR);
 		tempTimeStamp=overAlarmC*pdfParam->SamplingRate_s;
 		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 		tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 		
 		PdfGobRes=f_lseek(&PDFFile,PARAM_C_TOTAL_TIME_BELOW_ADDR);
 		tempTimeStamp=belowAlarmC*pdfParam->SamplingRate_s;
 		memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
-		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03dDays %02dHrs %02dMins %02dSecs",\
+		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%03d Day %02d Hr %02d Min %02d Sec",\
 		tempTimeStamp/86400,(tempTimeStamp%86400)/3600,((tempTimeStamp%86400)%3600)/60,((tempTimeStamp%86400)%3600)%60);
 		PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);		
 	}

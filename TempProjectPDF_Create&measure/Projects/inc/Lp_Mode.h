@@ -24,10 +24,12 @@ typedef struct LEDSta
 	uint8_t LEDDown_Num;
 }LED_Sta;
 
-#define NTC_B   3950
+#define NTC_B   3435
 #define NTC_E   2.71828182845904523536
 #define NTC_T0  298.15
-#define NTC_R0  10
+#define NTC_R0  82.5
+#define NTC_K   273.15
+#define NTC_R_Pro 1000
 
 #define Low_Vbat  4.8/3
 
@@ -66,7 +68,6 @@ extern LED_Sta LED_Status;
 extern PdfRunStateMachineParameter pdfRsmp;
 
 extern uint32_t time_unit;
-extern uint32_t delay_unit;
 extern uint8_t RTC_Unit;
 uint8_t JumpToUSBStorage(uint32_t Addr);
 
