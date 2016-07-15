@@ -60,14 +60,13 @@ void SPI_Config(void)
 
 void sFLASH_sector_write(uint8_t * buffer, uint32_t sector, uint16_t sector_number)
 {
-	uint32_t Address=0,sector_num=0;
+	uint32_t Address=0;
   Address = sector * FLASH_SECTOR_SIZE;
 	while(sector_number--)
 	{
-		sFLASH_EraseSector(Address+sector_num*4096);
+		sFLASH_EraseSector(Address);
 		sFLASH_WriteBuffer(buffer,Address,FLASH_SECTOR_SIZE);
 		Address+=FLASH_SECTOR_SIZE;
-		sector_num++;
 	}
 }
 

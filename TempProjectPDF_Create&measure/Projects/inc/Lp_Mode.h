@@ -31,7 +31,7 @@ typedef struct LEDSta
 #define NTC_K   273.15
 #define NTC_R_Pro 1000
 
-#define Low_Vbat  4.8/3
+#define Low_Vbat  4.8/3-0.8
 
 #define Run_First  1
 #define Run_Second 2
@@ -87,3 +87,4 @@ void State_Machine(void);
 void RTC_TimeShow(char *TimeBuff);
 void UART_restart(void);
 FunctionalState Vabt_ADC(void);
+void LED_Delay(void);

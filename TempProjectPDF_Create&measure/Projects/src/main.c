@@ -48,6 +48,7 @@ int main(void)
 	Rsmp_Init();
   while (1)
   {
+		//ADC_Start();
     State_Machine();
   }
 }
