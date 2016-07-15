@@ -62,7 +62,7 @@ char pdfAddData(double dataA,float dataB,float dataC)
 			}
 			else if(pdfParam->ParameterCount==3)
 			{
-				snprintf(pdfDataLineBuffer4Convert+pdfBufferIndex*DATA_LINE_LENGTH,DATA_LINE_LENGTH,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f %05.1f",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
+				snprintf(pdfDataLineBuffer4Convert+pdfBufferIndex*DATA_LINE_LENGTH,DATA_LINE_LENGTH,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f %04.1f",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
 				localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB,dataC);
 			}
 			
