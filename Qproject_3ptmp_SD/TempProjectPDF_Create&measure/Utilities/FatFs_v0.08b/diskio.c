@@ -20,12 +20,13 @@ DSTATUS disk_initialize (
 	BYTE drv				/* Physical drive nmuber (0..) */
 )
 {
-	uint8_t res=0;
-	
-	res = SD_Init();
-	
-	if(res)return  STA_NOINIT;
-	else return 0; //初始化成功
+	int8_t res=0;	  
+	res=SD_Initialize();
+	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+	{
+		SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+	}
+  return (0);
 }
 
 
@@ -52,20 +53,21 @@ DRESULT disk_read (
 	BYTE count		/* Number of sectors to read (1..255) */
 )
 {	 
-	if( SD_Detect() == SD_NOT_PRESENT)
+  int8_t res=0;
+  if( SD_Detect() == SD_NOT_PRESENT)
   {
     return (-1);
   }  
   
-  if( SD_ReadMultiBlocks ((uint8_t *)buff, 
-                          sector * 512, 
-                          512,
-                          count) != 0)
-  {
-    return 5;
-  }
+	res=SD_ReadDisk(buff,sector,count);
+	
+	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+	{
+		SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+	}
    
-  return 0;
+  if(res==0x00)return 0;	 
+  else return 5;	
 }
 
 
@@ -81,20 +83,16 @@ DRESULT disk_write (
 	BYTE count			/* Number of sectors to write (1..255) */
 )
 {
+	int8_t res=0;
+	
   if( SD_Detect() == SD_NOT_PRESENT)
   {
     return (-1);
   }  
-  
-  if( SD_WriteMultiBlocks ((uint8_t *)(buff), 
-                           sector * 512, 
-                           512,
-                           count) != 0)
-  {
-    return 5;
-  }
-  
-  return (0);	
+  res=SD_WriteDisk((uint8_t *)buff,sector,count);
+	
+  if(res==0x00)return 0;	 
+  else return 5;	
 }
 #endif /* _READONLY */
 

@@ -32,6 +32,7 @@ uint8_t JumpToUSBStorage(uint32_t Addr)
 
 PdfConstantParameter* pcP;
 uint8_t RTC_Unit=1;
+uint8_t Si7021=0;
 #include "SI7021.h"
 #include "delay.h"
 #include "MSC_SD.h"
@@ -44,7 +45,8 @@ int main(void)
 	LED_Config();
 	LED_Status.LEDDown_On = 1;
 	LED_Control(ENABLE);
-	
+	//ResetSI7021();
+	Si7021=read_si7021_Reg(Read_User_Register);
   while(Button_Start&&Button_Pdf)
 	{
 		LED_Status.LEDDown_On = 1;

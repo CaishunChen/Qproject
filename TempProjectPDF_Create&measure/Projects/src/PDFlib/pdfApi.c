@@ -52,18 +52,18 @@ char pdfAddData(double dataA,float dataB,float dataC)
 			if(pdfParam->ParameterCount==1)
 			{		
 				snprintf(pdfDataLineBuffer4Convert+pdfBufferIndex*DATA_LINE_LENGTH,DATA_LINE_LENGTH,"%04d    %02d/%02d/%02d       %02d:%02d:%02d    %05.1f  ",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
-				localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA);
+				localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA);
 				
 			}
 			else if(pdfParam->ParameterCount==2)
 			{
 				snprintf(pdfDataLineBuffer4Convert+pdfBufferIndex*DATA_LINE_LENGTH,DATA_LINE_LENGTH,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f      ",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
-				localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB);		
+				localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB);		
 			}
 			else if(pdfParam->ParameterCount==3)
 			{
-				snprintf(pdfDataLineBuffer4Convert+pdfBufferIndex*DATA_LINE_LENGTH,DATA_LINE_LENGTH,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f %04.1f",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
-				localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB,dataC);
+				snprintf(pdfDataLineBuffer4Convert+pdfBufferIndex*DATA_LINE_LENGTH,DATA_LINE_LENGTH,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f %05.1f",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
+				localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB,dataC);
 			}
 			
 			temp=dataA*10;
@@ -108,17 +108,17 @@ char pdfAddData(double dataA,float dataB,float dataC)
 		if(pdfParam->ParameterCount==1)
 		{		
 			snprintf(pdfApiBuf,DATA_LINE_LENGTH+1,"%04d    %02d/%02d/%02d       %02d:%02d:%02d    %05.1f  ",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
-			localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA);
+			localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA);
 		}
 		else if(pdfParam->ParameterCount==2)
 		{
 			snprintf(pdfApiBuf,DATA_LINE_LENGTH+1,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f      ",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
-			localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB);		
+			localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB);		
 		}
 		else if(pdfParam->ParameterCount==3)
 		{
 			snprintf(pdfApiBuf,DATA_LINE_LENGTH+1,"%04d %02d/%02d/%02d %02d:%02d:%02d  %05.1f  %05.1f %05.1f",pdfRuntimeParam.sampleReadings,localTime->tm_year-100,\
-			localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB,dataC);
+			localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec,dataA,dataB,dataC);
 		}
 		PdfGobRes = f_mount(0,&PdfFileSystem);
 		PdfGobRes=f_open(&pdfApiFIL,"0:Sys/Dtli.dl",FA_WRITE );
@@ -175,7 +175,7 @@ char pdfAddMarkedEventData(unsigned int time)
 	{
 		localTime=localtime(&time);
 		snprintf(pdfApiBuf,MARKED_EVENTS_LENTH+1,"%04d/%02d/%02d %02d:%02d:%02d          ",localTime->tm_year+1900,\
-		localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
+		localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
 		PdfGobRes = f_mount(0,&PdfFileSystem);
 		PdfGobRes=f_open(&pdfApiFIL,"0:Sys/Mkevt.mk",FA_WRITE );
 		PdfGobRes=f_lseek(&pdfApiFIL,pdfRuntimeParam.markedEventCount*MARKED_EVENTS_LENTH);

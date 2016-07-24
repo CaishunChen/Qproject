@@ -208,24 +208,33 @@ typedef struct
 #define SD_TYPE_V2      0X04
 #define SD_TYPE_V2HC    0X06	
 
+//数据写入回应字意义
+#define MSD_DATA_OK                0x05
+#define MSD_DATA_CRC_ERROR         0x0B
+#define MSD_DATA_WRITE_ERROR       0x0D
+#define MSD_DATA_OTHER_ERROR       0xFF
+//SD卡回应标记字
+#define MSD_RESPONSE_NO_ERROR      0x00
+#define MSD_IN_IDLE_STATE          0x01
+#define MSD_ERASE_RESET            0x02
+#define MSD_ILLEGAL_COMMAND        0x04
+#define MSD_COM_CRC_ERROR          0x08
+#define MSD_ERASE_SEQUENCE_ERROR   0x10
+#define MSD_ADDRESS_ERROR          0x20
+#define MSD_PARAMETER_ERROR        0x40
+#define MSD_RESPONSE_FAILURE       0xFF
+
 /* Exported functions ------------------------------------------------------- */ 
-void SD_DeInit(void);  
-SD_Error SD_Init(void);
+//函数申明区 
 uint8_t SD_Detect(void);
-SD_Error SD_GetCardInfo(SD_CardInfo *cardinfo);
-SD_Error SD_ReadBlock(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t BlockSize);
-SD_Error SD_ReadMultiBlocks(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t BlockSize, uint32_t NumberOfBlocks);
-SD_Error SD_WriteBlock(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t BlockSize);
-SD_Error SD_WriteMultiBlocks(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t BlockSize, uint32_t NumberOfBlocks);
-SD_Error SD_GetCSDRegister(SD_CSD* SD_csd);
-SD_Error SD_GetCIDRegister(SD_CID* SD_cid);
-
-void SD_SendCmd(uint8_t Cmd, uint32_t Arg, uint8_t Crc);
-uint8_t SD_SendRCmd(uint8_t cmd, uint32_t arg, uint8_t crc);
-SD_Error SD_GetResponse(uint8_t Response);
-uint8_t SD_GetDataResponse(void);
-SD_Error SD_GoIdleState(void);
-uint16_t SD_GetStatus(void);
-
-uint8_t SD_WriteByte(uint8_t byte);
-uint8_t SD_ReadByte(void);
+uint8_t SD_SPI_ReadWriteByte(uint8_t data);
+void SD_SPI_SpeedLow(void);
+void SD_SPI_SpeedHigh(void);
+uint8_t SD_WaitReady(void);							//等待SD卡准备
+uint8_t SD_GetResponse(uint8_t Response);					//获得相应
+uint8_t SD_Initialize(void);							//初始化
+uint8_t SD_ReadDisk(uint8_t *buf,uint32_t sector,uint8_t cnt);		//读块
+uint8_t SD_WriteDisk(uint8_t *buf,uint32_t sector,uint8_t cnt);		//写块
+uint32_t SD_GetSectorCount(void);   					//读扇区数
+uint8_t SD_GetCID(uint8_t *cid_data);                     //读SD卡CID
+uint8_t SD_GetCSD(uint8_t *csd_data);                     //读SD卡CSD

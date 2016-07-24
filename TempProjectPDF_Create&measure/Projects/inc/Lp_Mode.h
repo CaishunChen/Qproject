@@ -27,7 +27,7 @@ typedef struct LEDSta
 #define NTC_B   3435
 #define NTC_E   2.71828182845904523536
 #define NTC_T0  298.15
-#define NTC_R0  82.5
+#define NTC_R0  150
 #define NTC_K   273.15
 #define NTC_R_Pro 1000
 

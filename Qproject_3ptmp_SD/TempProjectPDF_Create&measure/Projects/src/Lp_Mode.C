@@ -339,6 +339,10 @@ void Rsmp_Init(void)
 {
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	PdfGobRes=f_open(&pdfRsmpFIL,"0:Sys/Rsmp.rm",FA_READ);
+	if(PdfGobRes != FR_OK)
+	{
+		PdfGobRes = f_mkfs(0,1,4096);
+	}
 	if(PdfGobRes==FR_OK)
 	{
 		PdfGobRes=f_read(&pdfRsmpFIL,&pdfRsmp,sizeof(PdfRunStateMachineParameter),&PdfByte2Read);
@@ -379,7 +383,7 @@ void State_Machine(void)
 	if(pdfRsmp.RunParamFS != Run_third && delay_unit==1)
 	{
 		measure_si7021 ( HUMI_HOLD_MASTER, (union16*)(&gv_si7021_value.humi) );
-		measure_si7021 ( TEMP_from_RH, (union16*)(&gv_si7021_value.temp) );
+		measure_si7021 ( TEMP_HOLD_MASTER, (union16*)(&gv_si7021_value.temp) );
 		acquire_SI_value((union16 *)(&gv_si7021_value.temp),(union16 *)(&gv_si7021_value.humi));	
 		
 		delay_unit=0;

@@ -93,6 +93,7 @@ void PVD_VDDIO2_IRQHandler(void)
 
 extern PdfConstantParameter* pcP;
 uint32_t time_unit=0;
+extern uint8_t time_num;
 void RTC_IRQHandler(void)
 {
   if (RTC_GetITStatus(RTC_IT_ALRA) != RESET)

@@ -32,6 +32,7 @@
 #include  "global.h"
 #include  "ff.h"
 #include  "pdf.h"
+#include  "MSC_SD.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -128,7 +129,6 @@ int main(void)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE); 
   /* Remap SRAM at 0x00000000 */
   SYSCFG_MemoryRemapConfig(SYSCFG_MemoryRemap_SRAM);
-	
 	LED_Config();
 	button_config();
   USBD_Init(&USB_Device_dev,

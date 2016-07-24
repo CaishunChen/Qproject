@@ -373,7 +373,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F072</Define>
               <Undefine></Undefine>
-              <IncludePath>..\;..\..\Libraries\CMSIS\Device\ST\STM32F0xx\Include;..\..\Libraries\STM32F0xx_StdPeriph_Driver\inc;..\..\Libraries\STM32F0xx_CPAL_Driver\inc;..\..\Libraries\CMSIS\Include;..\inc;..\src\PDFlib;..\..\Utilities\FatFs_v0.08b</IncludePath>
+              <IncludePath>..\;..\..\Libraries\CMSIS\Device\ST\STM32F0xx\Include;..\..\Libraries\STM32F0xx_StdPeriph_Driver\inc;..\..\Libraries\STM32F0xx_CPAL_Driver\inc;..\..\Libraries\CMSIS\Include;..\inc;..\src\PDFlib;..\..\Utilities\FatFs_v0.08b;..\src\Tem</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -440,6 +440,11 @@
               <FileName>spi_spiflash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\src\spi_spiflash.c</FilePath>
+            </File>
+            <File>
+              <FileName>833et_table.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\Tem\833et_table.c</FilePath>
             </File>
           </Files>
         </Group>

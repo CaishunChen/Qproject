@@ -99,14 +99,15 @@ USBD_STORAGE_cb_TypeDef  *USBD_STORAGE_fops = &USBD_MICRO_SDIO_fops;
   * @param  lun : logical unit number
   * @retval Status
   */
-
+	
 int8_t STORAGE_Init (uint8_t lun)
 {
-  if( SD_Init() != 0)
-  {
-    return (-1);
-  } 
-
+	int8_t res=0;	  
+	res=SD_Initialize();
+	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+	{
+		SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+	}
   return (0);
 }
 
@@ -119,17 +120,13 @@ int8_t STORAGE_Init (uint8_t lun)
   */
 int8_t STORAGE_GetCapacity (uint8_t lun, uint32_t *block_num, uint32_t *block_size)
 { 
-  SD_CardInfo SDCardInfo;
-  
   if( SD_Detect() == SD_NOT_PRESENT)
   {
     return (-1);
-  }  
-  
-  SD_GetCardInfo(&SDCardInfo);  
+  }
   
   *block_size =  512;  
-  *block_num = SDCardInfo.CardCapacity ;  
+  *block_num = SD_GetSectorCount(); 
   
   return (0);
 }
@@ -151,7 +148,7 @@ int8_t  STORAGE_IsReady (uint8_t lun)
   else if(status == 1)
   {
     status = 0;
-    if( SD_Init() != 0)
+    if( SD_Initialize() != 0)
     {
       return (-1);
     } 
@@ -183,22 +180,21 @@ int8_t STORAGE_Read (uint8_t lun,
                  uint32_t blk_addr,                       
                  uint16_t blk_len)
 {
-  
+  int8_t res=0;
   if( SD_Detect() == SD_NOT_PRESENT)
   {
     return (-1);
   }  
   
-  if( SD_ReadMultiBlocks (buf, 
-                          blk_addr * 512, 
-                          512,
-                          blk_len) != 0)
-    
-  {
-    return 5;
-  }
+	res=SD_ReadDisk(buf,blk_addr,blk_len);
+	
+	if(res)//STM32 SPI的bug,在sd卡操作失败的时候如果不执行下面的语句,可能导致SPI读写异常
+	{
+		SD_SPI_ReadWriteByte(0xff);//提供额外的8个时钟
+	}
    
-  return 0;
+  if(res==0x00)return 0;	 
+  else return 5;	
 }
 /**
   * @brief  Write data to the medium
@@ -213,20 +209,16 @@ int8_t STORAGE_Write (uint8_t lun,
                   uint32_t blk_addr,
                   uint16_t blk_len)
 {
+	int8_t res=0;
+	
   if( SD_Detect() == SD_NOT_PRESENT)
   {
     return (-1);
   }  
-  
-  if( SD_WriteMultiBlocks (buf, 
-                           blk_addr * 512, 
-                           512,
-                           blk_len) != 0)
-  {
-    return 5;
-  }
-  
-  return (0);
+  res=SD_WriteDisk(buf,blk_addr,blk_len);
+	
+  if(res==0x00)return 0;	 
+  else return 5;	
 }
 
 /**

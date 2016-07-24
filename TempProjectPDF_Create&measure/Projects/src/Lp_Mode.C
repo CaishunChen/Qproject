@@ -36,7 +36,6 @@ void button_config(void)
 	/* Connect Button EXTI Line to Button GPIO Pin */
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA,EXTI_PinSource3);
   SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA,EXTI_PinSource4);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA,EXTI_PinSource5);
 
 	/* Configure Button EXTI line */
 	EXTI_InitStructure.EXTI_Line = EXTI_Line3;
@@ -46,9 +45,6 @@ void button_config(void)
 	EXTI_Init(&EXTI_InitStructure);
 
 	EXTI_InitStructure.EXTI_Line = EXTI_Line4;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line5;
 	EXTI_Init(&EXTI_InitStructure);
 	
 	/* Enable and set Button EXTI Interrupt to the lowest priority */
@@ -87,15 +83,21 @@ void MCU_Periph_LP(void)
                          RCC_AHBPeriph_GPIOD | RCC_AHBPeriph_GPIOF, ENABLE);
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_Init(GPIOC, &GPIO_InitStructure);
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 	GPIO_Init(GPIOF, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_Pin_3) & (~GPIO_Pin_4) & (~GPIO_Pin_8) ;// & (~GPIO_Pin_13) & (~GPIO_Pin_14);
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All & (~GPIO_Pin_8) & (~GPIO_Pin_3) & (~GPIO_Pin_4);// & (~GPIO_Pin_8) ;// & (~GPIO_Pin_13) & (~GPIO_Pin_14);
   GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	/* Disable GPIOs clock */
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB | RCC_AHBPeriph_GPIOC |
@@ -236,20 +238,27 @@ uint32_t time_conversion(void)
 	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
 	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);
 	
+  RTC_ClearFlag(RTC_FLAG_RSF);
+	while(RTC_GetFlagStatus(RTC_FLAG_RSF)==RESET){}		
+		
+	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
+	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);	
+	
 	GetTime.tm_hour = RTC_TimeStructure.RTC_Hours ;
 	GetTime.tm_min  = RTC_TimeStructure.RTC_Minutes ;
 	GetTime.tm_sec  = RTC_TimeStructure.RTC_Seconds ;
 	GetTime.tm_mday = RTC_DateStructure.RTC_Date;
-	GetTime.tm_mon  = RTC_DateStructure.RTC_Month+1;//时间增加1个月 time内部时间差一个月
+	GetTime.tm_mon  = RTC_DateStructure.RTC_Month - 1;
 	GetTime.tm_year = RTC_DateStructure.RTC_Year;
 	
 	return mktime(&GetTime);
 }
 float R_Sample=0;
+float R_Sample_Lis=0;
+#include "833et_table.h"
 float ADC_Start(void)
 {
 	uint16_t  ADC1ConvertedValue = 0, ADC1ConvertedVoltage = 0;
-  //float R_Sample=0;
 	
 	ADC_InitTypeDef     ADC_InitStructure;
   GPIO_InitTypeDef    GPIO_InitStructure;
@@ -271,7 +280,7 @@ float ADC_Start(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_SetBits(GPIOB,GPIO_Pin_0);
-  
+
   /* Initialize ADC structure */
   ADC_StructInit(&ADC_InitStructure);
   
@@ -340,8 +349,10 @@ float ADC_Start(void)
 	ADC1ConvertedVoltage =ADC_GetConversionValue(ADC1);
 
   R_Sample=(NTC_R0*ADC1ConvertedValue*NTC_R_Pro)/(ADC1ConvertedVoltage-ADC1ConvertedValue);
-	
-	return ((NTC_B*NTC_T0*log10(NTC_E))/(NTC_B*log10(NTC_E)+log10(R_Sample/NTC_R_Pro)*NTC_T0-(log10(NTC_R0)*NTC_T0)))-NTC_K;
+	//return R833_temp(R_Sample/1000);
+	R_Sample_Lis = avgfilter(R_Sample_Lis, R833_temp(R_Sample/1000), 0.6, 10.0);
+	return R_Sample_Lis;
+	//return ((NTC_B*NTC_T0*log10(NTC_E))/(NTC_B*log10(NTC_E)+log10(R_Sample/NTC_R_Pro)*NTC_T0-(log10(NTC_R0)*NTC_T0)))-NTC_K;
 	//return 25.0;
 }
 
@@ -352,7 +363,6 @@ extern PdfConstantParameter* pcP;
 void Rsmp_Init(void)
 {
 	PVD_Config();
-	sFLASH_ReleasePowerDown();//退出
 	PdfGobRes = f_mount(0,&PdfFileSystem);
 	PdfGobRes=f_open(&pdfRsmpFIL,"0:Sys/Rsmp.rm",FA_READ);
 	if(PdfGobRes==FR_OK)
@@ -367,11 +377,9 @@ void Rsmp_Init(void)
 	{
 		pdfRsmp.RunTimeSet = Time_N;
 		time_sec_conversion(Get_Time());
-		printf("Set Time\n");
 	}
 	if(pdfRsmp.RunParamFS == Run_First)//首次进入配置PDF，按键对应的中断
 	{
-		printf("First pdf Creat\n");
 		pcP=pdfInit();
 		button_config();
 		RTC_Unit=5;
@@ -475,22 +483,24 @@ void State_Machine(void)
 	}
 	else if(pdfRsmp.RunParamSS==Run_Stop)
 	{
+		
 	}
 	else 
 	{
 	}
-	
-	if(Vabt_ADC()==ENABLE)
-	{
-		pdfRsmp.RunParamVb = Vbat_L;
-		pdfRsmp.RunParamSS = Run_Stop;
-	}
+//	
+//	if(Vabt_ADC()==ENABLE)
+//	{
+//		pdfRsmp.RunParamVb = Vbat_L;
+//		pdfRsmp.RunParamSS = Run_Stop;
+//	}
 	
 	if((pdfRsmp.RunParamSS == Run_USB_Yes) || (GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8)==Bit_SET))
 	{
 		RTC_ITConfig(RTC_IT_ALRA, DISABLE);
 		SYSCLKConfig_STOP(48);
-		LED_Up_Off;
+		LED_Status.LEDUp_On=1;
+	  LED_Control(DISABLE);
 		if(pdfRsmp.RunParamFS == Run_Second)
 		{
 			sFLASH_ReleasePowerDown();

@@ -38,17 +38,18 @@ uint8_t JumpToUSBStorage(uint32_t Addr)
 }
 PdfConstantParameter* pcP;
 uint8_t RTC_Unit=5;
+float Tem=0; 
+uint8_t time_num=0;
 int main(void)
 {
   SPI_Config();
-	sFLASH_PowerDown();//让SPIFlash进入静态模式
+	sFLASH_ReleasePowerDown();//让SPIFlash进入静态模式
 	RTC_Config();
 	LED_Status.LEDDown_On=1;
 	LED_Control(DISABLE);
 	Rsmp_Init();
   while (1)
   {
-		//ADC_Start();
     State_Machine();
   }
 }

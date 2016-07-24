@@ -143,9 +143,9 @@ void time_sec_conversion(uint32_t time_sec)
 		RTC_TimeStructure.RTC_Minutes = GetTime->tm_min;
 		RTC_TimeStructure.RTC_Seconds = GetTime->tm_sec;
 		
-		RTC_DateStructure.RTC_Date = GetTime->tm_mday;
-		RTC_DateStructure.RTC_Month = GetTime->tm_mon;
-		RTC_DateStructure.RTC_Year = GetTime->tm_year;
+		RTC_DateStructure.RTC_Date =  GetTime->tm_mday;
+		RTC_DateStructure.RTC_Month = GetTime->tm_mon + 1;
+		RTC_DateStructure.RTC_Year =  GetTime->tm_year;
 		RTC_DateStructure.RTC_WeekDay = GetTime->tm_wday;
 		
 		/* Set the time to 01h 00mn 00s AM */

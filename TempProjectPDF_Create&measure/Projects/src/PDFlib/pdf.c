@@ -673,7 +673,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	snprintf(strTemp,6,"%02d:%02d",localTime->tm_hour,localTime->tm_min);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_4PR4_TIME_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,5,&PdfByte2Write);
-	snprintf(strTemp,13," %04d/%02d/%02d ",1900+localTime->tm_year,localTime->tm_mon,localTime->tm_mday);
+	snprintf(strTemp,13," %04d/%02d/%02d ",1900+localTime->tm_year,localTime->tm_mon+1,localTime->tm_mday);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_4PR4_DATE_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,12,&PdfByte2Write);
 	
@@ -682,7 +682,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	snprintf(strTemp,6,"%02d:%02d",localTime->tm_hour,localTime->tm_min);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_BASE_TIME_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,5,&PdfByte2Write);
-	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon,localTime->tm_mday);
+	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon+1,localTime->tm_mday);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_BASE_DATE_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,12,&PdfByte2Write);
 	
@@ -693,7 +693,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	snprintf(strTemp,6,"%02d:%02d",localTime->tm_hour,localTime->tm_min);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_1PR4_TIME_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,5,&PdfByte2Write);
-	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon,localTime->tm_mday);
+	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon+1,localTime->tm_mday);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_1PR4_DATE_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,12,&PdfByte2Write);
 	
@@ -702,7 +702,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	snprintf(strTemp,6,"%02d:%02d",localTime->tm_hour,localTime->tm_min);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_2PR4_TIME_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,5,&PdfByte2Write);
-	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon,localTime->tm_mday);
+	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon+1,localTime->tm_mday);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_2PR4_DATE_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,12,&PdfByte2Write);
 	
@@ -711,7 +711,7 @@ void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount)
 	snprintf(strTemp,6,"%02d:%02d",localTime->tm_hour,localTime->tm_min);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_3PR4_TIME_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,5,&PdfByte2Write);
-	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon,localTime->tm_mday);
+	snprintf(strTemp,13," %04d/%02d/%02d  ",1900+localTime->tm_year,localTime->tm_mon+1,localTime->tm_mday);
 	PdfGobRes=f_lseek(&PDFFile,X_AXIS_3PR4_DATE_ADDR);
 	PdfGobRes=f_write(&PDFFile,strTemp,12,&PdfByte2Write);
 	
@@ -784,28 +784,24 @@ void Pdf_Update_Parameter(char paramCount)
 	localTime=localtime(&tempTimeStamp);
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
 	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%04d/%02d/%02d %02d:%02d:%02d",localTime->tm_year+1900,\
-	localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
+	localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 
-	
 	PdfGobRes=f_lseek(&PDFFile,START_TIME_ADDR);
 	tempTimeStamp=START_TIME_STAMP;
 	localTime=localtime(&tempTimeStamp);
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
 	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%04d/%02d/%02d %02d:%02d:%02d",localTime->tm_year+1900,\
-	localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
+	localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
-	
-	
 	
 	PdfGobRes=f_lseek(&PDFFile,FINISH_TIME_ADDR);
 	tempTimeStamp=START_TIME_STAMP+(SAMPLE_READINGS)*pdfParam->SamplingRate_s;
 	localTime=localtime(&tempTimeStamp);
 	memset(strBuf4UpdataParam,' ',DEVICE_SPEC_DATA_LENGTH);
 	snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"%04d/%02d/%02d %02d:%02d:%02d",localTime->tm_year+1900,\
-	localTime->tm_mon,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
+	localTime->tm_mon+1,localTime->tm_mday,localTime->tm_hour,localTime->tm_min,localTime->tm_sec);
 	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
-	
 	
 	PdfGobRes=f_lseek(&PDFFile,DURATION_TIME_ADDR);
 	tempTimeStamp-=START_TIME_STAMP;
