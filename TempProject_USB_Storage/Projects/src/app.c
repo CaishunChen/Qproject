@@ -68,6 +68,7 @@ int main(void)
   {
     VectorTable[i] = *(__IO uint32_t*)(APPLICATION_ADDRESS + (i<<2));
   }
+	
   /* Enable the SYSCFG peripheral clock*/
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE); 
   /* Remap SRAM at 0x00000000 */

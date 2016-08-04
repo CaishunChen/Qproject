@@ -256,6 +256,16 @@ uint32_t time_conversion(void)
 float R_Sample=0;
 float R_Sample_Lis=0;
 #include "833et_table.h"
+
+void ADC_Delay(void)
+{
+	uint16_t i=0;
+	for(i=0;i<45000;i++)
+	{
+		
+	}
+}
+
 float ADC_Start(void)
 {
 	uint16_t  ADC1ConvertedValue = 0, ADC1ConvertedVoltage = 0;
@@ -280,6 +290,8 @@ float ADC_Start(void)
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
   GPIO_SetBits(GPIOB,GPIO_Pin_0);
+
+  ADC_Delay();ADC_Delay();
 
   /* Initialize ADC structure */
   ADC_StructInit(&ADC_InitStructure);
@@ -437,7 +449,7 @@ void State_Machine(void)
 			Temp_NTC=ADC_Start();
 			if(pcP->AlarmType == AlarmType_Single)//大于阀值灯报警，立即
 			{
-				if(Temp_NTC>pcP->ParamA_HighAlarm ||Temp_NTC < pcP->ParamA_LowAlarm)
+				if(Temp_NTC>pcP->ParamA_HighAlarm || Temp_NTC < pcP->ParamA_LowAlarm)
 				{
 					pdfRsmp.RunParamVb=ParamA_Alarm_Flag;
 				}

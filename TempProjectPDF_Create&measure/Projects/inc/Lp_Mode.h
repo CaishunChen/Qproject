@@ -88,3 +88,4 @@ void RTC_TimeShow(char *TimeBuff);
 void UART_restart(void);
 FunctionalState Vabt_ADC(void);
 void LED_Delay(void);
+void ADC_Delay(void);
