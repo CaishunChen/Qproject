@@ -17,7 +17,7 @@ uint8_t  global_USB=0;
   * @retval None
   */
 	
-#define APPLICATION_ADDRESS     ((uint32_t)0x801CD38)
+#define APPLICATION_ADDRESS     ((uint32_t)0x800D000)
 #if   (defined ( __CC_ARM ))
   __IO uint32_t VectorTable[48] __attribute__((at(0x20000000)));
 #elif (defined (__ICCARM__))

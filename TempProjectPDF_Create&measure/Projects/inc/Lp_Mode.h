@@ -1,7 +1,7 @@
 #include "stm32f0xx.h"
 #include "time.h"
 
-#define USBStorage_ADDRESS  ((uint32_t)0x801CD38)
+#define USBStorage_ADDRESS  ((uint32_t)0x800D000)
 
 #define LED_Up_Pin    GPIO_Pin_1
 #define LED_Up_Port   GPIOA

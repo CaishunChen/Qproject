@@ -231,7 +231,7 @@ char ReadConfigFileToInternalFlash();
 void Pdf_Gen_ConfigFile();
 void Pdf_Draw_Charts(unsigned short dataPointCount,char paramCount);
 void Pdf_Update_Parameter(char paramCount);
-#define PDF_ConfData_ADDRESS     ((uint32_t)0x801C000)
+#define PDF_ConfData_ADDRESS     ((uint32_t)0x800C000)
 
 extern const char pdfDataPointLineNull[42];
 extern char dataLinesArray[DATA_LINES_BUF_LENGTH];
