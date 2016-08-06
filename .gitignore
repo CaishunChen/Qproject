@@ -102,3 +102,8 @@ Qproject_Qproject.dep
 *.hex
 TempProject/Projects/MDK-ARM/STM32F072B/STM32F072B.hex
 *.hex
+pdfConfigurator/pdfConfigurator/bin/Debug/French.pdf
+pdfConfigurator/pdfConfigurator/bin/Debug/German.pdf
+pdfConfigurator/pdfConfigurator/bin/Debug/Italian.pdf
+pdfConfigurator/pdfConfigurator/bin/Debug/dataLog.pdf
+pdfConfigurator/pdfConfigurator/bin/Debug/Spanish.pdf

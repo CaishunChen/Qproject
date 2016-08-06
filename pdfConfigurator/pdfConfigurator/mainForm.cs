@@ -40,6 +40,9 @@ namespace pdfConfigurator
         string configFilePath="./Sys/Conf.cf";
         string timeFilePath = "./Sys/Time.tm";
         string RsmpFilePath = "./Sys/Rsmp.rm";
+        string LanguageFilePath = "./Sys/langu.la";
+        string pdfFilePath = "./dataLog.pdf";
+        string SysLanguage = null;
         pdfConfigParam PdfConfig; 
         private void mainForm_Load(object sender, EventArgs e)
         {
@@ -75,6 +78,14 @@ namespace pdfConfigurator
             AlarmTypeCombBox.Text = PdfConfig.alarmType.ToString();
             HighAlarmATextBOX.Text = PdfConfig.ParamA_HighAlarm.ToString();
             LowAlarmATextBox.Text = PdfConfig.ParamA_LowAlarm.ToString();
+            if (File.Exists(LanguageFilePath) == false)
+            {
+                File.WriteAllText(LanguageFilePath, "French");
+            }
+
+            SysLanguage = File.ReadAllText(LanguageFilePath);
+            SurfaceUpdate(SysLanguage);
+            languageCombox.Text = SysLanguage;
 
 
         }
@@ -154,6 +165,14 @@ namespace pdfConfigurator
                     File.Delete(RsmpFilePath);
                     File.WriteAllBytes(RsmpFilePath, timeBytes);
                 }
+                string pdflang=pdfLanguageRead();
+                if (pdflang != null) 
+                {
+                    if (pdflang != languageCombox.Text) 
+                    {
+                        pdfLanguageUpdate(pdflang, languageCombox.Text);
+                    }
+                }
                 MessageBox.Show("Save Done");
             }
 
@@ -162,7 +181,51 @@ namespace pdfConfigurator
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        string pdfLanguageRead() 
+        {
+            string langu = null;
+            StreamReader sr = new StreamReader(pdfFilePath);
+            char[] strbuf=new char[3000];
+            sr.Read(strbuf, 0, 3000);
+            string pdfString = new string(strbuf);
+            if(pdfString.Contains("Specification"))langu="English";
+            else if (pdfString.Contains("Gerätespezifikation")) langu = "German";
+            else if (pdfString.Contains("Spécifications de l'appareil")) langu = "French";
+            else if (pdfString.Contains("Specifica apparecchio")) langu = "Italian";
+            else if (pdfString.Contains("Especificaciones del aparato")) langu = "Spanish";
+            return langu;
+        }
+        
+        void pdfLanguageUpdate(string oldLang,string newLang) 
+        {
+            string allpdfStr = File.ReadAllText(pdfFilePath);
+            string[] oldlangtemp=null,newlangtemp=null;
+            switch (oldLang) 
+            {
+                case "English": oldlangtemp = pdfEnglishInfo; break;
+                case "German": oldlangtemp = pdfGermanInfo; break;
+                case "French": oldlangtemp = pdfFrenchInfo; break;
+                case "Italian": oldlangtemp = pdfItalianInfo; break;
+                case "Spanish": oldlangtemp = pdfSpanishInfo; break;
+            }
+            switch (newLang)
+            {
+                case "English": newlangtemp = pdfEnglishInfo; break;
+                case "German": newlangtemp = pdfGermanInfo; break;
+                case "French": newlangtemp = pdfFrenchInfo; break;
+                case "Italian": newlangtemp = pdfItalianInfo; break;
+                case "Spanish": newlangtemp = pdfSpanishInfo; break;
+            }
+            for (int i = 0; i < oldlangtemp.Length; i++) 
+            {
+                //if(allpdfStr.Contains(oldlangtemp[i]))
+                //{
+                    allpdfStr=allpdfStr.Replace(oldlangtemp[i], newlangtemp[i]);
+                //}
+                
+            }
+            File.WriteAllText(newLang + ".pdf", allpdfStr);
+        }
         private void SysTimeCalButton_Click(object sender, EventArgs e)
         {
             if (DialogResult.OK == MessageBox.Show("确认需要校准设备时间吗", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)) 
@@ -212,6 +275,412 @@ namespace pdfConfigurator
             }
 
         }
+        string[] EnglishSurface = 
+        {
+            "Language:",
+            "Serial Number:",
+            "Firmware Version:",
+            "Original Time Zone:",
+            "Sampling Rate:",
+            "Start Delay:",
+            "Alarm Delay:",
+            "Alarm Type:",
+            "High Alarm(℃):",
+            "Low Alarm(℃):",
+            "System Setup",
+            "Temperature Measurement",
+            "Save Parameter"
+        };
+        string[] GermanSurface = 
+        {
+            "Sprache:",
+            "SN:",
+            "Firmware Version:",
+            "Original Zeitzone:",
+            "Messinterval:",
+            "Startverzögerung:",
+            "Alarmverzögerung:",
+            "Alarmtyp:",
+            "Oberer Alarm(℃):",
+            "Unterer Alarm(℃):",
+            "System Setup",
+            "Temperature Measurement",
+            "Save Parameter"
+        };
+        string[] FrenchSurface = 
+        {
+            "Langue:",
+            "SN:",
+            "Version firmware:",
+            "Fuseau hor. orig.:",
+            "Intervalle mesure:",
+            "Intervalle mesure:",
+            "Temporis. Alarme:",
+            "Type d'alarme:",
+            "Alarme supérieure(℃):",
+            "Alarme inférieure(℃):",
+            "System Setup",
+            "Temperature Measurement",
+            "Save Parameter"
+        };
+        string[] ItalianSurface = 
+        {
+            "Lingua:",
+            "SN:",
+            "Versione firmware:",
+            "Fuso orario orig.:",
+            "Intervallo misura:",
+            "Ritardo avvio:",
+            "Ritardo allarme:",
+            "Tipo allarme:",
+            "Allarme superiore(℃):",
+            "Allarme inferiore(℃):",
+            "System Setup",
+            "Temperature Measurement",
+            "Save Parameter"
+        };
+        string[] SpanishSurface = 
+        {
+            "Ldioma:",
+            "Nºserie\":",
+            "Versión firmware:",
+            "Zona horaria orig.:",
+            "Intervalo medición:",
+            "Temp. arranque:",
+            "retardo alarma:",
+            "Tipo de alarma:",
+            "Alarma alta(℃):",
+            "Alarma baja(℃):",
+            "System Setup",
+            "Temperature Measurement",
+            "Save Parameter"
+        };
+        string[] SimplifiedChineseSurface = 
+        {
+            "语言:",
+            "序列号:",
+            "软件版本:",
+            "时区:",
+            "采样速率:",
+            "开始延迟:",
+            "报警延迟:",
+            "报警类型:",
+            "高报警值(℃):",
+            "低报警值(℃):",
+            "系统设置",
+            "温度测量",
+            "保存参数"
+        };
+        string[] TraditionalChineseSurface = 
+        {
+            "语言:",
+            "序列号:",
+            "软件版本:",
+            "时区:",
+            "采样速率:",
+            "开始延迟:",
+            "报警延迟:",
+            "报警类型:",
+            "高报警值(℃):",
+            "低报警值(℃):",
+            "系统设置",
+            "温度测量",
+            "保存参数"
+        };
+        void SurfaceUpdate(string langu) 
+        {
+            switch (langu)
+            {
+                case "English": 
+                    {
+                        surfaceLable0.Text = EnglishSurface[0];
+                        surfaceLable1.Text = EnglishSurface[1];
+                        surfaceLable2.Text = EnglishSurface[2];
+                        surfaceLable3.Text = EnglishSurface[3];
+                        surfaceLable4.Text = EnglishSurface[4];
+                        surfaceLable5.Text = EnglishSurface[5];
+                        surfaceLable6.Text = EnglishSurface[6];
+                        surfaceLable7.Text = EnglishSurface[7];
+                        surfaceLable8.Text = EnglishSurface[8];
+                        surfaceLable9.Text = EnglishSurface[9];
+                        groupBox1.Text = EnglishSurface[10];
+                        groupBox2.Text = EnglishSurface[11];
+                        SaveButton.Text = EnglishSurface[12];
+
+                    } break;
+                case "German":
+                    {
+                        surfaceLable0.Text = GermanSurface[0];
+                        surfaceLable1.Text = GermanSurface[1];
+                        surfaceLable2.Text = GermanSurface[2];
+                        surfaceLable3.Text = GermanSurface[3];
+                        surfaceLable4.Text = GermanSurface[4];
+                        surfaceLable5.Text = GermanSurface[5];
+                        surfaceLable6.Text = GermanSurface[6];
+                        surfaceLable7.Text = GermanSurface[7];
+                        surfaceLable8.Text = GermanSurface[8];
+                        surfaceLable9.Text = GermanSurface[9];
+                        groupBox1.Text = GermanSurface[10];
+                        groupBox2.Text = GermanSurface[11];
+                        SaveButton.Text = GermanSurface[12];
+
+                    } break;
+                case "French":
+                    {
+                        surfaceLable0.Text = FrenchSurface[0];
+                        surfaceLable1.Text = FrenchSurface[1];
+                        surfaceLable2.Text = FrenchSurface[2];
+                        surfaceLable3.Text = FrenchSurface[3];
+                        surfaceLable4.Text = FrenchSurface[4];
+                        surfaceLable5.Text = FrenchSurface[5];
+                        surfaceLable6.Text = FrenchSurface[6];
+                        surfaceLable7.Text = FrenchSurface[7];
+                        surfaceLable8.Text = FrenchSurface[8];
+                        surfaceLable9.Text = FrenchSurface[9];
+                        groupBox1.Text = FrenchSurface[10];
+                        groupBox2.Text = FrenchSurface[11];
+                        SaveButton.Text = FrenchSurface[12];
+
+                    } break;
+                case "Italian":
+                    {
+                        surfaceLable0.Text = ItalianSurface[0];
+                        surfaceLable1.Text = ItalianSurface[1];
+                        surfaceLable2.Text = ItalianSurface[2];
+                        surfaceLable3.Text = ItalianSurface[3];
+                        surfaceLable4.Text = ItalianSurface[4];
+                        surfaceLable5.Text = ItalianSurface[5];
+                        surfaceLable6.Text = ItalianSurface[6];
+                        surfaceLable7.Text = ItalianSurface[7];
+                        surfaceLable8.Text = ItalianSurface[8];
+                        surfaceLable9.Text = ItalianSurface[9];
+                        groupBox1.Text = ItalianSurface[10];
+                        groupBox2.Text = ItalianSurface[11];
+                        SaveButton.Text = ItalianSurface[12];
+
+                    } break;
+                case "Spanish":
+                    {
+                        surfaceLable0.Text = SpanishSurface[0];
+                        surfaceLable1.Text = SpanishSurface[1];
+                        surfaceLable2.Text = SpanishSurface[2];
+                        surfaceLable3.Text = SpanishSurface[3];
+                        surfaceLable4.Text = SpanishSurface[4];
+                        surfaceLable5.Text = SpanishSurface[5];
+                        surfaceLable6.Text = SpanishSurface[6];
+                        surfaceLable7.Text = SpanishSurface[7];
+                        surfaceLable8.Text = SpanishSurface[8];
+                        surfaceLable9.Text = SpanishSurface[9];
+                        groupBox1.Text = SpanishSurface[10];
+                        groupBox2.Text = SpanishSurface[11];
+                        SaveButton.Text = SpanishSurface[12];
+
+                    } break;
+            }
+
+        }
+        private void languageCombox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SurfaceUpdate(languageCombox.Text);
+            //File.WriteAllText(LanguageFilePath, languageCombox.Text);
+        }
+
+        private void StartDelayCombBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AlarmDelayCombBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AlarmTypeCombBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SamplingRateCombBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StartDelayCombBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+        string[] pdfEnglishInfo =
+        {
+            "SN      ",
+            "      Device Specification      ",
+			"Production date                 ",
+			"Production lot                  ",
+			"Firmware version                ",
+			"Original time zone              ",
+			"Start                           ",
+			"Finish                          ",
+			"Sampling Rate                   ",
+			"Start Delay                     ",
+			"Readings                        ",
+			"Alarm Delay                     ",
+			"Alarm Type                      ",
+			"Statistics(excludes Start Delay)",
+			"High Alarm                      ",
+			"Low Alarm                       ",
+			"Maximum                         ",
+			"Average                         ",
+			"Minimum                         ",
+			"Std. Dev.                       ",
+			"Total time within               ",
+			"Total time above                ",
+//			"Total time below                ",
+			"        File Information        ",
+			"File created                    ",
+			"         Marked Events          ",
+			"Date ",
+			"Time  ",
+			"Disable                         ",
+			"Single event                    ",
+			"Cumulative                      ",
+        };
+		string[] pdfGermanInfo =
+        {
+            "SN      ",
+            "      Gerätespezifikation       ",
+			"Herstellungs Datum              ",
+			"Herstellungs Los                ",
+			"Firmware Version                ",
+			"Original Zeitzone               ",
+			"Start                           ",
+			"Ende                            ",
+			"Messinterval                    ",
+			"Startverzögerung                ",
+			"Messungen                       ",
+			"Alarmverzögerung                ",
+			"Alarmtyp                        ",
+			"Statistik(ohne Startverzögerung)",
+			"Oberer Alarm                    ",
+			"Unterer Alarm                   ",
+			"Max Temp                        ",
+			"Durchschnits Temp               ",
+			"Min Temp                        ",
+			"Std. Abweichung                 ",
+			"Ges. Zeit innerh                ",
+			"Ges. Zeit ausserh               ",
+//			"Total time below                ",
+			"        Datei-Information       ",
+			"Datei erstellt                  ",
+			"      Markierte Ereignisse      ",
+			"Datum",
+			"Zeit  ",
+			"deaktivieren                    ",
+			"Einzelereignis                  ",
+			"Kumulativ                       ",
+        };
+		string[] pdfFrenchInfo =
+        {
+            "SN      ",
+            "  Spécifications de l'appareil  ",
+			"Date de fabricat.               ",
+			"Lot de fabrication              ",
+			"Version firmware                ",
+			"Fuseau hor. orig.               ",
+			"Début                           ",
+			"Fin                             ",
+			"Intervalle mesure               ",
+			"Temporisation                   ",
+			"Mesures                         ",
+			"Temporis. Alarme                ",
+			"Type d'alarme                   ",
+			"Statistique (sans temporisation)",
+			"Alarme supérieure               ",
+			"Alarme inférieure               ",
+			"Temp Max                        ",
+			"Temp moyenne                    ",
+			"Temp min                        ",
+			"Déviation stand.                ",
+			"Durée totale int.               ",
+			"Durée totale ext.               ",
+//			"Total time below                ",
+			"     Information du fichier     ",
+			"Fichier créé                    ",
+			"        Événement marqué        ",
+			"Date ",
+			"Heure ",
+			"Désactiver                      ",
+			"Événement unique                ",
+			"Cumulative                      ",
+        };
+        string[] pdfItalianInfo =
+        {
+            "SN      ",
+            "      Specifica apparecchio     ",
+			"Data produzione                 ",
+			"Lotto produzione                ",
+			"Versione firmware               ",
+			"Fuso orario orig.               ",
+			"Avvio                           ",
+			"Fine                            ",
+			"Intervallo misura               ",
+			"Ritardo avvio                   ",
+			"Letture                         ",
+			"Ritardo allarme                 ",
+			"Tipo allarme                    ",
+			"Statistiche (escl.ritar. avvio) ",
+			"Allarme superiore               ",
+			"Allarme inferiore               ",
+			"Temp. max.                      ",
+			"Temp. media                     ",
+			"Temp. min.                      ",
+			"Deviaz. std.                    ",
+			"Orario com. entro               ",
+			"Orario com. oltre               ",
+//			"Total time below                ",
+			"        Informazione file       ",
+			"File creato                     ",
+			"     Eventi contrassegnati      ",
+			"Data ",
+			"Orario",
+			"Disattivare                     ",
+			"Evento singolo                  ",
+			"Cumulativo                      ",
+        };
+        string[] pdfSpanishInfo =
+        {
+            "Nºserie\"",
+            "  Especificaciones del aparato  ",
+			"Fecha fabricación               ",
+			"Lote fabricación                ",
+			"Versión firmware                ",
+			"Zona horaria orig.              ",
+			"Arranqu                         ",
+			"Fin                             ",
+			"Intervalo medición              ",
+			"Temp. arranque                  ",
+			"Mediciones                      ",
+			"Retardo alarma                  ",
+			"Tipo de alarma                  ",
+			"Estadística (sin ret. arranque) ",
+			"Alarma alta                     ",
+			"Alarma baja                     ",
+			"Temperatura máx.                ",
+			"Temperatura media               ",
+			"Temperatura mín.                ",
+			"Desviación estánd.              ",
+			"Total horas int.                ",
+			"Total horas ext.                ",
+//			"Total time below                ",
+			"     Información del fichero    ",
+			"Fichero creado                  ",
+			"       Eventos marcados         ",
+			"Fecha",
+			"Hora  ",
+			"Desactivar                      ",
+			"Evento indiv.                   ",
+			"Cumulativo                      ",
+        };
+
+
     }
     class pdfConfigParam 
     {
