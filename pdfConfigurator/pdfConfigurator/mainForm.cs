@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +17,7 @@ namespace pdfConfigurator
             InitializeComponent();
         }
         /// <summary>
-        /// 日期转换成unix时间戳
+        /// ?????unix???
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
@@ -28,9 +28,9 @@ namespace pdfConfigurator
         }
 
         ///// <summary>
-        ///// unix时间戳转换成日期
+        ///// unix????????
         ///// </summary>
-        ///// <param name="unixTimeStamp">时间戳（秒）</param>
+        ///// <param name="unixTimeStamp">??????</param>
         ///// <returns></returns>
         //DateTime UnixTimestampToDateTime(this DateTime target, long timestamp)
         //{
@@ -80,7 +80,7 @@ namespace pdfConfigurator
             LowAlarmATextBox.Text = PdfConfig.ParamA_LowAlarm.ToString();
             if (File.Exists(LanguageFilePath) == false)
             {
-                File.WriteAllText(LanguageFilePath, "French");
+                File.WriteAllText(LanguageFilePath, "English");
             }
 
             SysLanguage = File.ReadAllText(LanguageFilePath);
@@ -166,13 +166,14 @@ namespace pdfConfigurator
                     File.WriteAllBytes(RsmpFilePath, timeBytes);
                 }
                 string pdflang=pdfLanguageRead();
-                if (pdflang != null) 
-                {
-                    if (pdflang != languageCombox.Text) 
-                    {
-                        pdfLanguageUpdate(pdflang, languageCombox.Text);
-                    }
-                }
+                pdfLanguageUpdate(pdflang, languageCombox.Text);
+                //if (pdflang != null) 
+                //{
+                //    if (pdflang != languageCombox.Text) 
+                //    {
+                //        pdfLanguageUpdate(pdflang, languageCombox.Text);
+                //    }
+                //}
                 MessageBox.Show("Save Done");
             }
 
@@ -183,14 +184,17 @@ namespace pdfConfigurator
         }
         string pdfLanguageRead() 
         {
+            System.Text.Encoding encode = System.Text.Encoding.GetEncoding("iso-8859-1");
             string langu = null;
-            StreamReader sr = new StreamReader(pdfFilePath);
-            char[] strbuf=new char[3000];
+            StreamReader sr = new StreamReader(pdfFilePath, encode);
+            char[] strbuf = new char[3000];
             sr.Read(strbuf, 0, 3000);
+            //byte[] 
+            
             string pdfString = new string(strbuf);
             if(pdfString.Contains("Specification"))langu="English";
-            else if (pdfString.Contains("Gerätespezifikation")) langu = "German";
-            else if (pdfString.Contains("Spécifications de l'appareil")) langu = "French";
+            else if (pdfString.Contains("Ger�tespezifikation")) langu = "German";
+            else if (pdfString.Contains("Sp�cifications de l'appareil")) langu = "French";
             else if (pdfString.Contains("Specifica apparecchio")) langu = "Italian";
             else if (pdfString.Contains("Especificaciones del aparato")) langu = "Spanish";
             return langu;
@@ -198,8 +202,12 @@ namespace pdfConfigurator
         
         void pdfLanguageUpdate(string oldLang,string newLang) 
         {
-            string allpdfStr = File.ReadAllText(pdfFilePath);
+            System.Text.Encoding encode = System.Text.Encoding.GetEncoding("iso-8859-1");
+            string allpdfStr = File.ReadAllText(pdfFilePath, encode);
             string[] oldlangtemp=null,newlangtemp=null;
+            
+            //string demostr = encode.GetString(demo);
+            //pdfGermanInfo[1] = demostr;
             switch (oldLang) 
             {
                 case "English": oldlangtemp = pdfEnglishInfo; break;
@@ -218,17 +226,38 @@ namespace pdfConfigurator
             }
             for (int i = 0; i < oldlangtemp.Length; i++) 
             {
-                //if(allpdfStr.Contains(oldlangtemp[i]))
-                //{
-                    allpdfStr=allpdfStr.Replace(oldlangtemp[i], newlangtemp[i]);
-                //}
-                
+              allpdfStr=allpdfStr.Replace(oldlangtemp[i], newlangtemp[i]);
             }
-            File.WriteAllText(newLang + ".pdf", allpdfStr);
+            switch (PdfConfig.alarmType) 
+            {
+                case pdfConfigParam.ALARMTYPE.Cumulative: 
+                    {
+                        for (int i = 27; i < 30; i++) 
+                        {
+                            allpdfStr = allpdfStr.Replace(newlangtemp[i], newlangtemp[29]);
+                        }
+                    } break;
+                case pdfConfigParam.ALARMTYPE.Disable:
+                    {
+                        for (int i = 27; i < 30; i++)
+                        {
+                            allpdfStr = allpdfStr.Replace(newlangtemp[i], newlangtemp[27]);
+                        }
+                    } break;
+                case pdfConfigParam.ALARMTYPE.Single:
+                    {
+                        for (int i = 27; i < 30; i++)
+                        {
+                            allpdfStr = allpdfStr.Replace(newlangtemp[i], newlangtemp[28]);
+                        }
+                    } break;
+            }
+            File.WriteAllText(pdfFilePath, allpdfStr, encode);
+            File.WriteAllText(LanguageFilePath, languageCombox.Text);
         }
         private void SysTimeCalButton_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == MessageBox.Show("确认需要校准设备时间吗", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)) 
+            if (DialogResult.OK == MessageBox.Show("???????????", "Confirm Message", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)) 
             {
                 try
                 {
@@ -265,7 +294,7 @@ namespace pdfConfigurator
                         File.Delete(RsmpFilePath);
                         File.WriteAllBytes(RsmpFilePath, timeBytes);
                     }
-                    MessageBox.Show("请拔出设备并重新插入设备使时间校准生效");
+                    MessageBox.Show("???????????????????");
                 }
                 catch (Exception ex) 
                 {
@@ -285,8 +314,8 @@ namespace pdfConfigurator
             "Start Delay:",
             "Alarm Delay:",
             "Alarm Type:",
-            "High Alarm(℃):",
-            "Low Alarm(℃):",
+            "High Alarm(?):",
+            "Low Alarm(?):",
             "System Setup",
             "Temperature Measurement",
             "Save Parameter"
@@ -298,11 +327,11 @@ namespace pdfConfigurator
             "Firmware Version:",
             "Original Zeitzone:",
             "Messinterval:",
-            "Startverzögerung:",
-            "Alarmverzögerung:",
+            "Startverz�gerung:",
+            "Alarmverz�gerung:",
             "Alarmtyp:",
-            "Oberer Alarm(℃):",
-            "Unterer Alarm(℃):",
+            "Oberer Alarm(?):",
+            "Unterer Alarm(?):",
             "System Setup",
             "Temperature Measurement",
             "Save Parameter"
@@ -317,8 +346,8 @@ namespace pdfConfigurator
             "Intervalle mesure:",
             "Temporis. Alarme:",
             "Type d'alarme:",
-            "Alarme supérieure(℃):",
-            "Alarme inférieure(℃):",
+            "Alarme sup�rieure(?):",
+            "Alarme inf�rieure(?):",
             "System Setup",
             "Temperature Measurement",
             "Save Parameter"
@@ -333,8 +362,8 @@ namespace pdfConfigurator
             "Ritardo avvio:",
             "Ritardo allarme:",
             "Tipo allarme:",
-            "Allarme superiore(℃):",
-            "Allarme inferiore(℃):",
+            "Allarme superiore(?):",
+            "Allarme inferiore(?):",
             "System Setup",
             "Temperature Measurement",
             "Save Parameter"
@@ -342,50 +371,50 @@ namespace pdfConfigurator
         string[] SpanishSurface = 
         {
             "Ldioma:",
-            "Nºserie\":",
-            "Versión firmware:",
+            "N�serie\":",
+            "Versi�n firmware:",
             "Zona horaria orig.:",
-            "Intervalo medición:",
+            "Intervalo medici�n:",
             "Temp. arranque:",
             "retardo alarma:",
             "Tipo de alarma:",
-            "Alarma alta(℃):",
-            "Alarma baja(℃):",
+            "Alarma alta(?):",
+            "Alarma baja(?):",
             "System Setup",
             "Temperature Measurement",
             "Save Parameter"
         };
         string[] SimplifiedChineseSurface = 
         {
-            "语言:",
-            "序列号:",
-            "软件版本:",
-            "时区:",
-            "采样速率:",
-            "开始延迟:",
-            "报警延迟:",
-            "报警类型:",
-            "高报警值(℃):",
-            "低报警值(℃):",
-            "系统设置",
-            "温度测量",
-            "保存参数"
+            "??:",
+            "???:",
+            "????:",
+            "??:",
+            "????:",
+            "????:",
+            "????:",
+            "????:",
+            "????(?):",
+            "????(?):",
+            "????",
+            "????",
+            "????"
         };
         string[] TraditionalChineseSurface = 
         {
-            "语言:",
-            "序列号:",
-            "软件版本:",
-            "时区:",
-            "采样速率:",
-            "开始延迟:",
-            "报警延迟:",
-            "报警类型:",
-            "高报警值(℃):",
-            "低报警值(℃):",
-            "系统设置",
-            "温度测量",
-            "保存参数"
+            "??:",
+            "???:",
+            "????:",
+            "??:",
+            "????:",
+            "????:",
+            "????:",
+            "????:",
+            "????(?):",
+            "????(?):",
+            "????",
+            "????",
+            "????"
         };
         void SurfaceUpdate(string langu) 
         {
@@ -509,44 +538,50 @@ namespace pdfConfigurator
         {
 
         }
+        byte[] demo =
+        {
+            0x20,0x20,0x20,0x20,0x20,0x20,0x47,0x65,0x72,0xe4,0x74,0x20,0x53,0x70,0x65,0x63,0x69,0x66,0x69,0x63,0x61,0x74,0x69,0x6f,0x6e,0x20,0x20,0x20,0x20,0x20,0x20,0x20
+        };
         string[] pdfEnglishInfo =
         {
             "SN      ",
-            "      Device Specification      ",
-			"Production date                 ",
-			"Production lot                  ",
-			"Firmware version                ",
-			"Original time zone              ",
-			"Start                           ",
-			"Finish                          ",
-			"Sampling Rate                   ",
-			"Start Delay                     ",
-			"Readings                        ",
-			"Alarm Delay                     ",
-			"Alarm Type                      ",
-			"Statistics(excludes Start Delay)",
-			"High Alarm                      ",
-			"Low Alarm                       ",
-			"Maximum                         ",
-			"Average                         ",
-			"Minimum                         ",
-			"Std. Dev.                       ",
-			"Total time within               ",
-			"Total time above                ",
-//			"Total time below                ",
-			"        File Information        ",
-			"File created                    ",
-			"         Marked Events          ",
-			"Date ",
-			"Time  ",
-			"Disable                         ",
-			"Single event                    ",
-			"Cumulative                      ",
+            "      Device Specification      ",//0
+			"Production date                 ",//1
+			"Production lot                  ",//2
+			"Firmware version                ",//3
+			"Original time zone              ",//4
+			"Start                           ",//5
+			"Finish                          ",//6
+			"Sampling Rate                   ",//7
+			"Start Delay                     ",//8
+			"Readings                        ",//9
+			"Alarm Delay                     ",//10
+			"Alarm Type                      ",//11
+			"Statistics(excludes Start Delay)",//12
+			"High Alarm                      ",//13
+			"Low Alarm                       ",//14
+			"Maximum                         ",//15
+			"Average                         ",//16
+			"Minimum                         ",//17
+			"Std. Dev.                       ",//18
+			"Total time within               ",//19
+			"Total time above                ",//20
+//			"Total time below                ",//21
+			"        File Information        ",//22
+			"File created                    ",//23
+			"         Marked Events          ",//24
+			"Date ",//25
+			"Time  ",//26
+			"Disable                         ",//27
+			"Single event                    ",//28
+			"Cumulative                      ",//29
+            "Temperature                     ",//30
+            "Temperature     "//31
         };
 		string[] pdfGermanInfo =
         {
             "SN      ",
-            "      Gerätespezifikation       ",
+            "      Ger�tespezifikation       ",
 			"Herstellungs Datum              ",
 			"Herstellungs Los                ",
 			"Firmware Version                ",
@@ -554,11 +589,11 @@ namespace pdfConfigurator
 			"Start                           ",
 			"Ende                            ",
 			"Messinterval                    ",
-			"Startverzögerung                ",
+			"Startverz�gerung                ",
 			"Messungen                       ",
-			"Alarmverzögerung                ",
+			"Alarmverz�gerung                ",
 			"Alarmtyp                        ",
-			"Statistik(ohne Startverzögerung)",
+			"Statistik(ohne Startverz�gerung)",
 			"Oberer Alarm                    ",
 			"Unterer Alarm                   ",
 			"Max Temp                        ",
@@ -576,16 +611,18 @@ namespace pdfConfigurator
 			"deaktivieren                    ",
 			"Einzelereignis                  ",
 			"Kumulativ                       ",
+            "Temp                            ",
+            "Temp            "
         };
 		string[] pdfFrenchInfo =
         {
             "SN      ",
-            "  Spécifications de l'appareil  ",
+            "  Sp�cifications de l'appareil  ",
 			"Date de fabricat.               ",
 			"Lot de fabrication              ",
 			"Version firmware                ",
 			"Fuseau hor. orig.               ",
-			"Début                           ",
+			"D�but                           ",
 			"Fin                             ",
 			"Intervalle mesure               ",
 			"Temporisation                   ",
@@ -593,23 +630,25 @@ namespace pdfConfigurator
 			"Temporis. Alarme                ",
 			"Type d'alarme                   ",
 			"Statistique (sans temporisation)",
-			"Alarme supérieure               ",
-			"Alarme inférieure               ",
+			"Alarme sup�rieure               ",
+			"Alarme inf�rieure               ",
 			"Temp Max                        ",
 			"Temp moyenne                    ",
 			"Temp min                        ",
-			"Déviation stand.                ",
-			"Durée totale int.               ",
-			"Durée totale ext.               ",
+			"D�viation stand.                ",
+			"Dur�e totale int.               ",
+			"Dur�e totale ext.               ",
 //			"Total time below                ",
 			"     Information du fichier     ",
-			"Fichier créé                    ",
-			"        Événement marqué        ",
+			"Fichier cr��                    ",
+			"        �v�nement marqu�        ",
 			"Date ",
 			"Heure ",
-			"Désactiver                      ",
-			"Événement unique                ",
+			"D�sactiver                      ",
+			"�v�nement unique                ",
 			"Cumulative                      ",
+            "Temp                            ",
+            "Temp            "
         };
         string[] pdfItalianInfo =
         {
@@ -644,33 +683,35 @@ namespace pdfConfigurator
 			"Disattivare                     ",
 			"Evento singolo                  ",
 			"Cumulativo                      ",
+            "Temp.                           ",
+            "Temp.           "
         };
         string[] pdfSpanishInfo =
         {
-            "Nºserie\"",
+            "N�serie\"",
             "  Especificaciones del aparato  ",
-			"Fecha fabricación               ",
-			"Lote fabricación                ",
-			"Versión firmware                ",
+			"Fecha fabricaci�n               ",
+			"Lote fabricaci�n                ",
+			"Versi�n firmware                ",
 			"Zona horaria orig.              ",
 			"Arranqu                         ",
 			"Fin                             ",
-			"Intervalo medición              ",
+			"Intervalo medici�n              ",
 			"Temp. arranque                  ",
 			"Mediciones                      ",
 			"Retardo alarma                  ",
 			"Tipo de alarma                  ",
-			"Estadística (sin ret. arranque) ",
+			"Estad�stica (sin ret. arranque) ",
 			"Alarma alta                     ",
 			"Alarma baja                     ",
-			"Temperatura máx.                ",
+			"Temperatura m�x.                ",
 			"Temperatura media               ",
-			"Temperatura mín.                ",
-			"Desviación estánd.              ",
+			"Temperatura m�n.                ",
+			"Desviaci�n est�nd.              ",
 			"Total horas int.                ",
 			"Total horas ext.                ",
 //			"Total time below                ",
-			"     Información del fichero    ",
+			"     Informaci�n del fichero    ",
 			"Fichero creado                  ",
 			"       Eventos marcados         ",
 			"Fecha",
@@ -678,6 +719,8 @@ namespace pdfConfigurator
 			"Desactivar                      ",
 			"Evento indiv.                   ",
 			"Cumulativo                      ",
+            "Temperatura                     ",
+            "Temperatura     "
         };
 
 
