@@ -842,8 +842,8 @@ void Pdf_Update_Parameter(char paramCount)
 	{
 		snprintf(strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,"Culmulative");
 	}
-	PdfGobRes=f_lseek(&PDFFile,ALARM_TYPE_ADDR);
-	PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
+	//PdfGobRes=f_lseek(&PDFFile,ALARM_TYPE_ADDR);
+	//PdfGobRes=f_write(&PDFFile,strBuf4UpdataParam,DEVICE_SPEC_DATA_LENGTH,&PdfByte2Write);
 	
 
 	PdfGobRes=f_lseek(&PDFFile,PARAM_A_NAME_ADDR);

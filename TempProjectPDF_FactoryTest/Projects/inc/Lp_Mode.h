@@ -77,6 +77,7 @@ void RTC_AlarmConfig(uint8_t Alarm_Time);
 void SYSCLKConfig_STOP(uint8_t SysClk);
 void LED_Control(FunctionalState NeedDelay);
 void LED_On(void);
+void LED_Delay(void);
 uint32_t time_conversion(void);
 float ADC_Start(void);
 void Rsmp_Write(void);

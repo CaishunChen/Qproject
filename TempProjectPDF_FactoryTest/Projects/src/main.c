@@ -39,13 +39,24 @@ uint8_t JumpToUSBStorage(uint32_t Addr)
 	}
 	return 1;
 }
+
+void delay_Download(void)
+{
+	uint32_t  delay=0;
+	
+	for(delay=0;delay<30;delay++)
+	{
+		LED_Delay();
+	}
+}
+
 PdfConstantParameter* pcP;
 uint8_t RTC_Unit=1;
 uint32_t SPIFlash_ID=0;
 uint32_t StartCounter=0;
 uint8_t Tx_Buffer[4096] = "Init HSE";
 uint8_t Rx_Buffer[4096];
-
+uint8_t Receive_Data=0;
 int main(void)
 {
 	UART_Configuration();
@@ -56,6 +67,8 @@ int main(void)
   {
     StartCounter++;  
   }while((RCC_GetFlagStatus(RCC_FLAG_HSERDY) == RESET) && (StartCounter != HSE_STARTUP_TIMEOUT));
+
+  delay_Download();
 	
 	if(StartCounter<HSE_STARTUP_TIMEOUT)printf("Init HSE: Ok\n");
 	else printf("Init HSE: Error\n");
@@ -66,7 +79,7 @@ int main(void)
 	LED_Control(ENABLE);
 	printf("Init LEDRed: Ok\n");
 	LED_Status.LEDDown_On=1;
-	LED_Status.LEDDown_Num=3;
+	LED_Status.LEDDown_Num=5;
 	LED_Control(ENABLE);
 	printf("Init LEDGreen: Ok\n");
   SPI_Config();
@@ -74,22 +87,24 @@ int main(void)
   if(SPIFlash_ID==sFLASH_W25Q16_ID)
 	{
 		printf("Init SPIFlash ID: Ok\n");
+		sFLASH_sector_write(Tx_Buffer,0,1);
+		sFLASH_sector_read(Rx_Buffer,0,1);
+		TransferStatus1 = Buffercmp(Tx_Buffer, Rx_Buffer, BufferSize);
+		if(TransferStatus1==PASSED)
+		{
+			printf("Init SPIFlash WR: Ok\n");
+		}
+		else 
+		{
+			printf("Init SPIFlash WR: Error\n");
+		}	
 	}
 	else 
 	{
 		printf("Init SPIFlash ID: Error\n");
-	}
-	sFLASH_sector_write(Tx_Buffer,0,1);
-	sFLASH_sector_read(Rx_Buffer,0,1);
-	TransferStatus1 = Buffercmp(Tx_Buffer, Rx_Buffer, BufferSize);
-	if(TransferStatus1==PASSED)
-	{
-		printf("Init SPIFlash WR: Ok\n");
-	}
-	else 
-	{
 		printf("Init SPIFlash WR: Error\n");
 	}
+
 	if(time_unit!=0)
 	{
 		printf("Init RTC: Ok\n");
@@ -139,8 +154,21 @@ static void UART_Configuration(void)
   USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
   
   USART_Init(USART1, &USART_InitStructure);
+	
+	//USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
   /* Enable the 8xUSARTs */
   USART_Cmd(USART1, ENABLE);
+}
+
+void USART1_IRQHandler(void)
+{
+  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+  {
+    /* Read one byte from the receive data register */
+    Receive_Data = USART_ReceiveData(USART1);
+    /* Disable the USARTy Receive interrupt */
+    USART_ITConfig(USART1, USART_IT_RXNE, DISABLE);
+  }
 }
 
 PUTCHAR_PROTOTYPE
