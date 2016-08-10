@@ -89,3 +89,5 @@ void UART_restart(void);
 FunctionalState Vabt_ADC(void);
 void LED_Delay(void);
 void ADC_Delay(void);
+void PVD_Delay(void);
+uint8_t Power_ADC(void);

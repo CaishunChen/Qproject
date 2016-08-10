@@ -23,10 +23,59 @@ void PVD_Config(void)
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
 	
-  PWR_PVDLevelConfig(PWR_PVDLevel_3);
+  PWR_PVDLevelConfig(PWR_PVDLevel_7);
 	PWR_PVDCmd(ENABLE); 	
 }
 
+uint8_t Power_ADC(void)
+{
+	float  ADC1ConvertedValue = 0, ADC1ConvertedVoltage = 0;
+	
+	ADC_InitTypeDef     ADC_InitStructure;
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 , ENABLE);
+  /* ADCs DeInit */
+  ADC_DeInit(ADC1);	
+
+  /* Initialize ADC structure */
+  ADC_StructInit(&ADC_InitStructure);
+  
+  /* Configure the ADC1 in continuous mode with a resolution equal to 12 bits  */
+  ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
+  ADC_InitStructure.ADC_ContinuousConvMode = ENABLE; 
+  ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+  ADC_InitStructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
+  ADC_Init(ADC1, &ADC_InitStructure); 
+  
+  /* Convert the ADC1 Channel 17 with 239.5 Cycles as sampling time */ 
+  ADC_ChannelConfig(ADC1, ADC_Channel_17 , ADC_SampleTime_239_5Cycles);
+
+  /* ADC Calibration */
+  ADC_GetCalibrationFactor(ADC1);
+  
+	ADC_VrefintCmd(ENABLE);
+	
+  /* Enable the ADC peripheral */
+  ADC_Cmd(ADC1, ENABLE);     
+  
+  /* Wait the ADRDY flag */
+  while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_ADRDY)); 
+  
+  /* ADC1 regular Software Start Conv */ 
+  ADC_StartOfConversion(ADC1);
+	
+		/* Test EOC flag */
+	while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
+
+	/* Get ADC1 converted data */
+	ADC1ConvertedValue =ADC_GetConversionValue(ADC1);
+  
+	ADC1ConvertedVoltage = (1.2 * 4095) / ADC1ConvertedValue;
+	
+	if(ADC1ConvertedVoltage < 2.9) return 1;
+	else return 0;
+}
 
 void button_config(void)
 {
@@ -266,6 +315,15 @@ void ADC_Delay(void)
 	}
 }
 
+void PVD_Delay(void)
+{
+	uint16_t i=0;
+	for(i=0;i<1000;i++)
+	{
+		
+	}
+}
+
 float ADC_Start(void)
 {
 	uint16_t  ADC1ConvertedValue = 0, ADC1ConvertedVoltage = 0;
@@ -441,8 +499,8 @@ void State_Machine(void)
 	}
 	else if(pdfRsmp.RunParamSS==Run_Sample || pdfRsmp.RunParamSS == Run_DelaySample)
 	{
-		if((((time_unit*2)==pcP->StartDelay_s)&&(pdfRsmp.RunParamSS == Run_DelaySample))|| \
-			(((time_unit*2)==(pcP->SamplingRate_s))&&(pdfRsmp.RunParamSS==Run_Sample)))
+		if((((time_unit*2)>=pcP->StartDelay_s)&&(pdfRsmp.RunParamSS == Run_DelaySample))|| \
+			(((time_unit*2)>=(pcP->SamplingRate_s))&&(pdfRsmp.RunParamSS==Run_Sample)))
 			//开始后等待时间后开始采样或开始采样
 		{
 			SYSCLKConfig_STOP(8);
@@ -499,6 +557,7 @@ void State_Machine(void)
 	}
 	else 
 	{
+		
 	}
 //	
 //	if(Vabt_ADC()==ENABLE)

@@ -82,10 +82,20 @@ void USB_IRQHandler(void)
 /******************************************************************************/
 void PVD_VDDIO2_IRQHandler(void)
 {
+	uint8_t num=0;
+	uint8_t count=0;
 	if(EXTI_GetITStatus(EXTI_Line16) != RESET)//µÍµçÑ¹Í£Ö¹²ÉÑù
   {
-		pdfRsmp.RunParamVb = Vbat_L;
-		pdfRsmp.RunParamSS = Run_Stop;
+		for(num=0;num<5;num++)
+		{
+			PVD_Delay();//8.2ms
+			count=count+Power_ADC();
+		}
+		if(count>=5)
+		{
+			pdfRsmp.RunParamVb = Vbat_L;
+			pdfRsmp.RunParamSS = Run_Stop;			
+		}
     /* Clear the Button EXTI line pending bit */
     EXTI_ClearITPendingBit(EXTI_Line16);
   }
